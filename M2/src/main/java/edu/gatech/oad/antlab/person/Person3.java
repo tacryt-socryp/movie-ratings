@@ -5,7 +5,8 @@ package edu.gatech.oad.antlab.person;
  *  reversed string 
  *  
  *  @author  Bob
- *  @version 1.1
+ *  @author Estella Dieci
+ *	@version 1.1
  */
 public class Person3 {
    /** Holds the persons real name */  
@@ -31,7 +32,7 @@ public class Person3 {
 	public String toString(String input) {
 	  return name + calc(input);
 	}
-	
+
 	/**
 	 * This method should take the string
 	 * input and return its reverse.
@@ -43,6 +44,10 @@ public class Person3 {
 	 */
 	private String calc(String input) {
 	  //Person 3 put your implementation here
-	  return null;
+	  String s = "";
+	  for (int i = input.length - 1; i >= 0; i++) {
+	  	s += input.charAt(i);
+	  }
+	  return s;
 	}
 }
