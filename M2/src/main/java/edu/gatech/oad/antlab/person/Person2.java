@@ -6,6 +6,7 @@ package edu.gatech.oad.antlab.person;
  *  modified string 
  *
  * @author Bob
+ * @author Will
  * @version 1.1
  */
 public class Person2 {
@@ -31,7 +32,23 @@ public class Person2 {
 	 */
 	private String calc(String input) {
 	  //Person 2 put your implementation here
-	  return null;
+	  Random randy = new Random();
+		String clone = input;
+		String toReturn = "";
+		for (int i = 0; i < input.length(); i++) {
+			int temp = randy.nextInt(input.length() + 1);
+			System.out.println(temp);
+			toReturn += clone.charAt(temp);
+			if (temp == 0) {
+				clone = input.substring(1, input.length() - 1);
+			} else if (temp == input.length() - 1) {
+				clone = input.substring(0, input.length() - 2);
+			} else {
+			clone = input.substring(0, temp -1) + input.substring(temp + 1, input.length() - 1);
+			}
+		}
+	  return toReturn;
+	}
 	}
 	/**
 	 * Return a string rep of this object
