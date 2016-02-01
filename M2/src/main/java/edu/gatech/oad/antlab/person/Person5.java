@@ -33,7 +33,7 @@ public class Person5 {
 	  String temp = "";
 		String append = "";
 		for (int x = 0; x < input.length(); x++) {
-			String a = input.charAt(x);
+			char a = input.charAt(x);
 			if (x < 2) {
 				append  = append + a;
 			} else {
