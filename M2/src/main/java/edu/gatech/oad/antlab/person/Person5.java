@@ -42,7 +42,6 @@ public class Person5 {
 		}
 		return temp + append;
 	}
-	}
 	
 	/**
 	 * Return a string rep of this object

@@ -49,7 +49,7 @@ public class Person2 {
 		}
 	  return toReturn;
 	}
-	}
+
 	/**
 	 * Return a string rep of this object
 	 * that varies with an input string
