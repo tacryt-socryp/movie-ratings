@@ -4,9 +4,7 @@ apply plugin: 'java'
 defaultTasks 'jar'
 
 dependencies {
-    dependencies {
-        compile files('lib/resources.jar')
-    }
+    compile files('lib/resources.jar')
 }
 
 //Contents of the jar file
