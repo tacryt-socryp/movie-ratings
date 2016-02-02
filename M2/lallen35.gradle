@@ -5,7 +5,7 @@ defaultTasks 'jar'
 //Define the contents of the jar file
 jar  {
     destinationDir = file(".")
-    archiveName = 'resources.jar'
+    archiveName = 'M2.jar'
 }
 
 dependencies {
