@@ -36,8 +36,8 @@ public class Person2 {
 	  Random randy = new Random();
 		String clone = input;
 		String toReturn = "";
-		for (int i = 0; i < input.length(); i++) {
-			int temp = randy.nextInt(input.length() - i);
+		for (int i = 0; i < input.length() - 1; i++) {
+			int temp = randy.nextInt(input.length() - i - 1);
 			toReturn += clone.charAt(temp);
 			if (temp == 0) {
 				clone = input.substring(1, input.length() - 1);
