@@ -2,12 +2,20 @@ apply plugin: 'java'
 
 defaultTasks 'jar'
 
+dependencies {
+    dependencies {
+        compile files('lib/resources.jar')
+    }
+}
+
 //Define the contents of the jar file
 jar  {
     destinationDir = file(".")
     archiveName = 'M2.jar'
-}
 
-dependencies {
-    compile files('lib/resources.jar')
+
+    manifest {
+        attributes 'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain',
+            "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+    }
 }
