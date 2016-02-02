@@ -4,9 +4,7 @@ apply plugin: 'java'
 defaultTasks 'jar'
 
 dependencies {
-    dependencies {
-        compile files('lib/resources.jar')
-    }
+    compile files('lib/resources.jar')
 }
 
 //Contents of the jar file
@@ -16,7 +14,7 @@ jar  {
 
     manifest {
         attributes 'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain',
-            "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+            "Class-Path": 'lib/resources.jar'
     }
 }
 
