@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+defaultTasks 'jar'
+
+jar {
+
+    destinatioDir = file(".")
+    archiveName = 'M2.jar'
+
+    manifest {
+        'Main Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain'
+    }
+}
+
+dependencies {
+    compile files('lib/resources.jar')
+}
+*/
