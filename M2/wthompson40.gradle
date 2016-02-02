@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+defaultTasks 'jar'
+
+//Define the contents of the jar file
+jar  {
+    destinationDir = file(".")
+    archiveName = 'M2.jar'
+}
+
+dependencies {
+    compile files('lib/resources.jar')
+}
