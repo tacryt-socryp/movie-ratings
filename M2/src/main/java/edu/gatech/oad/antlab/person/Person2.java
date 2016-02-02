@@ -31,7 +31,7 @@ public class Person2 {
 	 * @param input the string to be modified
 	 * @return the modified string
 	 */
-	private static String calc(String input) {
+	private String calc(String input) {
 	  //Person 2 put your implementation here
 	  Random randy = new Random();
 		String clone = input;
