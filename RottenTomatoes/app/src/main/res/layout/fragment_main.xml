@@ -9,9 +9,21 @@
     tools:context="teamfour.com.rottentomatoes.MainActivityFragment"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Login"
+        android:id="@+id/login"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onLoginButtonClicked" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/register"
+        android:layout_below="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:onClick="onRegisterButtonPressed" />
 </RelativeLayout>
