@@ -1,0 +1,135 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: rotten-tomatoes
+  description: A sample API for a movie reviews Android app that utilizes Rotten Tomatoes.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Logan Allen
+    email: loganallc@gmail.com
+    url: http://www.loganallen.co
+  license:
+    name: MIT
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+host: petstore.swagger.io
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /users:
+    x-swagger-router-controller: users
+    post:
+      description: creates a single user
+      operationId: createUser
+      consumes:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: Username and password of user to create
+          required: true
+          schema:
+            $ref: '#/definitions/NewUser'
+      responses:
+        201:
+          description: user created
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /users/{username}:
+    x-swagger-router-controller: user
+    get:
+      description: |
+        Returns a user based on a single username,
+        error if the user does not have correct password.
+      operationId: getUser
+      parameters:
+        - name: username
+          in: path
+          description: username of user to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: user response
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      description: updates a single user
+      consumes: 
+        - application/x-www-form-urlencoded
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: Username of user to update
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: Password of user to update
+          required: true
+          type: string
+      responses:
+        200:
+          description: user updated
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: deletes a single user based on the username supplied
+      operationId: deleteUser
+      parameters:
+        - name: username
+          in: path
+          description: Username of user to delete
+          required: true
+          type: string
+        - name: password
+          in: header
+          description: Password of user to delete
+          required: true
+          type: string
+      responses:
+        204:
+          description: user deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  User:
+    allOf:
+      - $ref: '#/definitions/NewUser'
+  NewUser:
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+

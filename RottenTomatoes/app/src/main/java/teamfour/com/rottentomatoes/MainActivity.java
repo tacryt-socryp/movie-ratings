@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import retrofit2.Retrofit;
+
+import services.APIService;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        APIService serv = new APIService();
+        serv.createService();
     }
 
     @Override
