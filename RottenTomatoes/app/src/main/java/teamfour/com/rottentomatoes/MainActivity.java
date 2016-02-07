@@ -1,13 +1,13 @@
 package teamfour.com.rottentomatoes;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import retrofit2.Retrofit;
 
@@ -33,7 +33,29 @@ public class MainActivity extends AppCompatActivity {
 
         APIService serv = new APIService();
         serv.createService();
+
+        UserManager um = new UserManager();
+        um.addUser("estelladieci", "estelladieci");
+        um.addUser("willthompson","willthompson");
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("OPENING SCREEN", "Pausing the opening screen");
+    }
+
+    public void onResume() {
+        super.onResume();
+        Log.d("OPENING SCREEN", "Resuming the opening screen");
+    }
+
+    public void onLoginButtonClicked(View v) {
+        Log.d("OPENING SCREEN", "Pressed login");
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,5 +77,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    public void onRegisterButtonPressed(View w) {
+        Log.d("OPENING SCREEN", "Pressed register");
     }
 }

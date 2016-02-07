@@ -18,6 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserActivity"
+            android:label="@string/activity_user"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
