@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import services.APIService;
+import services.APIServiceInterface;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,12 +21,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        APIService serv = new APIService();
-        serv.createService();
+        APIServiceInterface service = APIService.createService();
+        // service.getUser("user", "password1");
 
         UserManager um = new UserManager();
-        um.addUser("estelladieci", "estelladieci");
-        um.addUser("willthompson","willthompson");
+        um.addUser("user", "pass");
     }
 
     @Override

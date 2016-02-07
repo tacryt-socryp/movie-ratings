@@ -15,37 +15,20 @@ import models.UserModel;
  */
 public class APIService {
 
-    String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
+    static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
-    public void createService() {
+    public static APIServiceInterface createService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         APIServiceInterface service = retrofit.create(APIServiceInterface.class);
+        return service;
+    }
 
-        /*service.deleteUser("user", "password2").enqueue(
-                new Callback<Object>() {
-                    @Override
-                    public void onResponse(Call<Object> call, Response<Object> response) {
-                        if (!response.isSuccess() && response.errorBody() != null) {
-                            try {
-                                Log.d("serviceCall", response.errorBody().string());
-                            } catch(java.io.IOException e) {}
-                        }
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Object> call, Throwable t) {
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
-                    }
-                }
-        );*/
-
-        /*service.createUser(new UserModel("user", "password1")).enqueue(
+    public static void createUser(APIServiceInterface service) {
+        service.createUser(new UserModel("user", "password1")).enqueue(
                 new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
@@ -63,28 +46,10 @@ public class APIService {
                         Log.d("serviceCall", t.toString());
                     }
                 }
-        );*/
+        );
+    }
 
-        /*service.updateUser("user", "password1").enqueue(
-                new Callback<Object>() {
-                    @Override
-                    public void onResponse(Call<Object> call, Response<Object> response) {
-                        if (!response.isSuccess() && response.errorBody() != null) {
-                            try {
-                                Log.d("serviceCall", response.errorBody().string());
-                            } catch (java.io.IOException e) {
-                            }
-                        }
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Object> call, Throwable t) {
-                        Log.d("serviceCall", t.toString());
-                    }
-                }
-        );*/
-
+    public static void getUser(APIServiceInterface service) {
         service.getUser("user", "password1").enqueue(
                 new Callback<Object>() {
                     @Override
@@ -103,6 +68,50 @@ public class APIService {
                     public void onFailure(Call<Object> call, Throwable t) {
                         Log.d("serviceCall", "got a failure!");
                         // Log.d("serviceCall", t.toString());
+                    }
+                }
+        );
+    }
+
+    public static void updateUser(APIServiceInterface service) {
+        service.updateUser("user", "password1").enqueue(
+                new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if (!response.isSuccess() && response.errorBody() != null) {
+                            try {
+                                Log.d("serviceCall", response.errorBody().string());
+                            } catch (java.io.IOException e) {
+                            }
+                        }
+                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                        Log.d("serviceCall", t.toString());
+                    }
+                }
+        );
+    }
+
+    public static void deleteUser(APIServiceInterface service) {
+        service.deleteUser("user", "password2").enqueue(
+                new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        if (!response.isSuccess() && response.errorBody() != null) {
+                            try {
+                                Log.d("serviceCall", response.errorBody().string());
+                            } catch(java.io.IOException e) {}
+                        }
+                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                        Log.d("serviceCall", t.toString());
+                        Log.d("serviceCall", t.getMessage());
                     }
                 }
         );
