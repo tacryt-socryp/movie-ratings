@@ -21,13 +21,16 @@ function getUser(req, res) {
   console.log(db);
   if (typeof username !== 'undefined' && username !== null) {
      db.serialize(function() {
-      db.get("SELECT * FROM Users WHERE username IS " + username, function(err, row) {
+      username = database.escapeStringForSQL(username);
+      db.get("SELECT * FROM Users WHERE username IS '" + username + "'", function(err, row) {
         console.log(err, row);
-        if (!err) {
+        if (err) {
           res.send(400, { message: "Record not found." });
         } else {
-          // TODO: use row information
-          res.send({username: 'user', password: 'pass'});
+          res.send(200, {
+            username: row.username,
+            password: row.password
+          });
         }
       });
     });

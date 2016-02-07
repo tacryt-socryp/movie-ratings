@@ -4,7 +4,8 @@ var file = __dirname + "/tomatoes.db";
 
 
 module.exports = {
-  openDatabase: openDatabase
+  openDatabase: openDatabase,
+  escapeStringForSQL: escapeStringForSQL
 };
 
 function openDatabase() {
@@ -14,7 +15,20 @@ function openDatabase() {
   db.serialize(function() {
     if(!exists) {
       db.run("CREATE TABLE Users (username TEXT, password TEXT)");
+      db.run("INSERT INTO Users VALUES('user', 'pass')");
     }
   });
   return db;
+}
+
+// Code snippet taken from StackOverflow: http://stackoverflow.com/questions/7744912/making-a-javascript-string-sql-friendly
+function escapeStringForSQL(str) {
+  var regex = new RegExp(/[\0\x08\x09\x1a\n\r"'\\\%]/g)
+  var escaper = function escaper(char){
+    var m = ['\\0', '\\x08', '\\x09', '\\x1a', '\\n', '\\r', "'", '"', "\\", '\\\\', "%"];
+    var r = ['\\\\0', '\\\\b', '\\\\t', '\\\\z', '\\\\n', '\\\\r', "''", '""', '\\\\', '\\\\\\\\', '\\%'];
+    return r[m.indexOf(char)];
+  };
+  
+  return str.replace(regex, escaper);
 }
