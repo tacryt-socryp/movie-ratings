@@ -13,14 +13,16 @@ import retrofit2.http.*;
  */
 public interface APIServiceInterface {
     @POST("users")
-    Call<UserModel> createUser(@Body UserModel user);
+    Call<Object> createUser(@Body UserModel user);
 
     @GET("users/{username}")
-    Call<UserModel> getUser(@Path("username") String username, @Header("Password") String password);
+    Call<Object> getUser(@Path("username") String username, @Header("Password") String password);
 
-    @FormUrlEncoded
-    @POST("users/{username}")
-    Call<UserModel> updateUser(@Path("username") String username, @Header("password") String password);
+    @PUT("users/{username}")
+    Call<Object> updateUser(@Path("username") String username, @Header("password") String password);
+
+    @DELETE("users/{username}")
+    Call<Object> deleteUser(@Path("username") String username, @Header("password") String password);
 
 }
 

@@ -16,16 +16,17 @@ module.exports = {
  */
 function getUser(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var username = req.swagger.params.username.value;
+  var username = database.escapeStringForSQL(req.swagger.params.username.value);
   var db = database.openDatabase();
-  console.log(db);
   if (typeof username !== 'undefined' && username !== null) {
      db.serialize(function() {
       username = database.escapeStringForSQL(username);
-      db.get("SELECT * FROM Users WHERE username IS '" + username + "'", function(err, row) {
-        console.log(err, row);
+      db.get("SELECT * FROM Users WHERE username IS '" + username + "' LIMIT 1", function(err, row) {
         if (err) {
-          res.send(400, { message: "Record not found." });
+          console.log(err);
+          res.send(400, { message: "Record not found for get request." });
+        } else if (typeof row === "undefined") {
+            res.send(400, { message: "Record does not exist." });
         } else {
           res.send(200, {
             username: row.username,
@@ -35,36 +36,50 @@ function getUser(req, res) {
       });
     });
   } else {
-    res.send(400, { message: "Sent an invalid username." });
+    res.send(400, { message: "Sent an invalid username for get request." });
   }
-  // db.get('')
-  // username.value || 'stranger';
-  // var hello = util.format('Hello, %s!', name);
-
-  // this sends back a JSON response which is a single string
-  
 }
 
 function deleteUser(req, res) {
-  // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var body = req.swagger.params.body;
-  console.log(body);
-
-  // username.value || 'stranger';
-  // var hello = util.format('Hello, %s!', name);
-
-  // this sends back a JSON response which is a single string
-  res.json(body);
+  var username = database.escapeStringForSQL(req.swagger.params.username.value);
+  var db = database.openDatabase();
+  if (typeof username !== 'undefined' && username !== null) {
+     db.serialize(function() {
+      username = database.escapeStringForSQL(username);
+      db.run("DELETE FROM Users WHERE username IS '" + username + "'", function(err) {
+        if (err) {
+          console.log(err);
+          res.send(400, { message: "Unknown error." });
+        } else if (this.changes == 0) {
+          res.send(400, { message: "Record does not exist." });
+        } else {
+          res.send(204);
+        }
+      });
+    });
+  } else {
+    res.send(400, { message: "Sent an invalid username for delete request." });
+  }
 }
 
 function updateUser(req, res) {
-  // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var body = req.swagger.params.body;
-  console.log(body);
-
-  // username.value || 'stranger';
-  // var hello = util.format('Hello, %s!', name);
-
-  // this sends back a JSON response which is a single string
-  res.json(body);
+  var username = database.escapeStringForSQL(req.swagger.params.username.value);
+  var password = database.escapeStringForSQL(req.swagger.params.password.value);
+  var db = database.openDatabase();
+  if (typeof username !== 'undefined' && username !== null) {
+    db.serialize(function() {
+      db.run("UPDATE * FROM Users SET password='" + password + "'WHERE username IS '" + username + "'", function(err) {
+          if (err) {
+            console.log(err);
+            res.send(400, { message: "Record not found for update request." });
+          } else if (this.changes == 0) {
+            res.send(400, { message: "Record not changed." });
+          } else {
+            res.send(201);
+          }
+      });
+    });
+  } else {
+    res.send(400, { message: "Sent an invalid username for update request." });
+  }
 }

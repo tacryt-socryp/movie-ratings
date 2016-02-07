@@ -15,7 +15,6 @@ function openDatabase() {
   db.serialize(function() {
     if(!exists) {
       db.run("CREATE TABLE Users (username TEXT, password TEXT)");
-      db.run("INSERT INTO Users VALUES('user', 'pass')");
     }
   });
   return db;
@@ -30,5 +29,6 @@ function escapeStringForSQL(str) {
     return r[m.indexOf(char)];
   };
   
-  return str.replace(regex, escaper);
+  str = str.replace(regex, escaper);
+  return str;
 }

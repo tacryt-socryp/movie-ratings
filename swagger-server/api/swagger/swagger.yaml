@@ -28,7 +28,7 @@ paths:
       consumes:
         - application/json
       parameters:
-        - name: body
+        - name: user
           in: body
           description: Username and password of user to create
           required: true
@@ -37,6 +37,8 @@ paths:
       responses:
         201:
           description: user created
+          schema:
+            $ref: '#/definitions/User'
         default:
           description: unexpected error
           schema:
@@ -66,7 +68,7 @@ paths:
     put:
       description: updates a single user
       consumes: 
-        - application/x-www-form-urlencoded
+        - application/octet-stream
       operationId: updateUser
       parameters:
         - name: username
@@ -75,13 +77,15 @@ paths:
           required: true
           type: string
         - name: password
-          in: formData
+          in: header
           description: Password of user to update
           required: true
           type: string
       responses:
-        200:
+        201:
           description: user updated
+          schema:
+            $ref: '#/definitions/User'
         default:
           description: unexpected error
           schema:
@@ -103,6 +107,8 @@ paths:
       responses:
         204:
           description: user deleted
+          schema:
+            $ref: '#/definitions/User'
         default:
           description: unexpected error
           schema:

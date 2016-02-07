@@ -4,8 +4,8 @@ package models;
  * Created by logan on 2/6/16.
  */
 public class UserModel {
-    String username;
-    String password;
+    public String username;
+    public String password;
 
     public UserModel(String user, String pass) {
         username = user;

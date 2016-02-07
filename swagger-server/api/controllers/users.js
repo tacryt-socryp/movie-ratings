@@ -1,5 +1,6 @@
 'use strict';
 var util = require('util');
+var database = require('../helpers/sqlite');
 
 module.exports = {
   createUser: createUser
@@ -12,13 +13,28 @@ module.exports = {
   Param 2: a handle to the response object
  */
 function createUser(req, res) {
-  // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var body = req.swagger.params.body;
-  console.log(body);
+  var user = req.swagger.params.user.value;
+  var username = database.escapeStringForSQL(user.username);
+  var password = database.escapeStringForSQL(user.password);
 
-  // username.value || 'stranger';
-  // var hello = util.format('Hello, %s!', name);
-
-  // this sends back a JSON response which is a single string
-  res.json(body);
+  var db = database.openDatabase();
+  if (typeof username !== 'undefined' && username !== null) {
+     db.serialize(function() {
+      username = database.escapeStringForSQL(username);
+      db.run("INSERT INTO Users VALUES('" + username + "', '" + password + "')", function(err) {
+        if (err) {
+          console.log(err);
+          res.send(400, { message: "Record not created." });
+        } else {
+          if (this.changes == 0) {
+            res.send(400, { message: "Record does not exist." });
+          } else {
+            res.send(201, {username: username, password: password});
+          }
+        }
+      });
+    });
+  } else {
+    res.send(400, { message: "Sent an invalid create request." });
+  }
 }
