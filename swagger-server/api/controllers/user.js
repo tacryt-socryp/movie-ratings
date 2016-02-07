@@ -1,6 +1,6 @@
 'use strict';
 var util = require('util');
-var db = require('../helpers/sqlite');
+var database = require('../helpers/sqlite');
 
 module.exports = {
   getUser: getUser,
@@ -16,17 +16,30 @@ module.exports = {
  */
 function getUser(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var body = req.swagger.params.body;
-  console.log(body);
-
-  var database = db.openDatabase();
-  console.log(database);
+  var username = req.swagger.params.username.value;
+  var db = database.openDatabase();
+  console.log(db);
+  if (typeof username !== 'undefined' && username !== null) {
+     db.serialize(function() {
+      db.get("SELECT * FROM Users WHERE username IS " + username, function(err, row) {
+        console.log(err, row);
+        if (!err) {
+          res.send(400, { message: "Record not found." });
+        } else {
+          // TODO: use row information
+          res.send({username: 'user', password: 'pass'});
+        }
+      });
+    });
+  } else {
+    res.send(400, { message: "Sent an invalid username." });
+  }
   // db.get('')
   // username.value || 'stranger';
   // var hello = util.format('Hello, %s!', name);
 
   // this sends back a JSON response which is a single string
-  res.json(body);
+  
 }
 
 function deleteUser(req, res) {

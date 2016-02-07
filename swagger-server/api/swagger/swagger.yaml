@@ -33,7 +33,7 @@ paths:
           description: Username and password of user to create
           required: true
           schema:
-            $ref: '#/definitions/NewUser'
+            $ref: '#/definitions/User'
       responses:
         201:
           description: user created
@@ -53,8 +53,7 @@ paths:
           in: path
           description: username of user to fetch
           required: true
-          type: integer
-          format: int64
+          type: string
       responses:
         200:
           description: user response
@@ -111,9 +110,6 @@ paths:
 
 definitions:
   User:
-    allOf:
-      - $ref: '#/definitions/NewUser'
-  NewUser:
     required:
       - username
       - password
@@ -124,12 +120,8 @@ definitions:
         type: string
   Error:
     required:
-      - code
       - message
     properties:
-      code:
-        type: integer
-        format: int32
       message:
         type: string
 
