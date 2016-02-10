@@ -9,10 +9,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import models.UserModel;
+
 import services.APIService;
 import services.APIServiceInterface;
 
+import otto.BusSubscriberActivity;
+
 public class MainActivity extends AppCompatActivity {
+
+    APIServiceInterface service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +27,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        APIServiceInterface service = APIService.createService();
-        // service.getUser("user", "password1");
-
-        UserManager um = new UserManager();
-        um.addUser("user", "pass");
+        service = APIService.createService();
+        service.createUser(new UserModel("user", "pass"));
     }
 
     @Override
@@ -81,5 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRegisterButtonPressed(View w) {
         Log.d("OPENING SCREEN", "Pressed register");
+        service.createUser(new UserModel("user", "pass"));
     }
 }

@@ -15,3 +15,12 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @com.squareup.otto.Subscribe public *;
+    @com.squareup.otto.Produce public *;
+}
+-keep class com.google.gson.examples.android.model.** { *; }
+-keep class sun.misc.Unsafe { *; }
+-keepattributes *Annotation*

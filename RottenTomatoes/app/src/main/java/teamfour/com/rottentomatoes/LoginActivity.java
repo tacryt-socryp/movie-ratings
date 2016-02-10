@@ -9,42 +9,61 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import services.*;
+import models.*;
+import otto.*;
+
+import com.squareup.otto.Subscribe;
+
 /**
  * Created by EstellaD on 2/5/16.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BusSubscriberActivity {
+
+    APIServiceInterface service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        service = UserService.createService();
     }
 
     public void onLoginButtonPressed(View view)
     {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
-        UserManager um = new UserManager();
+
         EditText namefield = (EditText) findViewById(R.id.editText);
         EditText passwordfield = (EditText) findViewById(R.id.editText2);
-        CharSequence text;
-        Intent intent = null;
-        if (um.handleLogin(namefield.getText().toString(), passwordfield.getText().toString()))
-        {
-            text = "Login Succesful";
-            intent = new Intent(this, UserActivity.class);
-        }
-        else
-        {
-            text = "Login Failed";
-        }
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
+
+        String username = namefield.getText().toString();
+        String password = passwordfield.getText().toString();
+
+        // example of calling user service
+        UserService.getUser(service, new UserModel(username, password));
+    }
+
+    @Subscribe public void getUserEvent(UserModel user) {
+        Toast toast = Toast.makeText(
+                this.getApplicationContext(),
+                "Login Successful",
+                Toast.LENGTH_SHORT
+        );
         toast.show();
-        if (intent != null)
-        {
-            startActivity(intent);
-        }
+
+        Log.d("serviceCall", user.username + " " + user.password);
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
+
+    @Subscribe public void getErrorEvent(ErrorModel error) {
+        Toast toast = Toast.makeText(
+                this.getApplicationContext(),
+                "Login failed - " + error.message,
+                Toast.LENGTH_SHORT
+        );
+        toast.show();
     }
 
     public void onCancelButtonPressed(View view)
