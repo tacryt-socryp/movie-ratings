@@ -13,4 +13,10 @@ Install Node.js:
 
 cd into the swagger-server directory, then:
 Run the command:
+  `curl https://raw.githubusercontent.com/creationix/nvm/v0.17.2/install.sh | bash`
+  `nvm install stable`
+  `nvm alias default stable`
+  `npm install`
+
+Then to start the server:
   `npm start`
