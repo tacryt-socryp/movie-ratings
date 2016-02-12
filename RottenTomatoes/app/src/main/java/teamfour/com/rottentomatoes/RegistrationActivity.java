@@ -51,7 +51,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
         } else {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
-                    "Make Sure Your Passwords Are the Same",
+                    "Make Sure Your Passwords Match",
                     Toast.LENGTH_SHORT
             );
             toast.show();
