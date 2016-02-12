@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRegisterButtonPressed(View w) {
         Log.d("OPENING SCREEN", "Pressed register");
-        service.createUser(new UserModel("user", "pass"));
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
     }
 }
