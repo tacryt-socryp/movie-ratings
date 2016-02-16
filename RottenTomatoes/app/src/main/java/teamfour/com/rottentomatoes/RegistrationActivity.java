@@ -25,6 +25,10 @@ public class RegistrationActivity extends BusSubscriberActivity {
         service = UserService.createService();
     }
 
+    /**
+     * Action to create a new user with a name, username, and password.
+     * @param view the registration view in which this action takes place
+     */
     public void onRegisterButtonClicked(View view) {
         Log.d("REGISTRATION ACTIVITY", "Register Button Pressed");
 
@@ -62,6 +66,10 @@ public class RegistrationActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * Action to cancel registering and go back to the main login screen.
+     * @param view the view in which this action takes place
+     */
     public void onCancelButtonClicked(View view) {
         Log.d("REGISTRATION ACTIVITY", "Cancel button pressed");
         Intent intent = new Intent(this, MainActivity.class);
