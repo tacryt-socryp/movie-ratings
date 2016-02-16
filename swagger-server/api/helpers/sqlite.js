@@ -5,16 +5,25 @@ var file = __dirname + "/tomatoes.db";
 
 module.exports = {
   openDatabase: openDatabase,
-  escapeStringForSQL: escapeStringForSQL
+  escapeStringForSQL: escapeStringForSQL,
+  isValid: typeChecker,
+  getProfileFromParams: getProfileFromParams
 };
 
 function openDatabase() {
-  var db = new sqlite3.Database(file);
+  var db = new sqlite3.Database(file, function() {
+      db.run('PRAGMA foreign_keys=on');
+  });
   var exists = fs.existsSync(file);
   
   db.serialize(function() {
     if(!exists) {
-      db.run("CREATE TABLE Users (username TEXT, password TEXT)");
+      db.run(
+        "CREATE TABLE Users (username TEXT PRIMARY KEY UNIQUE, password TEXT NOT NULL, profile INTEGER REFERENCES Profiles(profileID))"
+      );
+      db.run(
+        "CREATE TABLE Profiles (profileID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE)"
+      );
     }
   });
   return db;
@@ -31,4 +40,18 @@ function escapeStringForSQL(str) {
   
   str = str.replace(regex, escaper);
   return str;
+}
+
+function typeChecker(anything) {
+  return (typeof anything !== "undefined") && (anything !== null);
+}
+
+function getProfileFromParams(params) {
+  var profile = params.profile.value;
+  
+  if (typeChecker(profile) && typeChecker(profile.profileID) && typeChecker(profile.name)) {
+    return profile;
+  } else {
+    return null;
+  }
 }

@@ -12,9 +12,12 @@ public class UserModel {
     @SerializedName("password")
     public String password;
 
-    public UserModel(String user, String pass) {
+    public ProfileModel profile;
+
+    public UserModel(String user, String pass, ProfileModel p) {
         username = user;
         password = pass;
+        profile = p;
     }
 
 }

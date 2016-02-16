@@ -26,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        service = APIService.createService();
-        service.createUser(new UserModel("user", "pass"));
     }
 
     @Override

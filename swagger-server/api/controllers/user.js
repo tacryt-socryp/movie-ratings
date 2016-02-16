@@ -1,6 +1,8 @@
 'use strict';
 var util = require('util');
 var database = require('../helpers/sqlite');
+var isValid = database.isValid;
+var getProfileFromParams = database.getProfileFromParams;
 
 module.exports = {
   getUser: getUser,
@@ -18,23 +20,40 @@ function getUser(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
   var username = database.escapeStringForSQL(req.swagger.params.username.value);
   var db = database.openDatabase();
-  if (typeof username !== 'undefined' && username !== null) {
+  
+  if (isValid(username)) {
+    
      db.serialize(function() {
       username = database.escapeStringForSQL(username);
       db.get("SELECT * FROM Users WHERE username IS '" + username + "' LIMIT 1", function(err, row) {
         if (err) {
           console.log(err);
           res.send(400, { message: "Record not found for get request." });
-        } else if (typeof row === "undefined") {
+        } else if (!isValid(row)) {
             res.send(400, { message: "Record does not exist." });
         } else {
-          res.send(200, {
-            username: row.username,
-            password: row.password
+          
+          db.get("SELECT * FROM Profiles WHERE profileID IS '" + row.profile + "' LIMIT 1", function(err, row1) {
+            if (err) {
+              console.log(err);
+              res.send(400, { message: "Record not found for get request." });
+            } else if (!isValid(row1)) {
+                res.send(400, { message: "Record does not exist." });
+            } else {
+              res.send(200, {
+                username: row.username,
+                password: row.password,
+                profile: {
+                  name: row1.name,
+                  profileID: row1.profileID
+                }
+              });
+            }
           });
         }
       });
     });
+    
   } else {
     res.send(400, { message: "Sent an invalid username for get request." });
   }
@@ -43,7 +62,9 @@ function getUser(req, res) {
 function deleteUser(req, res) {
   var username = database.escapeStringForSQL(req.swagger.params.username.value);
   var db = database.openDatabase();
-  if (typeof username !== 'undefined' && username !== null) {
+  
+  if (isValid(username)) {
+    
      db.serialize(function() {
       username = database.escapeStringForSQL(username);
       db.run("DELETE FROM Users WHERE username IS '" + username + "'", function(err) {
@@ -57,6 +78,7 @@ function deleteUser(req, res) {
         }
       });
     });
+    
   } else {
     res.send(400, { message: "Sent an invalid username for delete request." });
   }
@@ -65,18 +87,42 @@ function deleteUser(req, res) {
 function updateUser(req, res) {
   var username = database.escapeStringForSQL(req.swagger.params.username.value);
   var password = database.escapeStringForSQL(req.swagger.params.password.value);
+
+  var profileID = "";
+  var name = "";
+  
+  var profile = getProfileFromParams(req.swagger.params);
+  
+  if (profile) {
+    profileID = profile.profileID;
+    name = profile.name;
+  } else {
+    res.send(400, { message: "Sent an invalid profile for update request." });
+  }
+  
   var db = database.openDatabase();
-  if (typeof username !== 'undefined' && username !== null) {
+  if (isValid(username)) {
     db.serialize(function() {
-      db.run("UPDATE * FROM Users SET password='" + password + "'WHERE username IS '" + username + "'", function(err) {
-          if (err) {
-            console.log(err);
-            res.send(400, { message: "Record not found for update request." });
-          } else if (this.changes == 0) {
-            res.send(400, { message: "Record not changed." });
-          } else {
-            res.send(201);
-          }
+      db.get("SELECT * FROM Profiles WHERE profileID IS '" + profileID + "' LIMIT 1", function(err, row) {
+        if (err) {
+          console.log(err);
+          res.send(400, { message: "Record not found for update request." });
+        } else if (!isValid(row)) {
+            res.send(400, { message: "Record does not exist." });
+        } else {
+          
+          db.run("UPDATE * FROM Profiles SET name='" + name + "'WHERE profileID IS '" + profileID + "'", function(err) {
+              if (err) {
+                console.log(err);
+                res.send(400, { message: "Record not found for update request." });
+              } else if (this.changes == 0) {
+                res.send(400, { message: "Record not changed." });
+              } else {
+                res.send(201);
+              }
+          });
+          
+        }
       });
     });
   } else {

@@ -124,6 +124,17 @@ definitions:
         type: string
       password:
         type: string
+      profile:
+        $ref: '#/definitions/Profile'
+  Profile:
+    required:
+      - name
+      - profileID
+    properties:
+      name:
+        type: string
+      profileID:
+        type: integer
   Error:
     required:
       - message

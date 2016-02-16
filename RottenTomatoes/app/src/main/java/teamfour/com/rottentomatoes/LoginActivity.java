@@ -41,7 +41,7 @@ public class LoginActivity extends BusSubscriberActivity {
         String password = passwordfield.getText().toString();
 
         // example of calling user service
-        UserService.getUser(service, new UserModel(username, password));
+        UserService.getUser(service, new UserModel(username, password, null));
     }
 
     @Subscribe public void getUserEvent(UserModel user) {

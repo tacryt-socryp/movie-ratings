@@ -3,6 +3,7 @@ package services;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -17,7 +18,13 @@ import models.*;
 public class UserService extends APIService {
 
     private static UserModel userConverter(Object body) {
-        return new Gson().fromJson(body.toString(), UserModel.class);
+        UserModel user = new Gson().fromJson(body.toString(), UserModel.class);
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(ProfileModel.class, new NestedDeserializer<>(ProfileModel.class, "profile"))
+                .create();
+        ProfileModel profile = gson.fromJson(body.toString(), ProfileModel.class);
+        user.profile = profile;
+        return user;
     }
 
     private static ErrorModel errorConverter(ResponseBody errorBody) {
@@ -35,6 +42,7 @@ public class UserService extends APIService {
                     public void onResponse(Call<Object> call, Response<Object> response) {
                         Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
                         if (response.isSuccess()) {
+                            Log.d("serviceCall", response.body().toString());
                             UserModel um = userConverter(response.body());
                             bus.post(um);
                         } else {
@@ -79,7 +87,7 @@ public class UserService extends APIService {
     }
 
     public static void updateUser(APIServiceInterface service, UserModel userModel) {
-        service.updateUser(userModel.username, userModel.password).enqueue(
+        service.updateUser(userModel.username, userModel.password, userModel.profile).enqueue(
                 new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {

@@ -28,16 +28,20 @@ public class RegistrationActivity extends BusSubscriberActivity {
     public void onRegisterButtonClicked(View view) {
         Log.d("REGISTRATION ACTIVITY", "Register Button Pressed");
 
+        EditText namefield = (EditText) findViewById((R.id.Name));
         EditText usernamefield = (EditText) findViewById(R.id.Username);
         EditText passwordfield = (EditText) findViewById(R.id.Password);
         EditText verifypasswordfield = (EditText) findViewById(R.id.VerifyPassword);
 
+        String name = namefield.getText().toString();
         String username = usernamefield.getText().toString();
         String password = passwordfield.getText().toString();
         String verifypassword = verifypasswordfield.getText().toString();
 
         if (password.equals(verifypassword)) {
-            UserService.createUser(service, new UserModel(username, password));
+            ProfileModel profile = new ProfileModel(name, -1); // NONEXISTENT ID
+
+            UserService.createUser(service, new UserModel(username, password, profile));
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Registration Successful",
@@ -45,7 +49,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
             );
             toast.show();
 
-            Log.d("serviceCall", username + " " + password);
+            Log.d("serviceCall", username + " " + password + " Profile Name: " + name);
             Intent intent = new Intent(this, UserActivity.class);
             startActivity(intent);
         } else {

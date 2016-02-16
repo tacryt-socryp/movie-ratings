@@ -2,7 +2,7 @@ package services;
 
 import java.util.List;
 
-import models.UserModel;
+import models.*;
 
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -19,7 +19,7 @@ public interface APIServiceInterface {
     Call<Object> getUser(@Path("username") String username, @Header("Password") String password);
 
     @PUT("users/{username}")
-    Call<Object> updateUser(@Path("username") String username, @Header("password") String password);
+    Call<Object> updateUser(@Path("username") String username, @Header("password") String password, @Body ProfileModel profile);
 
     @DELETE("users/{username}")
     Call<Object> deleteUser(@Path("username") String username, @Header("password") String password);

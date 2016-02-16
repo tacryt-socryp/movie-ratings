@@ -1,6 +1,8 @@
 'use strict';
 var util = require('util');
 var database = require('../helpers/sqlite');
+var isValid = database.isValid;
+var getProfileFromParams = database.getProfileFromParams;
 
 module.exports = {
   createUser: createUser
@@ -17,11 +19,18 @@ function createUser(req, res) {
   var username = database.escapeStringForSQL(user.username);
   var password = database.escapeStringForSQL(user.password);
 
-  var db = database.openDatabase();
-  if (typeof username !== 'undefined' && username !== null) {
-     db.serialize(function() {
+  var name = "";
+  var profile = user.profile;
+  console.log(user);
+  
+  if (isValid(profile) && isValid(profile.name) && isValid(username) && isValid(password)) {
+    name = profile.name;
+
+    var db = database.openDatabase();
+    db.serialize(function() {
       username = database.escapeStringForSQL(username);
-      db.run("INSERT INTO Users VALUES('" + username + "', '" + password + "')", function(err) {
+
+      db.run("INSERT INTO Profiles VALUES(null, '" + name + "')", function(err) {
         if (err) {
           console.log(err);
           res.send(400, { message: "Record not created." });
@@ -29,7 +38,35 @@ function createUser(req, res) {
           if (this.changes == 0) {
             res.send(400, { message: "Record does not exist." });
           } else {
-            res.send(201, {username: username, password: password});
+            var profileID = this.lastID;
+
+            db.run("INSERT INTO Users VALUES('" + username + "', '" + password + "', '" + profileID + "')", function(err) {
+              if (err) {
+                console.log(err);
+                res.send(400, { message: "Record not created." });
+              } else {
+                if (this.changes == 0) {
+                  res.send(400, { message: "Record does not exist." });
+                } else {
+                  console.log({
+                    username: username,
+                    password: password,
+                    profile: {
+                      name: name
+                    }
+                  });
+                  res.send(201, {
+                    username: username,
+                    password: password,
+                    profile: {
+                      name: name,
+                      profileID: profileID
+                    }
+                  });
+                }
+              }
+            });
+      
           }
         }
       });
