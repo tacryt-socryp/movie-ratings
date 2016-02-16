@@ -37,7 +37,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
         String verifypassword = verifypasswordfield.getText().toString();
 
         if (password.equals(verifypassword)) {
-            service.createUser(new UserModel(username, password));
+            UserService.createUser(service, new UserModel(username, password));
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Registration Successful",
