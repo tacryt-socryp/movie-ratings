@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,13 +16,17 @@ import models.*;
  */
 public class UserService extends APIService {
 
-    /*private static ErrorModel errorConverter(ResponseBody errorBody) {
-        String message = "";
+    private static ErrorModel errorConverter(ResponseBody errorBody) {
+        ObjectMapper om = new ObjectMapper();
         try {
-            message = errorBody.string();
-        } catch(java.io.IOException e) {}
-        return new Gson().fromJson(message, ErrorModel.class);
-    }*/
+            ErrorModel em = om.readValue(errorBody.string(), ErrorModel.class);
+            return em;
+        } catch (Exception e) {
+            Log.d("errorConverting", e.toString());
+        }
+
+        return new ErrorModel("Incorrect error format returned.");
+    }
 
     public static void createUser(APIServiceInterface service, UserModel userModel) {
         service.createUser(userModel).enqueue(
@@ -31,16 +36,10 @@ public class UserService extends APIService {
                         Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
                         if (response.isSuccess()) {
                             Log.d("serviceCall", response.body().toString());
-                            // UserModel um = userConverter(response.body());
                             bus.post(response.body());
                         } else {
-                            ObjectMapper om = new ObjectMapper();
-                            try {
-                                ErrorModel em = om.readValue(response.errorBody().toString(), ErrorModel.class);
-                                bus.post(em);
-                            } catch (Exception e) {
-                                Log.d("stuff", e.toString());
-                            }
+                            ErrorModel em = errorConverter(response.errorBody());
+                            bus.post(em);
                         }
                     }
 
@@ -63,8 +62,8 @@ public class UserService extends APIService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-//                            ErrorModel em = errorConverter(response.errorBody());
-//                            bus.post(em);
+                            ErrorModel em = errorConverter(response.errorBody());
+                            bus.post(em);
                         }
                     }
 
@@ -93,8 +92,8 @@ public class UserService extends APIService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-//                            ErrorModel em = errorConverter(response.errorBody());
-//                            bus.post(em);
+                            ErrorModel em = errorConverter(response.errorBody());
+                            bus.post(em);
                         }
                     }
 
@@ -117,8 +116,8 @@ public class UserService extends APIService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-//                            ErrorModel em = errorConverter(response.errorBody());
-//                            bus.post(em);
+                            ErrorModel em = errorConverter(response.errorBody());
+                            bus.post(em);
                         }
                     }
 
