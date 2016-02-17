@@ -22,7 +22,7 @@ function openDatabase() {
         "CREATE TABLE Users (username TEXT PRIMARY KEY UNIQUE, password TEXT NOT NULL, profile INTEGER REFERENCES Profiles(profileID))"
       );
       db.run(
-        "CREATE TABLE Profiles (profileID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL UNIQUE)"
+        "CREATE TABLE Profiles (profileID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)"
       );
     }
   });

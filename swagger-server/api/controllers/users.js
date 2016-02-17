@@ -33,20 +33,20 @@ function createUser(req, res) {
       db.run("INSERT INTO Profiles VALUES(null, '" + name + "')", function(err) {
         if (err) {
           console.log(err);
-          res.send(400, { message: "Record not created." });
+          res.json(400, { message: "Record not created." });
         } else {
           if (this.changes == 0) {
-            res.send(400, { message: "Record does not exist." });
+            res.json(400, { message: "Record does not exist." });
           } else {
             var profileID = this.lastID;
 
             db.run("INSERT INTO Users VALUES('" + username + "', '" + password + "', '" + profileID + "')", function(err) {
               if (err) {
                 console.log(err);
-                res.send(400, { message: "Record not created." });
+                res.json(400, { message: "Record not created." });
               } else {
                 if (this.changes == 0) {
-                  res.send(400, { message: "Record does not exist." });
+                  res.json(400, { message: "Record does not exist." });
                 } else {
                   console.log({
                     username: username,
@@ -55,7 +55,7 @@ function createUser(req, res) {
                       name: name
                     }
                   });
-                  res.send(201, {
+                  res.json(201, {
                     username: username,
                     password: password,
                     profile: {
@@ -72,6 +72,6 @@ function createUser(req, res) {
       });
     });
   } else {
-    res.send(400, { message: "Sent an invalid create request." });
+    res.json(400, { message: "Sent an invalid create request." });
   }
 }

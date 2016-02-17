@@ -28,19 +28,19 @@ function getUser(req, res) {
       db.get("SELECT * FROM Users WHERE username IS '" + username + "' LIMIT 1", function(err, row) {
         if (err) {
           console.log(err);
-          res.send(400, { message: "Record not found for get request." });
+          res.json(400, { message: "Record not found for get request." });
         } else if (!isValid(row)) {
-            res.send(400, { message: "Record does not exist." });
+            res.json(400, { message: "Record does not exist." });
         } else {
           
           db.get("SELECT * FROM Profiles WHERE profileID IS '" + row.profile + "' LIMIT 1", function(err, row1) {
             if (err) {
               console.log(err);
-              res.send(400, { message: "Record not found for get request." });
+              res.json(400, { message: "Record not found for get request." });
             } else if (!isValid(row1)) {
-                res.send(400, { message: "Record does not exist." });
+                res.json(400, { message: "Record does not exist." });
             } else {
-              res.send(200, {
+              res.json(200, {
                 username: row.username,
                 password: row.password,
                 profile: {
@@ -55,7 +55,7 @@ function getUser(req, res) {
     });
     
   } else {
-    res.send(400, { message: "Sent an invalid username for get request." });
+    res.json(400, { message: "Sent an invalid username for get request." });
   }
 }
 
@@ -70,17 +70,17 @@ function deleteUser(req, res) {
       db.run("DELETE FROM Users WHERE username IS '" + username + "'", function(err) {
         if (err) {
           console.log(err);
-          res.send(400, { message: "Unknown error." });
+          res.json(400, { message: "Unknown error." });
         } else if (this.changes == 0) {
-          res.send(400, { message: "Record does not exist." });
+          res.json(400, { message: "Record does not exist." });
         } else {
-          res.send(204);
+          res.json(204);
         }
       });
     });
     
   } else {
-    res.send(400, { message: "Sent an invalid username for delete request." });
+    res.json(400, { message: "Sent an invalid username for delete request." });
   }
 }
 
@@ -97,7 +97,7 @@ function updateUser(req, res) {
     profileID = profile.profileID;
     name = profile.name;
   } else {
-    res.send(400, { message: "Sent an invalid profile for update request." });
+    res.json(400, { message: "Sent an invalid profile for update request." });
   }
   
   var db = database.openDatabase();
@@ -106,19 +106,26 @@ function updateUser(req, res) {
       db.get("SELECT * FROM Profiles WHERE profileID IS '" + profileID + "' LIMIT 1", function(err, row) {
         if (err) {
           console.log(err);
-          res.send(400, { message: "Record not found for update request." });
+          res.json(400, { message: "Record not found for update request." });
         } else if (!isValid(row)) {
-            res.send(400, { message: "Record does not exist." });
+            res.json(400, { message: "Record does not exist." });
         } else {
           
-          db.run("UPDATE * FROM Profiles SET name='" + name + "'WHERE profileID IS '" + profileID + "'", function(err) {
+          db.run("UPDATE Profiles SET name='" + name + "'WHERE profileID IS '" + profileID + "'", function(err) {
               if (err) {
                 console.log(err);
-                res.send(400, { message: "Record not found for update request." });
+                res.json(400, { message: "Record not found for update request." });
               } else if (this.changes == 0) {
-                res.send(400, { message: "Record not changed." });
+                res.json(400, { message: "Record not changed." });
               } else {
-                res.send(201);
+                res.json(201, {
+                  username: username,
+                  password: password,
+                  profile: {
+                    profileID: this.lastID,
+                    name: name
+                  }
+                });
               }
           });
           
@@ -126,6 +133,6 @@ function updateUser(req, res) {
       });
     });
   } else {
-    res.send(400, { message: "Sent an invalid username for update request." });
+    res.json(400, { message: "Sent an invalid username for update request." });
   }
 }

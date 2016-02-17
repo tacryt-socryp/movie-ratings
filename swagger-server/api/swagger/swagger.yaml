@@ -81,6 +81,12 @@ paths:
           description: Password of user to update
           required: true
           type: string
+        - name: profile
+          in: body
+          description: Profile info to update
+          required: true
+          schema:
+            $ref: '#/definitions/Profile'
       responses:
         201:
           description: user updated

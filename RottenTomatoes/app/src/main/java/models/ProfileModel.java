@@ -1,16 +1,17 @@
 package models;
 
-import com.google.gson.annotations.SerializedName;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by logan on 2/15/16.
  */
 public class ProfileModel {
 
-    @SerializedName("name")
+    @JsonProperty("name")
     public String name;
 
-    @SerializedName("profileID")
+    @JsonProperty("profileID")
     public int profileID;
 
     public ProfileModel(String n, int pID) {
@@ -18,4 +19,5 @@ public class ProfileModel {
         profileID = pID;
     }
 
+    public ProfileModel() {}
 }
