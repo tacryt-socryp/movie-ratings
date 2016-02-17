@@ -56,6 +56,11 @@ paths:
           description: username of user to fetch
           required: true
           type: string
+        - name: password
+          in: header
+          description: password of user to fetch
+          required: true
+          type: string
       responses:
         200:
           description: user response

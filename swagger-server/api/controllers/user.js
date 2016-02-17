@@ -19,6 +19,7 @@ module.exports = {
 function getUser(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
   var username = database.escapeStringForSQL(req.swagger.params.username.value);
+  var password = database.escapeStringForSQL(req.swagger.params.password.value);
   var db = database.openDatabase();
   
   if (isValid(username)) {
@@ -31,6 +32,8 @@ function getUser(req, res) {
           res.json(400, { message: "Record not found for get request." });
         } else if (!isValid(row)) {
             res.json(400, { message: "Record does not exist." });
+        } else if (row.password !== password) {
+            res.json(403, { message: "Incorrect password." });
         } else {
           
           db.get("SELECT * FROM Profiles WHERE profileID IS '" + row.profile + "' LIMIT 1", function(err, row1) {
@@ -61,13 +64,14 @@ function getUser(req, res) {
 
 function deleteUser(req, res) {
   var username = database.escapeStringForSQL(req.swagger.params.username.value);
+  var password = database.escapeStringForSQL(req.swagger.params.password.value);
   var db = database.openDatabase();
   
   if (isValid(username)) {
     
      db.serialize(function() {
       username = database.escapeStringForSQL(username);
-      db.run("DELETE FROM Users WHERE username IS '" + username + "'", function(err) {
+      db.run("DELETE FROM Users WHERE username IS '" + username + "' AND password IS '" + password + "'", function(err) {
         if (err) {
           console.log(err);
           res.json(400, { message: "Unknown error." });
@@ -103,12 +107,16 @@ function updateUser(req, res) {
   var db = database.openDatabase();
   if (isValid(username)) {
     db.serialize(function() {
-      db.get("SELECT * FROM Profiles WHERE profileID IS '" + profileID + "' LIMIT 1", function(err, row) {
-        if (err) {
-          console.log(err);
+      db.get("SELECT * FROM Users where username IS '" + username + "' LIMIT 1", function (err0, row0) {
+        
+      db.get("SELECT * FROM Profiles WHERE profileID IS '" + profileID + "' LIMIT 1", function(err1, row) {
+        if (err1 || err0) {
+          console.log(err1);
           res.json(400, { message: "Record not found for update request." });
-        } else if (!isValid(row)) {
+        } else if (!isValid(row) || !isValid(row0)) {
             res.json(400, { message: "Record does not exist." });
+        } else if (row0.password !== password) {
+            res.json(403, { message: "Incorrect password." });
         } else {
           
           db.run("UPDATE Profiles SET name='" + name + "'WHERE profileID IS '" + profileID + "'", function(err) {
@@ -130,6 +138,8 @@ function updateUser(req, res) {
           });
           
         }
+      });
+        
       });
     });
   } else {
