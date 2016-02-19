@@ -21,6 +21,7 @@ import com.squareup.otto.Subscribe;
 public class LoginActivity extends BusSubscriberActivity {
 
     APIServiceInterface service;
+    boolean loggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +46,33 @@ public class LoginActivity extends BusSubscriberActivity {
     }
 
     @Subscribe public void getUserEvent(UserModel user) {
-        Toast toast = Toast.makeText(
-                this.getApplicationContext(),
-                "Login Successful",
-                Toast.LENGTH_SHORT
-        );
-        toast.show();
+        if (!loggedIn) {
+            Toast toast = Toast.makeText(
+                    this.getApplicationContext(),
+                    "Login Successful",
+                    Toast.LENGTH_SHORT
+            );
+            toast.show();
+            loggedIn = true;
 
-        Log.d("serviceCall", user.username + " " + user.password);
-        Intent intent = new Intent(this, UserActivity.class);
-        startActivity(intent);
+            Log.d("serviceCall", user.username + " " + user.password);
+
+            Intent intent = new Intent(this, UserActivity.class);
+            Log.d("user", user.toString());
+            intent.putExtra("user", user);
+            startActivity(intent);
+        }
     }
 
     @Subscribe public void getErrorEvent(ErrorModel error) {
-        Toast toast = Toast.makeText(
-                this.getApplicationContext(),
-                "Login failed - " + error.message,
-                Toast.LENGTH_SHORT
-        );
-        toast.show();
+        if (!loggedIn) {
+            Toast toast = Toast.makeText(
+                    this.getApplicationContext(),
+                    "Login failed - " + error.message,
+                    Toast.LENGTH_SHORT
+            );
+            toast.show();
+        }
     }
 
     public void onCancelButtonPressed(View view)
