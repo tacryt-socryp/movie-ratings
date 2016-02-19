@@ -11,6 +11,24 @@
         android:layout_gravity="center_horizontal"
         android:onClick="onLogoutButtonPressed"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        android:id="@+id/ProfileNameLabel"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/editNameForEdit"
+        android:layout_below="@+id/ProfileNameLabel"
+        android:password="false" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

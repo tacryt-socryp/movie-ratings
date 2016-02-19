@@ -114,6 +114,9 @@ function updateUser(req, res) {
           console.log(err1);
           res.json(400, { message: "Record not found for update request." });
         } else if (!isValid(row) || !isValid(row0)) {
+            console.log(row);
+            console.log(row0);
+            console.log(profileID);
             res.json(400, { message: "Record does not exist." });
         } else if (row0.password !== password) {
             res.json(403, { message: "Incorrect password." });
@@ -130,7 +133,7 @@ function updateUser(req, res) {
                   username: username,
                   password: password,
                   profile: {
-                    profileID: this.lastID,
+                    profileID: profileID,
                     name: name
                   }
                 });

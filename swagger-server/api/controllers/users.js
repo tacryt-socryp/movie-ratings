@@ -45,25 +45,22 @@ function createUser(req, res) {
                 console.log(err);
                 res.json(400, { message: "Record not created." });
               } else {
-                if (this.changes == 0) {
-                  res.json(400, { message: "Record does not exist." });
-                } else {
-                  console.log({
-                    username: username,
-                    password: password,
-                    profile: {
-                      name: name
-                    }
-                  });
-                  res.json(201, {
-                    username: username,
-                    password: password,
-                    profile: {
-                      name: name,
-                      profileID: profileID
-                    }
-                  });
-                }
+                console.log({
+                  username: username,
+                  password: password,
+                  profile: {
+                    name: name,
+                    profileID: profileID
+                  }
+                });
+                res.json(201, {
+                  username: username,
+                  password: password,
+                  profile: {
+                    name: name,
+                    profileID: profileID
+                  }
+                });
               }
             });
       
