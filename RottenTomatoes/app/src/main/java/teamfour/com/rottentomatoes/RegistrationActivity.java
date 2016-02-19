@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.squareup.otto.Subscribe;
+
 import services.*;
 import models.*;
 import otto.*;
@@ -17,6 +19,7 @@ import otto.*;
 public class RegistrationActivity extends BusSubscriberActivity {
 
     APIServiceInterface service;
+    boolean isRegistrationActive = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,19 @@ public class RegistrationActivity extends BusSubscriberActivity {
             ProfileModel profile = new ProfileModel(name, -1); // NONEXISTENT ID
 
             UserService.createUser(service, new UserModel(username, password, profile));
+        } else {
+            Toast toast = Toast.makeText(
+                    this.getApplicationContext(),
+                    "Make Sure Your Passwords Match",
+                    Toast.LENGTH_SHORT
+            );
+            toast.show();
+        }
+    }
+
+    @Subscribe
+    public void getUserEvent(UserModel user) {
+        if (isRegistrationActive) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Registration Successful",
@@ -53,13 +69,18 @@ public class RegistrationActivity extends BusSubscriberActivity {
             );
             toast.show();
 
-            Log.d("serviceCall", username + " " + password + " Profile Name: " + name);
             Intent intent = new Intent(this, UserActivity.class);
+            intent.putExtra("user", user);
             startActivity(intent);
-        } else {
+            isRegistrationActive = false;
+        }
+    }
+
+    @Subscribe public void getErrorEvent(ErrorModel error) {
+        if (isRegistrationActive) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
-                    "Make Sure Your Passwords Match",
+                    "Registration failed - " + error.message,
                     Toast.LENGTH_SHORT
             );
             toast.show();
