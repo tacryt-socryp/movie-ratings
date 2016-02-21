@@ -14,10 +14,18 @@ public class ProfileModel {
     @JsonProperty("profileID")
     public int profileID;
 
+    /**
+     * Make a user profile with the full name of the user and their profile ID
+     * @param n
+     * @param pID
+     */
     public ProfileModel(String n, int pID) {
         name = n;
         profileID = pID;
     }
 
+    /**
+     * empty init for Jackson compatibility
+     */
     public ProfileModel() {}
 }

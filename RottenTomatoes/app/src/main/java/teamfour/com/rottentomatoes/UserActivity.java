@@ -26,6 +26,11 @@ public class UserActivity extends BusSubscriberActivity {
     UserModel currentUser;
     boolean userActivityActive = true;
 
+    /**
+     * receive currentUser from either registration or login via extras,
+     * initialize view and create service for interacting with the server
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,10 @@ public class UserActivity extends BusSubscriberActivity {
         configureView();
     }
 
+    /**
+     * simple test to see if edit profile works
+     * @param view
+     */
     public void onEditTestPressed(View view) {
         EditText nameField = (EditText) findViewById(R.id.editNameForEdit);
         if (currentUser != null) {
@@ -44,12 +53,20 @@ public class UserActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * log out of the activity
+     * @param view
+     */
     public void onLogoutButtonPressed(View view) {
         Log.d("USER ACTIVITY", "Logout Button Pressed");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Asynchronously receive a successful usermodel upon successful user get
+     * @param user
+     */
     @Subscribe
     public void getUserEvent(UserModel user) {
         if (userActivityActive) {
@@ -70,6 +87,10 @@ public class UserActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * Asynchronously receive an errormodel upon unsuccessful user creation or login
+     * @param error
+     */
     @Subscribe public void getErrorEvent(ErrorModel error) {
         if (userActivityActive) {
             Toast toast = Toast.makeText(
@@ -81,6 +102,9 @@ public class UserActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * view is configured upon new data being received
+     */
     public void configureView() {
         TextView nameLabel = (TextView) findViewById(R.id.ProfileNameLabel);
         Log.d("serviceCall", currentUser.username + " " + currentUser.profile.name);
