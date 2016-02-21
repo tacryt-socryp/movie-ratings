@@ -36,4 +36,12 @@
         android:id="@+id/editTest"
         android:layout_gravity="center_horizontal"
         android:onClick="onEditTestPressed"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/searchbutton"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onSearchButtonPressed" />
 </LinearLayout>

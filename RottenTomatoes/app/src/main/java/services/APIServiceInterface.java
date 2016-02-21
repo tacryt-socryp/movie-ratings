@@ -24,5 +24,7 @@ public interface APIServiceInterface {
     @DELETE("users/{username}")
     Call<UserModel> deleteUser(@Path("username") String username, @Header("password") String password);
 
+
+
 }
 
