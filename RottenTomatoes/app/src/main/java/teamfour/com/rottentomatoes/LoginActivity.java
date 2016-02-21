@@ -23,6 +23,10 @@ public class LoginActivity extends BusSubscriberActivity {
     APIServiceInterface service;
     boolean loggedIn = false;
 
+    /**
+     * initialize the view and initialize service
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,10 @@ public class LoginActivity extends BusSubscriberActivity {
         service = UserService.createService();
     }
 
+    /**
+     * login button was pressed, perform a getUser server call
+     * @param view
+     */
     public void onLoginButtonPressed(View view)
     {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
@@ -45,6 +53,10 @@ public class LoginActivity extends BusSubscriberActivity {
         UserService.getUser(service, new UserModel(username, password));
     }
 
+    /**
+     * On successful login, receive back the asynchronous event using Otto!
+     * @param user
+     */
     @Subscribe public void getUserEvent(UserModel user) {
         if (!loggedIn) {
             Toast toast = Toast.makeText(
@@ -64,6 +76,10 @@ public class LoginActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * On unsuccessful login, receive back the error message!
+     * @param error
+     */
     @Subscribe public void getErrorEvent(ErrorModel error) {
         if (!loggedIn) {
             Toast toast = Toast.makeText(
@@ -75,6 +91,10 @@ public class LoginActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * Return to the main view.
+     * @param view
+     */
     public void onCancelButtonPressed(View view)
     {
         Log.d("LOGIN ACTIVITY", "Cancel button pressed");

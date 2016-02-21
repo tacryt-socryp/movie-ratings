@@ -6,12 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import com.squareup.otto.Bus;
 
 /**
- * Extend this class in place of AppCompatActivity to get access to
+ * Extend this class in place of AppCompatActivity to get access to the server
  * Created by logan on 2/10/16.
  */
 public class BusSubscriberActivity extends AppCompatActivity {
     private Bus bus;
 
+    /**
+     * onCreate, initialize the bus!
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +24,9 @@ public class BusSubscriberActivity extends AppCompatActivity {
         this.initializeBus();
     }
 
+    /**
+     * Get an instance of the event bus (otto) from the BusSingleton, and register it to receive new events
+     */
     public void initializeBus() {
         bus = BusSingleton.get();
 

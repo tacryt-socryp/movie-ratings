@@ -27,6 +27,10 @@ public class APIService {
         bus = newBus;
     }
 
+    /**
+     * createService creates a Retrofit service for interacting with the team's REST API
+     * @return APIServiceInterface
+     */
     public static APIServiceInterface createService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)

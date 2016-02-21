@@ -9,6 +9,10 @@ import otto.BusSingleton;
  */
 public class App extends android.app.Application {
 
+    /**
+     * Android lifecycle method.
+     * We initialize the asynchronous event bus here (Otto)
+     */
     @Override
     public void onCreate() {
         super.onCreate();

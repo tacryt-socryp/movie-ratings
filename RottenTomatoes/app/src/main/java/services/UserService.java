@@ -16,6 +16,12 @@ import models.*;
  */
 public class UserService extends APIService {
 
+    /**
+     * errorConverter is a private helper function for converting the response body from a server call
+     * to an error model when an error is received
+     * @param errorBody
+     * @return
+     */
     private static ErrorModel errorConverter(ResponseBody errorBody) {
         ObjectMapper om = new ObjectMapper();
         try {
@@ -28,6 +34,11 @@ public class UserService extends APIService {
         return new ErrorModel("Incorrect error format returned.");
     }
 
+    /**
+     * Send in a generated service along with a valid UserModel, perform a server call
+     * @param service
+     * @param userModel
+     */
     public static void createUser(APIServiceInterface service, UserModel userModel) {
         service.createUser(userModel).enqueue(
                 new Callback<UserModel>() {
@@ -53,6 +64,11 @@ public class UserService extends APIService {
         );
     }
 
+    /**
+     * Send in a generated service along with a valid UserModel, perform a server call
+     * @param service
+     * @param userModel
+     */
     public static void getUser(APIServiceInterface service, UserModel userModel) {
         service.getUser(userModel.username, userModel.password).enqueue(
                 new Callback<UserModel>() {
@@ -77,6 +93,11 @@ public class UserService extends APIService {
         );
     }
 
+    /**
+     * Send in a generated service along with a valid UserModel, perform a server call
+     * @param service
+     * @param userModel
+     */
     public static void updateUser(APIServiceInterface service, UserModel userModel) {
         service.updateUser(
                 userModel.username,
@@ -107,6 +128,11 @@ public class UserService extends APIService {
         );
     }
 
+    /**
+     * Send in a generated service along with a valid UserModel, perform a server call
+     * @param service
+     * @param userModel
+     */
     public static void deleteUser(APIServiceInterface service, UserModel userModel) {
         service.deleteUser(userModel.username, userModel.password).enqueue(
                 new Callback<UserModel>() {

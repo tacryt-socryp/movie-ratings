@@ -16,10 +16,12 @@ import services.APIServiceInterface;
 
 import otto.BusSubscriberActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BusSubscriberActivity {
 
-    APIServiceInterface service;
-
+    /**
+     * initialize view onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,31 +30,32 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("OPENING SCREEN", "Pausing the opening screen");
-    }
-
-    public void onResume() {
-        super.onResume();
-        Log.d("OPENING SCREEN", "Resuming the opening screen");
-    }
-
+    /**
+     * Login button was pressed, open LoginActivity!
+     * @param v
+     */
     public void onLoginButtonClicked(View v) {
         Log.d("OPENING SCREEN", "Pressed login");
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
-
+    /**
+     * Inflate the menu; this adds items to the action bar if it is present.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * an item was selected from the action bar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -68,17 +71,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
+    /**
+     * open register button upon register button pressed!
+     * @param w
+     */
     public void onRegisterButtonPressed(View w) {
         Log.d("OPENING SCREEN", "Pressed register");
         Intent intent = new Intent(this, RegistrationActivity.class);

@@ -18,14 +18,18 @@ import otto.*;
  */
 public class RegistrationActivity extends BusSubscriberActivity {
 
-    APIServiceInterface service;
+    APIServiceInterface apiService;
     boolean isRegistrationActive = true;
 
+    /**
+     * initialize view and apiService for making calls to the server using Retrofit
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        service = UserService.createService();
+        apiService = UserService.createService();
     }
 
     /**
@@ -48,7 +52,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
         if (password.equals(verifypassword)) {
             ProfileModel profile = new ProfileModel(name, -1); // NONEXISTENT ID
 
-            UserService.createUser(service, new UserModel(username, password, profile));
+            UserService.createUser(apiService, new UserModel(username, password, profile));
         } else {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -59,6 +63,10 @@ public class RegistrationActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * Asynchronously receive a successful usermodel upon successful user creation
+     * @param user
+     */
     @Subscribe
     public void getUserEvent(UserModel user) {
         if (isRegistrationActive) {
@@ -76,6 +84,10 @@ public class RegistrationActivity extends BusSubscriberActivity {
         }
     }
 
+    /**
+     * Asynchronously receive an errormodel upon unsuccessful user creation
+     * @param error
+     */
     @Subscribe public void getErrorEvent(ErrorModel error) {
         if (isRegistrationActive) {
             Toast toast = Toast.makeText(

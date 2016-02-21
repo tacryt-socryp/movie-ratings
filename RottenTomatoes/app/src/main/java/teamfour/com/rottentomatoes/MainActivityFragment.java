@@ -11,9 +11,19 @@ import android.view.ViewGroup;
  */
 public class MainActivityFragment extends Fragment {
 
+    /**
+     * initializer
+     */
     public MainActivityFragment() {
     }
 
+    /**
+     * inflate the fragment once the view is created
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
