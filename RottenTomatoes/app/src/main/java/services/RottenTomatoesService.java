@@ -1,5 +1,7 @@
 package services;
 
+import com.squareup.otto.Bus;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -8,18 +10,29 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * Created by wbtho on 2/20/2016.
  */
-public class RottenTomatoesService{
-    private final String API_KEY = "yedukp76ffytfuy24zsqk7f5";
-    private final String API_BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0.json?apikey=[" + API_KEY + "]";
-    private Retrofit retrofit;
-    private RottenTomatoesInterface service = retrofit.create(RottenTomatoesInterface.class);
+public class RottenTomatoesService {
+    private static final String API_BASE_URL = "http://api.rottentomatoes.com/api/public/";
+    private static RottenTomatoesInterface service = null;
+    static protected Bus bus;
 
-    public RottenTomatoesService() {
-        this.retrofit = new Retrofit.Builder().baseUrl(API_BASE_URL).build();
-
+    // initialize bus should occur before any of the other methods are called
+    // initBus occurs in App, only needs to happen once
+    public static void initBus(Bus newBus) {
+        bus = newBus;
     }
-    private String getApiURL(String relative) {
-        return API_BASE_URL + relative;
+
+    static public RottenTomatoesInterface getService() {
+        if (service == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(API_BASE_URL)
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
+
+            service = retrofit.create(RottenTomatoesInterface.class);
+            return service;
+        } else {
+            return service;
+        }
     }
 
 }

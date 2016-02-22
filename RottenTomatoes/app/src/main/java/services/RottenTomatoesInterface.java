@@ -1,20 +1,32 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.callback.Callback;
-
+import models.MovieModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import teamfour.com.rottentomatoes.Movie;
 
 /**
  * Created by wbtho on 2/20/2016.
  */
 public interface RottenTomatoesInterface {
-    @GET("movies")
-    void getSearch(String query, retrofit2.Callback<List<Movie>> callback);
-    //Call<List<Movies>> getSearch(@Path("title") String title);
+    String API_KEY = "yedukp76ffytfuy24zsqk7f5";
+    int resultsPerPage = 20;
+    // &page_limit={results-per-page}&page={page-number}
+
+    // @GET("v1.0.json/movies?apikey=" + API_KEY + "&page_limit=" + resultsPerPage)
+//    Call<ArrayList<MovieModel>> getSearch(
+//            @Query("q") String searchQuery,
+//            @Query("page") String pageNumber,
+//            @Query("page_limit") String pageLimit,
+//            @Query("apikey") String apiKey
+//    );
+    @GET("v1.0.json/movies?q={q}" + "&page_limit=" + resultsPerPage + "&page={page}" + "&apikey=" + API_KEY)
+    Call<ArrayList<MovieModel>> getSearch(
+            @Query("s") String searchQuery,
+            @Query("page") String pageNumber
+    );
 }

@@ -13,13 +13,13 @@ import otto.BusSubscriberActivity;
  * Created by wbtho on 2/21/2016.
  */
 public class SearchList extends BusSubscriberActivity {
-    private List<Movie> movieList;
+    // private List<Movie> movieList;
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.activity_search_list);
-        movieList = SearchActivity.movieList;
-        ArrayAdapter<Movie> adapter = new ArrayAdapter<Movie>(this, android.R.layout.activity_list_item, movieList);
-        ListView myList = (ListView) findViewById(R.id.listView);
+        // movieList = SearchActivity.movieList;
+        // ArrayAdapter<Movie> adapter = new ArrayAdapter<Movie>(this, android.R.layout.activity_list_item, movieList);
+        // ListView myList = (ListView) findViewById(R.id.listView);
     }
 }

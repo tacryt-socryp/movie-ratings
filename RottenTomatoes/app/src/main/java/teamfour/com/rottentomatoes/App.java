@@ -2,6 +2,7 @@ package teamfour.com.rottentomatoes;
 
 import services.APIService;
 import otto.BusSingleton;
+import services.RottenTomatoesService;
 
 
 /**
@@ -20,6 +21,7 @@ public class App extends android.app.Application {
         // here we are initializing bus singleton (this should only happen once!)
         new BusSingleton(this.getApplicationContext());
         APIService.initBus(BusSingleton.get());
+        RottenTomatoesService.initBus(BusSingleton.get());
     }
 
 }

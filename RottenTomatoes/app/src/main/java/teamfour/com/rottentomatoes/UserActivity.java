@@ -63,19 +63,16 @@ public class UserActivity extends BusSubscriberActivity {
         startActivity(intent);
     }
 
-<<<<<<< HEAD
     public void onSearchButtonPressed(View w) {
         Log.d("USER ACTIVITY", "Pressed Search");
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
 
-=======
     /**
      * Asynchronously receive a successful usermodel upon successful user get
      * @param user
      */
->>>>>>> origin/master
     @Subscribe
     public void getUserEvent(UserModel user) {
         if (userActivityActive) {
