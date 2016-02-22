@@ -1,25 +1,19 @@
 package teamfour.com.rottentomatoes;
 
-import models.MovieModel;
-import models.UserModel;
-import retrofit2.Retrofit;
-import services.*;
-import otto.*;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import java.util.ArrayList;
-import java.util.List;
+
+import models.MovieModel;
+import otto.BusSubscriberActivity;
+import services.MovieService;
+import services.RottenTomatoesInterface;
+import services.RottenTomatoesService;
 
 
 
@@ -48,6 +42,16 @@ public class SearchActivity extends BusSubscriberActivity {
 
         // when user scrolls down to the bottom, call an event that iterates this number!
         MovieService.searchMovies(service, search, String.valueOf(pageNumber));
+    }
+
+    public void pressedRecentReleases(View view)
+    {
+        MovieService.getRecentReleases(service);
+    }
+
+    public void pressedInTheatres(View view)
+    {
+        MovieService.getInTheatres(service);
     }
 
     /**

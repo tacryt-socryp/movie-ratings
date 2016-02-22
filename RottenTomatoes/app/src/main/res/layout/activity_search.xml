@@ -19,4 +19,22 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.10"
         android:onClick="pressedSearch" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="View In Theatres!"
+        android:id="@+id/theatres"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.10"
+        android:onClick="pressedInTheatres" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="View Recent Releases!"
+        android:id="@+id/releases"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.10"
+        android:onClick="pressedRecentReleases" />
 </LinearLayout>

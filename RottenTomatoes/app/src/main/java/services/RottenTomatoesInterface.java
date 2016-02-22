@@ -1,12 +1,10 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import models.MovieModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -26,7 +24,13 @@ public interface RottenTomatoesInterface {
 //    );
     @GET("v1.0.json/movies?q={q}" + "&page_limit=" + resultsPerPage + "&page={page}" + "&apikey=" + API_KEY)
     Call<ArrayList<MovieModel>> getSearch(
-            @Query("s") String searchQuery,
+            @Query("q") String searchQuery,
             @Query("page") String pageNumber
     );
+
+    @GET("v1.0/lists/dvds/new_releases.json?apikey=" + API_KEY)
+    Call<ArrayList<MovieModel>> getNewReleases();
+
+    @GET("v1.0/lists/movies/in_theatres.json?apikey=" + API_KEY)
+    Call<ArrayList<MovieModel>> getInTheatres();
 }
