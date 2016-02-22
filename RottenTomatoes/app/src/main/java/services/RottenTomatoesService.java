@@ -2,7 +2,6 @@ package services;
 
 import com.squareup.otto.Bus;
 
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -11,7 +10,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  * Created by wbtho on 2/20/2016.
  */
 public class RottenTomatoesService {
-    private static final String API_BASE_URL = "http://api.rottentomatoes.com/api/public/";
+    private static final String API_BASE_URL = "http://www.omdbapi.com/?";
+    //private static final String API_BASE_URL = "http://api.rottentomatoes.com/api/public/";
     private static RottenTomatoesInterface service = null;
     static protected Bus bus;
 
@@ -34,5 +34,4 @@ public class RottenTomatoesService {
             return service;
         }
     }
-
 }

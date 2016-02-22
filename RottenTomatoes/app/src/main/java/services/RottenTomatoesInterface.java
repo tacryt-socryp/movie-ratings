@@ -22,15 +22,17 @@ public interface RottenTomatoesInterface {
 //            @Query("page_limit") String pageLimit,
 //            @Query("apikey") String apiKey
 //    );
-    @GET("v1.0.json/movies?q={q}" + "&page_limit=" + resultsPerPage + "&page={page}" + "&apikey=" + API_KEY)
+//    @GET("v1.0/movies.json?q={q}" + "&page_limit=" + resultsPerPage + "&page={page}" + "&apikey=" + API_KEY)
+//    Call<ArrayList<MovieModel>> getSearch(
+//            @Query("s") String searchQuery,
+//            @Query("page") String pageNumber
+//    );
+    //@GET("t={t}" + "&y= {y}" + "&plot={plot}" + "&r={r}")
+    @GET("t={t}")
     Call<ArrayList<MovieModel>> getSearch(
-            @Query("q") String searchQuery,
-            @Query("page") String pageNumber
+            @Query("t") String searchQuery
+//            @Query("y") String year,
+//            @Query("plot") String plot,
+//            @Query("r") String returnType
     );
-
-    @GET("v1.0/lists/dvds/new_releases.json?apikey=" + API_KEY)
-    Call<ArrayList<MovieModel>> getNewReleases();
-
-    @GET("v1.0/lists/movies/in_theatres.json?apikey=" + API_KEY)
-    Call<ArrayList<MovieModel>> getInTheatres();
 }

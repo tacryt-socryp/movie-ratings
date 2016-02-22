@@ -24,7 +24,7 @@ public class SearchActivity extends BusSubscriberActivity {
 
     RottenTomatoesInterface service;
     boolean isSearchActive = true;
-    int pageNumber = 0;
+    //int pageNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
@@ -41,17 +41,7 @@ public class SearchActivity extends BusSubscriberActivity {
         String search = query.toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
-        MovieService.searchMovies(service, search, String.valueOf(pageNumber));
-    }
-
-    public void pressedRecentReleases(View view)
-    {
-        MovieService.getRecentReleases(service);
-    }
-
-    public void pressedInTheatres(View view)
-    {
-        MovieService.getInTheatres(service);
+        MovieService.searchMovies(service, search);
     }
 
     /**
@@ -71,7 +61,4 @@ public class SearchActivity extends BusSubscriberActivity {
             // TODO: set the list using movies
         }
     }
-
-
-
 }
