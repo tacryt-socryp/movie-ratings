@@ -1,19 +1,19 @@
 package teamfour.com.rottentomatoes;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import services.*;
-import models.*;
-import otto.*;
-
 import com.squareup.otto.Subscribe;
+
+import models.ErrorModel;
+import models.UserModel;
+import otto.BusSubscriberActivity;
+import services.APIServiceInterface;
+import services.UserService;
 
 /**
  * Created by EstellaD on 2/5/16.

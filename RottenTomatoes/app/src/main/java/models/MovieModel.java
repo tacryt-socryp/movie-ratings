@@ -9,11 +9,65 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by logan on 2/21/16.
  */
 public class MovieModel implements Parcelable {
-    @JsonProperty("title")
+    @JsonProperty("Title")
     public String title;
 
-    @JsonProperty("year")
+    @JsonProperty("Year")
     public String year;
+
+    @JsonProperty("Rated")
+    public String rated;
+
+    @JsonProperty("Released")
+    public String released;
+
+    @JsonProperty("Runtime")
+    public String runtime;
+
+    @JsonProperty("Genre")
+    public String genre;
+
+    @JsonProperty("Director")
+    public String director;
+
+    @JsonProperty("Writer")
+    public String writer;
+
+    @JsonProperty("Actors")
+    public String actors;
+
+    @JsonProperty("Plot")
+    public String plot;
+
+    @JsonProperty("Language")
+    public String lang;
+
+    @JsonProperty("Country")
+    public String country;
+
+    @JsonProperty("Awards")
+    public String awards;
+
+    @JsonProperty("Poster")
+    public String poster;
+
+    @JsonProperty("Metascore")
+    public String metascore;
+
+    @JsonProperty("imdbRating")
+    public String imdbrating;
+
+    @JsonProperty("imdbVotes")
+    public String imdbvotes;
+
+    @JsonProperty("imdbID")
+    public String imdbid;
+
+    @JsonProperty("Type")
+    public String type;
+
+    @JsonProperty("Response")
+    public String response;
 
     // TODO: implement Parcelable!
 
@@ -60,6 +114,21 @@ public class MovieModel implements Parcelable {
             return new MovieModel[size];
         }
     };
+
+    public String getTitle()
+    {
+        return this.title;
+    }
+
+    public String getYear()
+    {
+        return this.year;
+    }
+
+    public String getGenre()
+    {
+        return this.genre;
+    }
 
     public MovieModel() {}
 }

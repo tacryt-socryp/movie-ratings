@@ -1,13 +1,13 @@
 package teamfour.com.rottentomatoes;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
-
-import java.util.ArrayList;
 
 import models.MovieModel;
 import otto.BusSubscriberActivity;
@@ -38,18 +38,19 @@ public class SearchActivity extends BusSubscriberActivity {
 
     public void pressedSearch(View view) {
         EditText query = (EditText) findViewById(R.id.SearchQuery);
-        String search = query.toString();
+        String search = query.getText().toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
+        Log.d("PRESSED SEARCH", "search is " + search);
         MovieService.searchMovies(service, search);
     }
 
     /**
      * Asynchronously receive list of movies upon successful movie search
-     * @param movies
+     * @param movie
      */
     @Subscribe
-    public void getMoviesEvent(ArrayList<MovieModel> movies) {
+    public void getMoviesEvent(MovieModel movie) {
         if (isSearchActive) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -59,6 +60,10 @@ public class SearchActivity extends BusSubscriberActivity {
             toast.show();
 
             // TODO: set the list using movies
+
+            TextView results = (TextView) findViewById(R.id.searchresult);
+            results.setText("Title: " + movie.getTitle() + "\n" + "Year Released: " + movie.getYear()
+            + "\n" + "Genre: " + movie.getGenre());
         }
     }
 }
