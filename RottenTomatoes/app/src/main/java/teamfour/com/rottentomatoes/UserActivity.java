@@ -2,7 +2,6 @@ package teamfour.com.rottentomatoes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -63,6 +62,10 @@ public class UserActivity extends BusSubscriberActivity {
         startActivity(intent);
     }
 
+    /**
+     * navigates to search activity screen
+     * @param w
+     */
     public void onSearchButtonPressed(View w) {
         Log.d("USER ACTIVITY", "Pressed Search");
         Intent intent = new Intent(this, SearchActivity.class);

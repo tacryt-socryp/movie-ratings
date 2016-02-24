@@ -11,8 +11,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 public class RottenTomatoesService {
     private static final String API_BASE_URL = "http://www.omdbapi.com/";
-    //private static final String API_BASE_URL = "http://www.omdbapi.com/?";
-    //private static final String API_BASE_URL = "http://api.rottentomatoes.com/api/public/";
     private static RottenTomatoesInterface service = null;
     static protected Bus bus;
 

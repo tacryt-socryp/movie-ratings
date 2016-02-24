@@ -105,6 +105,7 @@ public class MovieModel implements Parcelable {
                 //Integer.toString(this.profile.profileID, 10)
         });
     }
+
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MovieModel createFromParcel(Parcel in) {
             return new MovieModel(in);
@@ -115,20 +116,35 @@ public class MovieModel implements Parcelable {
         }
     };
 
+    /**
+     * Get movie title
+     * @return title
+     */
     public String getTitle()
     {
         return this.title;
     }
 
+    /**
+     * Get year movie was released
+     * @return year
+     */
     public String getYear()
     {
         return this.year;
     }
 
+    /**
+     * Get movie genre
+     * @return genre
+     */
     public String getGenre()
     {
         return this.genre;
     }
 
+    /**
+     * Empty movie model constructor
+     */
     public MovieModel() {}
 }

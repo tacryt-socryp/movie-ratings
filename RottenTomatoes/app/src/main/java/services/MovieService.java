@@ -12,8 +12,6 @@ import retrofit2.Response;
  */
 public class MovieService extends RottenTomatoesService {
 
-    //static String API_KEY = "yedukp76ffytfuy24zsqk7f5";
-
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
      * @param service
@@ -23,10 +21,8 @@ public class MovieService extends RottenTomatoesService {
         Log.d("IN MOVIE SERVICE", "searching for movies...");
         Log.d("SEARCHING FOR", searchTitle);
         service.getSearch(searchTitle).enqueue(
-                //new Callback<ArrayList<MovieModel>>() {
                 new Callback<MovieModel>() {
                     @Override
-                    //public void onResponse(Call<ArrayList<MovieModel>> call, Response<ArrayList<MovieModel>> response) {
                     public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
                         Log.d("tomatoesCall", String.valueOf(response.code()) + ", " + response.message());
                         if (response.isSuccess()) {
@@ -39,7 +35,6 @@ public class MovieService extends RottenTomatoesService {
                     }
 
                     @Override
-                    //public void onFailure(Call<ArrayList<MovieModel>> call, Throwable t) {
                     public void onFailure(Call<MovieModel> call, Throwable t) {
                         Log.d("serviceCall", "got a failure!");
                         Log.d("serviceCall", t.toString());

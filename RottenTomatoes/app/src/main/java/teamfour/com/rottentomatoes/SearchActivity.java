@@ -15,8 +15,6 @@ import services.MovieService;
 import services.RottenTomatoesInterface;
 import services.RottenTomatoesService;
 
-
-
 /**
  * Created by wbtho on 2/20/2016.
  */
@@ -24,7 +22,6 @@ public class SearchActivity extends BusSubscriberActivity {
 
     RottenTomatoesInterface service;
     boolean isSearchActive = true;
-    //int pageNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
@@ -36,6 +33,10 @@ public class SearchActivity extends BusSubscriberActivity {
 
     // TODO: On pause, make this inactive
 
+    /**
+     * Press search to receive a movie that fits your query
+     * @param view
+     */
     public void pressedSearch(View view) {
         EditText query = (EditText) findViewById(R.id.SearchQuery);
         String search = query.getText().toString();
@@ -58,8 +59,6 @@ public class SearchActivity extends BusSubscriberActivity {
                     Toast.LENGTH_SHORT
             );
             toast.show();
-
-            // TODO: set the list using movies
 
             TextView results = (TextView) findViewById(R.id.searchresult);
             results.setText("Title: " + movie.getTitle() + "\n" + "Year Released: " + movie.getYear()
