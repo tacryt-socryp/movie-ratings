@@ -20,6 +20,40 @@ consumes:
 produces:
   - application/json
 paths:
+  /ratings:
+    x-swagger-router-controller: ratings
+    post:
+      description: creates a rating for a movie
+      operationId: createRating
+      consumes:
+        - application/json
+      parameters:
+        - name: rating
+          in: body
+          description: Rating of movie, text of rating, and movie Title
+          required: true
+          schema:
+            $ref: '#/definitions/Rating'
+    get:
+      description: gets all ratings for a particular movie Title
+      operationId: getRatings
+      parameters:
+        - name: movieTitle
+          in: path
+          description: movieTitle to fetch ratings for
+          required: true
+          type: string
+      responses:
+        200:
+          description: ratings response
+          schema:
+            type: 'array'
+            items:
+              $ref: '#/definitions/Ratings'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /users:
     x-swagger-router-controller: users
     post:
@@ -146,6 +180,21 @@ definitions:
         type: string
       profileID:
         type: integer
+  Rating:
+    required:
+      - rating
+      - text
+      - movieTitle
+      - user
+    properties:
+      rating:
+        type: integer
+      text:
+        type: string
+      movieTitle:
+        type: string
+      user:
+        type: string
   Error:
     required:
       - message

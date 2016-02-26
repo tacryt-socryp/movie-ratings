@@ -117,33 +117,6 @@ public class MovieModel implements Parcelable {
         }
     };
 
-    /**
-     * Get movie title
-     * @return title
-     */
-    public String getTitle()
-    {
-        return this.title;
-    }
-
-    /**
-     * Get year movie was released
-     * @return year
-     */
-    public String getYear()
-    {
-        return this.year;
-    }
-
-    /**
-     * Get movie genre
-     * @return genre
-     */
-    public String getGenre()
-    {
-        return this.genre;
-    }
-
     public String toString() {
         return title + "\n" + year + "\n";
     }
