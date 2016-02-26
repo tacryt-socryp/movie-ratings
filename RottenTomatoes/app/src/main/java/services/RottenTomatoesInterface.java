@@ -1,6 +1,6 @@
 package services;
 
-import models.MovieModel;
+import models.MovieListModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -13,10 +13,10 @@ public interface RottenTomatoesInterface {
     /**
      * Get search method to connect with omdb api
      * @param searchQuery
-     * @return
+     * @return MovieListModel
      */
     @GET("?")
-    Call<MovieModel> getSearch(
-            @Query("t") String searchQuery
+    Call<MovieListModel> getSearch(
+            @Query("s") String searchQuery
     );
 }

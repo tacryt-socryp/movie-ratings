@@ -3,12 +3,14 @@ package teamfour.com.rottentomatoes;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import models.MovieListModel;
 import models.MovieModel;
 import otto.BusSubscriberActivity;
 import services.MovieService;
@@ -31,8 +33,6 @@ public class SearchActivity extends BusSubscriberActivity {
         service = RottenTomatoesService.getService();
     }
 
-    // TODO: On pause, make this inactive
-
     /**
      * Press search to receive a movie that fits your query
      * @param view
@@ -48,10 +48,10 @@ public class SearchActivity extends BusSubscriberActivity {
 
     /**
      * Asynchronously receive list of movies upon successful movie search
-     * @param movie
+     * @param list
      */
     @Subscribe
-    public void getMoviesEvent(MovieModel movie) {
+    public void getMoviesEvent(MovieListModel list) {
         if (isSearchActive) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -60,9 +60,16 @@ public class SearchActivity extends BusSubscriberActivity {
             );
             toast.show();
 
-            TextView results = (TextView) findViewById(R.id.searchresult);
-            results.setText("Title: " + movie.getTitle() + "\n" + "Year Released: " + movie.getYear()
-            + "\n" + "Genre: " + movie.getGenre());
+            String arr[] = new String[list.movies.size()];
+
+            int i = 0;
+            for (MovieModel x: list.movies) {
+                arr[i] = x.toString();
+                i++;
+            }
+
+            ListView lv= (ListView) findViewById(R.id.listView2);
+            lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr));
         }
     }
 }

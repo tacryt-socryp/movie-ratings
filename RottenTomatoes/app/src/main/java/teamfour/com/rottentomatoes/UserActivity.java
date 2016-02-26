@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,17 +38,12 @@ public class UserActivity extends BusSubscriberActivity {
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         configureView();
     }
-
-    /**
-     * simple test to see if edit profile works
-     * @param view
-     */
-    public void onEditTestPressed(View view) {
-        EditText nameField = (EditText) findViewById(R.id.editNameForEdit);
-        if (currentUser != null) {
-            currentUser.profile.name = nameField.getText().toString();
-            UserService.updateUser(service, currentUser);
-        }
+    
+    public void onEditProfileButtonPressed(View view) {
+        Log.d("USER ACTIVITY", "Edit Profile Button Pressed");
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra("user", currentUser);
+        startActivity(intent);
     }
 
     /**

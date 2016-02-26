@@ -22,7 +22,8 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/activity_login"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme">
+        </activity>
         <activity
             android:name=".UserActivity"
             android:label="@string/activity_user"
@@ -39,11 +40,10 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".SearchList"
-            android:label="activity_search_list"
+            android:name=".ProfileActivity"
+            android:label="activity_profile"
             android:theme="@style/AppTheme">
         </activity>
-
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

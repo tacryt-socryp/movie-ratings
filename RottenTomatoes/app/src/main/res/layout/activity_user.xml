@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:text="Logout"
         android:id="@+id/logoutbutton"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="right"
         android:onClick="onLogoutButtonPressed"/>
 
     <TextView
@@ -19,29 +19,19 @@
         android:id="@+id/ProfileNameLabel"
         android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/editNameForEdit"
-        android:layout_below="@+id/ProfileNameLabel"
-        android:password="false" />
-
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Test"
-        android:id="@+id/editTest"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onEditTestPressed"/>
-
-    <Button
-        android:layout_width="wrap_content"
+        android:layout_width="364dp"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/searchbutton"
         android:layout_gravity="center_horizontal"
         android:onClick="onSearchButtonPressed" />
+
+    <Button
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:id="@+id/editprofile"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onEditProfileButtonPressed" />
 </LinearLayout>
