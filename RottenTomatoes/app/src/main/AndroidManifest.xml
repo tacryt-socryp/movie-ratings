@@ -44,6 +44,11 @@
             android:label="activity_profile"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".MovieActivity"
+            android:label="activity_movie"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

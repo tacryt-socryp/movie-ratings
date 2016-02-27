@@ -18,17 +18,19 @@ module.exports = {
 function createRating(req, res) {
   var rating = req.swagger.params.rating.value;
   var text = database.escapeStringForSQL(rating.text);
-  var ratingNum = Integer.parseInt(rating.rating, 10);
+  var ratingNum = parseInt(rating.rating, 10);
   var movieTitle = database.escapeStringForSQL(rating.movieTitle);
   var user = rating.user;
+  console.log(rating.movieTitle);
   
   if (isValid(rating)) {
 
     var db = database.openDatabase();
     db.serialize(function () {
 
-      db.run("INSERT INTO Ratings VALUES(null, '" + movieTitle + "', '" +
-             user + "', " + ratingNum + ", '" + text + "')",
+      console.log()
+      db.run("INSERT INTO Ratings VALUES(null, " + ratingNum + ", '" +
+             text + "', '" + movieTitle + "', '" + user + "')",
              function(err) {
         if (err) {
           console.log(err);
@@ -40,6 +42,7 @@ function createRating(req, res) {
             var ratingID = this.lastID;
             res.json(201, {
               ratingID: ratingID,
+              rating: ratingNum,
               text: text,
               movieTitle: movieTitle,
               user: user

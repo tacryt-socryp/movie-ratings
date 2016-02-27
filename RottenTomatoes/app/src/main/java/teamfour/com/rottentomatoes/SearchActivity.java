@@ -18,6 +18,7 @@ import java.util.List;
 import models.MovieListModel;
 import models.MovieModel;
 import models.RatingModel;
+import models.UserModel;
 import otto.BusSubscriberActivity;
 import services.APIService;
 import services.APIServiceInterface;
@@ -34,12 +35,14 @@ public class SearchActivity extends BusSubscriberActivity {
 
     RottenTomatoesInterface tomatoService;
     boolean isSearchActive = true;
+    private UserModel currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.activity_search);
 
+        currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         tomatoService = RottenTomatoesService.getService();
     }
 
@@ -70,8 +73,10 @@ public class SearchActivity extends BusSubscriberActivity {
             );
             toast.show();
 
+            final Activity self = this;
             ListView lv= (ListView) findViewById(R.id.listView2);
-            lv.setAdapter(new MovieListAdapter(this, list.movies));
+            MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
+            lv.setAdapter(adapter);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -80,18 +85,16 @@ public class SearchActivity extends BusSubscriberActivity {
                     MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
                     Log.d("movieModel", item.toString());
 
-                    // Intent intent = new Intent(Activity.this, destinationActivity.class);
-                    // startActivity(intent);
+                    Intent intent = new Intent(self, MovieActivity.class);
+                    MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
+                    intent.putExtra("movie", movieExtra);
+                    intent.putExtra("ratings", movieExtra.ratings);
+                    intent.putExtra("user", currentUser);
+                    startActivity(intent);
 
                 }
 
             });
         }
-    }
-
-
-    public void onPressMovieItem(View view) {
-
-
     }
 }

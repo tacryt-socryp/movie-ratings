@@ -43,6 +43,7 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
+            
   /ratings/{movieTitle}:
     x-swagger-router-controller: ratings
     get:

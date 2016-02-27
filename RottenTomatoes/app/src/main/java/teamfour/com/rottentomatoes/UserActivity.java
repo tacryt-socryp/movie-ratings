@@ -63,6 +63,7 @@ public class UserActivity extends BusSubscriberActivity {
     public void onSearchButtonPressed(View w) {
         Log.d("USER ACTIVITY", "Pressed Search");
         Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("user", currentUser);
         startActivity(intent);
     }
 

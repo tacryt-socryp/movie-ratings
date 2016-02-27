@@ -14,13 +14,11 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 import models.MovieModel;
-import models.RatingModel;
 import models.RatingsModel;
 import otto.BusSingleton;
 import services.APIServiceInterface;
 import services.RatingService;
 
-import java.util.Hashtable;
 
 /**
  * Created by logan on 2/27/16.
