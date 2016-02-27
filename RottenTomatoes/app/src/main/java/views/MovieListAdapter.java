@@ -29,13 +29,11 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
     private Bus bus;
     APIServiceInterface ratingService;
     private List<MovieModel> movieModels;
-    private Hashtable<String, Integer> movieTitleToPosition;
 
     public MovieListAdapter(Context c, List<MovieModel> items) {
         super(c, 0, items);
         ratingService = RatingService.getService();
         movieModels = items;
-        movieTitleToPosition = new Hashtable<String, Integer>();
 
         bus = BusSingleton.get();
         // subscribe to new events!
@@ -54,7 +52,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
         MovieModel movie;
         for (int x = 0; x < this.getCount(); x++) {
             movie = this.getItem(x);
-            if (movie.title == ratings.movieTitle) {
+            if (movie.title.equals(ratings.movieTitle)) {
                 movie.ratings = ratings.ratings;
                 this.notifyDataSetChanged();
                 x = this.getCount();
@@ -79,20 +77,10 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MovieModel movieModel = this.getItem(position);
-        if (movieTitleToPosition.containsKey(movieModel.title)) {
-            movieTitleToPosition.remove(movieModel.title);
-        }
-
-        movieTitleToPosition.put(movieModel.title.toString(), position);
-
-
         MovieListItemView itemView = (MovieListItemView)convertView;
         if (null == itemView) itemView = MovieListItemView.inflate(parent);
         itemView.setMovie(getItem(position));
-        if (movieModel.ratings != null) {
-            itemView.setRatings(movieModel.ratings);
-        }
+        itemView.setRatings(getItem(position).ratings);
         return itemView;
     }
 

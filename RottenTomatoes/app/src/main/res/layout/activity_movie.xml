@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <EditText
+        android:id="@+id/ratingNumber"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rating 1-5"
+        android:inputType="number" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="How was the movie?"
+        android:id="@+id/RatingText" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate Movie"
+        android:id="@+id/PressedSearch"
+        android:layout_gravity="center_horizontal"
+        android:onClick="pressedRateMovie" />
+
+    <ListView
+        android:layout_width="340dp"
+        android:layout_height="391dp"
+        android:id="@+id/ratingListView"
+        android:fastScrollEnabled="true"
+        />
+
+</LinearLayout>

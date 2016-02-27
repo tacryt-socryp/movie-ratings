@@ -39,22 +39,26 @@ public class MovieListItemView extends RelativeLayout {
     }
 
     public void setMovie(MovieModel movieModel) {
-        movie = movieModel;
-        titleTextView.setText(movieModel.title);
-        yearTextView.setText(movieModel.year);
+        if (movieModel != null) {
+            movie = movieModel;
+            titleTextView.setText(movieModel.title);
+            yearTextView.setText(movieModel.year);
+        }
     }
 
     public void setRatings(RatingModel[] ratingModels) {
-        ratings = ratingModels;
-        float avgRating = 0;
-        if (ratings != null && ratings.length > 0) {
-            for (RatingModel rating: ratings) {
-                avgRating += rating.rating;
+        if (ratingModels != null) {
+            ratings = ratingModels;
+            float avgRating = 0;
+            if (ratings != null && ratings.length > 0) {
+                for (RatingModel rating: ratings) {
+                    avgRating += rating.rating;
+                }
+                avgRating = avgRating / ratings.length;
             }
-            avgRating = avgRating / ratings.length;
-        }
 
-        ratingTextView.setText(String.valueOf(avgRating));
+            ratingTextView.setText(String.valueOf(avgRating));
+        }
     }
 
     public static MovieListItemView inflate(ViewGroup parent) {
