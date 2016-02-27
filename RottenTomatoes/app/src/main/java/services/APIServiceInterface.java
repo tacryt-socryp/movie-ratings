@@ -54,6 +54,22 @@ public interface APIServiceInterface {
     Call<UserModel> deleteUser(@Path("username") String username, @Header("password") String password);
 
 
+    /**
+     * get list of movie ratings for a movie title
+     * @param movieTitle
+     * @return
+     */
+    @GET("ratings/{movieTitle}")
+    Call<RatingModel> getRatings(@Path("movieTitle") String movieTitle);
+
+
+    /**
+     * Create a rating on the server from a rating model
+     * @param rating
+     * @return
+     */
+    @POST("ratings")
+    Call<RatingModel> createRating(@Body RatingModel rating);
 
 }
 

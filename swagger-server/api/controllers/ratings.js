@@ -5,7 +5,8 @@ var isValid = database.isValid;
 var getProfileFromParams = database.getProfileFromParams;
 
 module.exports = {
-  createRating: createRating
+  createRating: createRating,
+  getRatings: getRatings
 };
 
 /*
@@ -49,5 +50,41 @@ function createRating(req, res) {
     });
   } else {
     res.json(400, { message: "Sent an invalid create request." });
+  }
+}
+
+function getRatings(req, res) {
+  // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
+  var movieTitle = database.escapeStringForSQL(req.swagger.params.movieTitle.value);
+  var db = database.openDatabase();
+  
+  if (isValid(movieTitle)) {
+    
+     db.serialize(function() {
+      db.get("SELECT * FROM Ratings WHERE movieTitle IS '" + movieTitle + "'", function(err, rows) {
+        if (err) {
+          console.log(err);
+          res.json(400, { message: "Records not found for get request." });
+        } else if (!isValid(row)) {
+            res.json(400, { message: "Records do not exist." });
+        } else {
+          var ratings = rows.map(function(row) {
+            return {
+              ratingID: row.ratingID,
+              text: row.text,
+              movieTitle: row.movieTitle,
+              user: row.user
+            };
+          });
+          
+          res.json(200, {
+            ratings: ratings
+          });
+        }
+      });
+    });
+    
+  } else {
+    res.json(400, { message: "Sent an invalid username for get request." });
   }
 }

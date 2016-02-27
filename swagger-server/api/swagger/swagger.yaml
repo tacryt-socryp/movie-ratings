@@ -34,6 +34,16 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Rating'
+      responses:
+        201:
+          description: rating created
+          schema:
+            $ref: '#/definitions/Rating'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /ratings/{movieTitle}:
     get:
       description: gets all ratings for a particular movie Title
       operationId: getRatings
@@ -47,9 +57,7 @@ paths:
         200:
           description: ratings response
           schema:
-            type: 'array'
-            items:
-              $ref: '#/definitions/Ratings'
+            $ref: '#/definitions/Ratings'
         default:
           description: unexpected error
           schema:
@@ -195,6 +203,14 @@ definitions:
         type: string
       user:
         type: string
+  Ratings:
+    required:
+      - ratings
+    properties:
+      ratings:
+        type: array
+        items:
+          $ref: '#/definitions/Rating'
   Error:
     required:
       - message
