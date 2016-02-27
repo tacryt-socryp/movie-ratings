@@ -1,8 +1,11 @@
 package teamfour.com.rottentomatoes;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -10,19 +13,26 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.List;
+
 import models.MovieListModel;
 import models.MovieModel;
+import models.RatingModel;
 import otto.BusSubscriberActivity;
+import services.APIService;
+import services.APIServiceInterface;
 import services.MovieService;
+import services.RatingService;
 import services.RottenTomatoesInterface;
 import services.RottenTomatoesService;
+import views.MovieListAdapter;
 
 /**
  * Created by wbtho on 2/20/2016.
  */
 public class SearchActivity extends BusSubscriberActivity {
 
-    RottenTomatoesInterface service;
+    RottenTomatoesInterface tomatoService;
     boolean isSearchActive = true;
 
     @Override
@@ -30,7 +40,7 @@ public class SearchActivity extends BusSubscriberActivity {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.activity_search);
 
-        service = RottenTomatoesService.getService();
+        tomatoService = RottenTomatoesService.getService();
     }
 
     /**
@@ -43,7 +53,7 @@ public class SearchActivity extends BusSubscriberActivity {
 
         // when user scrolls down to the bottom, call an event that iterates this number!
         Log.d("PRESSED SEARCH", "search is " + search);
-        MovieService.searchMovies(service, search);
+        MovieService.searchMovies(tomatoService, search);
     }
 
     /**
@@ -60,16 +70,28 @@ public class SearchActivity extends BusSubscriberActivity {
             );
             toast.show();
 
-            String arr[] = new String[list.movies.size()];
-
-            int i = 0;
-            for (MovieModel x: list.movies) {
-                arr[i] = x.toString();
-                i++;
-            }
-
             ListView lv= (ListView) findViewById(R.id.listView2);
-            lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arr));
+            lv.setAdapter(new MovieListAdapter(this, list.movies));
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+
+                    MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
+                    Log.d("movieModel", item.toString());
+
+                    // Intent intent = new Intent(Activity.this, destinationActivity.class);
+                    // startActivity(intent);
+
+                }
+
+            });
         }
+    }
+
+
+    public void onPressMovieItem(View view) {
+
+
     }
 }

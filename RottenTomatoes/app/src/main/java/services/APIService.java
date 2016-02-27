@@ -19,6 +19,7 @@ public class APIService {
 
     // we use this to publish changes to other objects
     static protected Bus bus;
+    static protected APIServiceInterface service = null;
     static protected String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
     // initialize bus should occur before any of the other methods are called
@@ -31,13 +32,16 @@ public class APIService {
      * createService creates a Retrofit service for interacting with the team's REST API
      * @return APIServiceInterface
      */
-    public static APIServiceInterface createService() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
+    public static APIServiceInterface getService() {
+        if (service == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
 
-        APIServiceInterface service = retrofit.create(APIServiceInterface.class);
+            service = retrofit.create(APIServiceInterface.class);
+        }
+
         return service;
     }
 

@@ -70,6 +70,8 @@ public class MovieModel implements Parcelable {
     @JsonProperty("Response")
     public String response;
 
+    public RatingModel[] ratings;
+
     // TODO: implement Parcelable!
 
     /**
@@ -82,6 +84,7 @@ public class MovieModel implements Parcelable {
         in.readStringArray(data);
         this.title = data[0];
         this.year = data[1];
+
     }
     /**
      * stub function, idk, it's required

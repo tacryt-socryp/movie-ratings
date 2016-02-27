@@ -34,7 +34,7 @@ public class UserActivity extends BusSubscriberActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        service = UserService.createService();
+        service = UserService.getService();
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         configureView();
     }

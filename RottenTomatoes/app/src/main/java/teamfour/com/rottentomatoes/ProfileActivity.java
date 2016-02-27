@@ -26,7 +26,7 @@ public class ProfileActivity extends BusSubscriberActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        service = UserService.createService();
+        service = UserService.getService();
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
     }
 

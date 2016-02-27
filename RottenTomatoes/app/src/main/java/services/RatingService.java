@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import models.ErrorModel;
 import models.RatingModel;
+import models.RatingsModel;
 import models.UserModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -72,9 +73,9 @@ public class RatingService extends APIService {
      */
     public static void getRatings(APIServiceInterface service, String movieTitle) {
         service.getRatings(movieTitle).enqueue(
-                new Callback<RatingModel>() {
+                new Callback<RatingsModel>() {
                     @Override
-                    public void onResponse(Call<RatingModel> call, Response<RatingModel> response) {
+                    public void onResponse(Call<RatingsModel> call, Response<RatingsModel> response) {
                         Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
@@ -85,7 +86,7 @@ public class RatingService extends APIService {
                     }
 
                     @Override
-                    public void onFailure(Call<RatingModel> call, Throwable t) {
+                    public void onFailure(Call<RatingsModel> call, Throwable t) {
                         Log.d("serviceCall", "got a failure!");
                         Log.d("serviceCall", t.toString());
                         Log.d("serviceCall", t.getMessage());

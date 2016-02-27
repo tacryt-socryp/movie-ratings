@@ -32,11 +32,25 @@ function getUser(req, res) {
           res.json(400, { message: "Record not found for get request." });
         } else if (!isValid(row)) {
             res.json(400, { message: "Record does not exist." });
+        } else if (row.password !== password) {
+            res.json(403, { message: "Incorrect password." });
         } else {
-          console.log(row);
-
-          res.json(200, {
-            ratings: row
+          db.get("SELECT * FROM Profiles WHERE profileID IS '" + row.profile + "' LIMIT 1", function(err, row1) {
+            if (err) {
+              console.log(err);
+              res.json(400, { message: "Record not found for get request." });
+            } else if (!isValid(row1)) {
+                res.json(400, { message: "Record does not exist." });
+            } else {
+              res.json(200, {
+                username: row.username,
+                password: row.password,
+                profile: {
+                  name: row1.name,
+                  profileID: row1.profileID
+                }
+              });
+            }
           });
         }
       });

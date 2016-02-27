@@ -60,7 +60,7 @@ public interface APIServiceInterface {
      * @return
      */
     @GET("ratings/{movieTitle}")
-    Call<RatingModel> getRatings(@Path("movieTitle") String movieTitle);
+    Call<RatingsModel> getRatings(@Path("movieTitle") String movieTitle);
 
 
     /**

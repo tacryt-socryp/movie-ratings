@@ -21,7 +21,7 @@ produces:
   - application/json
 paths:
   /ratings:
-    x-swagger-router-controller: ratings
+    x-swagger-router-controller: rating
     post:
       description: creates a rating for a movie
       operationId: createRating
@@ -44,6 +44,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
   /ratings/{movieTitle}:
+    x-swagger-router-controller: ratings
     get:
       description: gets all ratings for a particular movie Title
       operationId: getRatings
@@ -206,11 +207,14 @@ definitions:
   Ratings:
     required:
       - ratings
+      - movieTitle
     properties:
       ratings:
         type: array
         items:
           $ref: '#/definitions/Rating'
+      movieTitle:
+        type: string
   Error:
     required:
       - message

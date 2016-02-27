@@ -32,7 +32,7 @@ public class LoginActivity extends BusSubscriberActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        service = UserService.createService();
+        service = UserService.getService();
     }
 
     /**
