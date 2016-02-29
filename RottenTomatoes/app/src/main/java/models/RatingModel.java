@@ -85,6 +85,9 @@ public class RatingModel implements Parcelable {
         });
     }
 
+    /**
+     * Implement parcelable interface
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public RatingModel createFromParcel(Parcel in) {
             return new RatingModel(in);

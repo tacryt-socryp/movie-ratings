@@ -27,6 +27,12 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
     private List<RatingModel> ratings;
     private String movieTitle;
 
+    /**
+     * initialize adapter
+     * @param c
+     * @param ratingList
+     * @param movieT
+     */
     public RatingListAdapter(Context c, List<RatingModel> ratingList, String movieT) {
         super(c, 0, ratingList);
         ratingService = RatingService.getService();
@@ -38,7 +44,10 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
         bus.register(this);
     }
 
-
+    /**
+     * get async ratings event from server
+     * @param newRatings
+     */
     @Subscribe
     public void getRatingsEvent(RatingsModel newRatings) {
         if (newRatings.movieTitle.equals(movieTitle)) {
@@ -50,6 +59,10 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
         }
     }
 
+    /**
+     * override get count to use internal data structure
+     * @return
+     */
     @Override
     public int getCount() {
         if (ratings == null) {
@@ -58,14 +71,25 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
         return ratings.size();
     }
 
+    /**
+     * override get item to use internal data structure
+     * @param position
+     * @return
+     */
     @Override
     public RatingModel getItem(int position) {
         return ratings == null? null : ratings.get(position);
     }
 
+    /**
+     * override get view
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("ratingsStuff", String.valueOf(ratings.size()));
         RatingListItemView itemView = (RatingListItemView) convertView;
         if (null == itemView) itemView = RatingListItemView.inflate(parent);
         itemView.setItem(getItem(position));

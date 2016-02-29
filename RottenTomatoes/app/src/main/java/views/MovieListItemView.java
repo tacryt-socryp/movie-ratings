@@ -25,6 +25,11 @@ public class MovieListItemView extends RelativeLayout {
     private TextView yearTextView;
     private TextView ratingTextView;
 
+    /**
+     * Initialize.
+     * @param context
+     * @param attrs
+     */
     public MovieListItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -32,12 +37,19 @@ public class MovieListItemView extends RelativeLayout {
         setupChildren();
     }
 
+    /**
+     * Link up to text views.
+     */
     private void setupChildren() {
         titleTextView = (TextView) findViewById(R.id.listTitleTextView);
         yearTextView = (TextView) findViewById(R.id.listYearTextView);
         ratingTextView = (TextView) findViewById(R.id.listRatingTextView);
     }
 
+    /**
+     * Set text using the movie model.
+     * @param movieModel
+     */
     public void setMovie(MovieModel movieModel) {
         if (movieModel != null) {
             movie = movieModel;
@@ -46,6 +58,10 @@ public class MovieListItemView extends RelativeLayout {
         }
     }
 
+    /**
+     * Set ratings for the movie using ratings.
+     * @param ratingModels
+     */
     public void setRatings(RatingModel[] ratingModels) {
         if (ratingModels != null) {
             ratings = ratingModels;
@@ -61,6 +77,11 @@ public class MovieListItemView extends RelativeLayout {
         }
     }
 
+    /**
+     * inflate view from layout
+     * @param parent
+     * @return
+     */
     public static MovieListItemView inflate(ViewGroup parent) {
         MovieListItemView itemView = (MovieListItemView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item_layout, parent, false);

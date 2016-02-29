@@ -28,6 +28,12 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
     APIServiceInterface ratingService;
     private List<MovieModel> movieModels;
 
+    /**
+     * Initialize UI and initialize bus.
+     * @param c
+     * @param items
+     */
+
     public MovieListAdapter(Context c, List<MovieModel> items) {
         super(c, 0, items);
         ratingService = RatingService.getService();
@@ -37,15 +43,17 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
         // subscribe to new events!
         bus.register(this);
         for (MovieModel movie: items) {
-            Log.d("fetchRatings", movie.title);
             RatingService.getRatings(ratingService, movie.title);
         }
     }
 
+    /**
+     * Receive asynchronous event with new ratings.
+     * @param ratings
+     */
 
     @Subscribe
     public void getRatingsEvent(RatingsModel ratings) {
-        Log.d("ratingsEvent", ratings.movieTitle);
         // bad way of doing this, O(n^2). Fuck it
         MovieModel movie;
         for (int x = 0; x < this.getCount(); x++) {
@@ -60,6 +68,10 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
         // modify the list items individually based on events
     }
 
+    /**
+     * Get count override function
+     * @return
+     */
     @Override
     public int getCount() {
         if (movieModels == null) {
@@ -68,11 +80,23 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
         return movieModels.size();
     }
 
+    /**
+     * Get item override
+     * @param position
+     * @return
+     */
     @Override
     public MovieModel getItem(int position) {
         return movieModels == null? null : movieModels.get(position);
     }
 
+    /**
+     * Get view override that sets up item view.
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         MovieListItemView itemView = (MovieListItemView)convertView;
