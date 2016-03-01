@@ -1,15 +1,18 @@
 package teamfour.com.rottentomatoes;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.FrameLayout;
 
 import com.squareup.otto.Subscribe;
 
@@ -31,7 +34,7 @@ import views.MovieListAdapter;
 /**
  * Created by wbtho on 2/20/2016.
  */
-public class SearchActivity extends BusSubscriberActivity {
+public class SearchActivity extends UserActivity {
 
     RottenTomatoesInterface tomatoService;
     boolean isSearchActive = true;
@@ -40,8 +43,13 @@ public class SearchActivity extends BusSubscriberActivity {
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
-        setContentView(R.layout.activity_search);
 
+        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        // inflate the custom activity layout
+        LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View activityView = layoutInflater.inflate(R.layout.activity_search, null,false);
+        // add the custom layout of this activity to frame layout.
+        frameLayout.addView(activityView);
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         tomatoService = RottenTomatoesService.getService();
     }

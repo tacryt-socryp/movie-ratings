@@ -15,6 +15,11 @@ import otto.BusSubscriberActivity;
 import services.APIServiceInterface;
 import services.UserService;
 
+import android.support.v4.widget.DrawerLayout;
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+
 /**
  * Created by EstellaD on 2/5/16.
  */
@@ -23,6 +28,10 @@ public class UserActivity extends BusSubscriberActivity {
     APIServiceInterface service;
     UserModel currentUser;
     boolean userActivityActive = true;
+
+    private String[] drawerItems = {"Search", "Edit Profile", "Logout"};
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
 
     /**
      * receive currentUser from either registration or login via extras,
@@ -36,35 +45,38 @@ public class UserActivity extends BusSubscriberActivity {
 
         service = UserService.getService();
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
-        configureView();
-    }
-    
-    public void onEditProfileButtonPressed(View view) {
-        Log.d("USER ACTIVITY", "Edit Profile Button Pressed");
-        Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra("user", currentUser);
-        startActivity(intent);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        drawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, drawerItems));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
-    /**
-     * log out of the activity
-     * @param view
-     */
-    public void onLogoutButtonPressed(View view) {
-        Log.d("USER ACTIVITY", "Logout Button Pressed");
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    /**
-     * navigates to search activity screen
-     * @param w
-     */
-    public void onSearchButtonPressed(View w) {
-        Log.d("USER ACTIVITY", "Pressed Search");
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("user", currentUser);
-        startActivity(intent);
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+            switch (position) {
+                case 0: {
+                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case 1: {
+                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case 2: {
+                    Intent intent = new Intent(UserActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+            }
+            drawerLayout.closeDrawer(drawerList);
+        }
     }
 
     /**
@@ -87,7 +99,7 @@ public class UserActivity extends BusSubscriberActivity {
                     user.profile.profileID);
 
             currentUser = user;
-            configureView();
+            //configureView();
         }
     }
 
@@ -106,12 +118,12 @@ public class UserActivity extends BusSubscriberActivity {
         }
     }
 
-    /**
-     * view is configured upon new data being received
-     */
-    public void configureView() {
-        TextView nameLabel = (TextView) findViewById(R.id.ProfileNameLabel);
-        Log.d("serviceCall", currentUser.username + " " + currentUser.profile.name);
-        nameLabel.setText(currentUser.profile.name);
-    }
+//    /**
+//     * view is configured upon new data being received
+//     */
+//    public void configureView() {
+//        TextView nameLabel = (TextView) findViewById(R.id.ProfileNameLabel);
+//        Log.d("serviceCall", currentUser.username + " " + currentUser.profile.name);
+//        nameLabel.setText(currentUser.profile.name);
+//    }
 }

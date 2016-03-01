@@ -16,7 +16,7 @@ import services.APIServiceInterface;
 
 import otto.BusSubscriberActivity;
 
-public class MainActivity extends BusSubscriberActivity {
+public class MainActivity extends UserActivity {
 
     /**
      * initialize view onCreate

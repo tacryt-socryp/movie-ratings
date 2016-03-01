@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.FrameLayout;
+import android.view.LayoutInflater;
+import android.content.Context;
 
 import models.UserModel;
 import otto.BusSubscriberActivity;
@@ -15,7 +18,7 @@ import services.UserService;
 /**
  * Created by EstellaD on 2/25/16.
  */
-public class ProfileActivity extends BusSubscriberActivity {
+public class ProfileActivity extends UserActivity {
 
     boolean userActivityActive = true;
     APIServiceInterface service;
@@ -24,7 +27,12 @@ public class ProfileActivity extends BusSubscriberActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        // inflate the custom activity layout
+        LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View activityView = layoutInflater.inflate(R.layout.activity_profile, null,false);
+        // add the custom layout of this activity to frame layout.
+        frameLayout.addView(activityView);
 
         service = UserService.getService();
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
