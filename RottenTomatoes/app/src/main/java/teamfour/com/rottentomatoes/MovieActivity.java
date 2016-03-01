@@ -37,6 +37,10 @@ public class MovieActivity extends BusSubscriberActivity {
     UserModel currentUser;
     RatingModel[] ratings;
 
+    /**
+     * initialize view
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,10 @@ public class MovieActivity extends BusSubscriberActivity {
         RatingService.getRatings(service, currentMovie.title);
     }
 
+    /**
+     * rate movie button was pressed
+     * @param view
+     */
     public void pressedRateMovie(View view) {
         EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
         EditText text = (EditText) findViewById(R.id.RatingText);
@@ -67,12 +75,19 @@ public class MovieActivity extends BusSubscriberActivity {
 
     }
 
-
+    /**
+     * get a rating that you just made
+     * @param ratingModel
+     */
     @Subscribe
     public void getCreatedRating(RatingModel ratingModel) {
         RatingService.getRatings(service, currentMovie.title);
     }
 
+    /**
+     * get async ratings event from server
+     * @param ratingsModel
+     */
     @Subscribe
     public void getRatingsEvent(RatingsModel ratingsModel) {
         if (ratingsModel.movieTitle.equals(currentMovie.title)) {
