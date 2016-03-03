@@ -61,11 +61,13 @@ public class UserActivity extends BusSubscriberActivity {
             switch (position) {
                 case 0: {
                     Intent intent = new Intent(UserActivity.this, SearchActivity.class);
+                    intent.putExtra("user", currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 1: {
                     Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    intent.putExtra("user", currentUser);
                     startActivity(intent);
                     break;
                 }

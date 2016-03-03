@@ -66,13 +66,14 @@ public class MovieActivity extends BusSubscriberActivity {
     public void pressedRateMovie(View view) {
         EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
         EditText text = (EditText) findViewById(R.id.RatingText);
-        RatingModel rating = new RatingModel(-1,
-                Integer.parseInt(ratingNum.getText().toString(), 10), text.getText().toString(),
-                currentMovie.title, currentUser.username
-        );
+        if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
+            RatingModel rating = new RatingModel(-1,
+                    Integer.parseInt(ratingNum.getText().toString(), 10), text.getText().toString(),
+                    currentMovie.title, currentUser.username
+            );
 
-        RatingService.createRating(service, rating);
-
+            RatingService.createRating(service, rating);
+        }
     }
 
     /**
