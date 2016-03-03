@@ -47,7 +47,8 @@ function getUser(req, res) {
                 password: row.password,
                 profile: {
                   name: row1.name,
-                  profileID: row1.profileID
+                  profileID: row1.profileID,
+                  major: row1.major
                 }
               });
             }
@@ -93,12 +94,14 @@ function updateUser(req, res) {
 
   var profileID = "";
   var name = "";
+  var major = "";
   
   var profile = getProfileFromParams(req.swagger.params);
   
   if (profile) {
     profileID = profile.profileID;
     name = profile.name;
+    major = profile.major;
   } else {
     res.json(400, { message: "Sent an invalid profile for update request." });
   }
@@ -121,7 +124,7 @@ function updateUser(req, res) {
             res.json(403, { message: "Incorrect password." });
         } else {
           
-          db.run("UPDATE Profiles SET name='" + name + "'WHERE profileID IS '" + profileID + "'", function(err) {
+          db.run("UPDATE Profiles SET name='" + name + "', major='" + major + "' WHERE profileID IS '" + profileID + "'", function(err) {
               if (err) {
                 console.log(err);
                 res.json(400, { message: "Record not found for update request." });
@@ -133,7 +136,8 @@ function updateUser(req, res) {
                   password: password,
                   profile: {
                     profileID: profileID,
-                    name: name
+                    name: name,
+                    major: major
                   }
                 });
               }

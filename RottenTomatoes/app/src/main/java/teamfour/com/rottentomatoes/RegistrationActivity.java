@@ -40,17 +40,19 @@ public class RegistrationActivity extends BusSubscriberActivity {
         Log.d("REGISTRATION ACTIVITY", "Register Button Pressed");
 
         EditText namefield = (EditText) findViewById((R.id.Name));
+        EditText majorfield = (EditText) findViewById((R.id.Major));
         EditText usernamefield = (EditText) findViewById(R.id.Username);
         EditText passwordfield = (EditText) findViewById(R.id.Password);
         EditText verifypasswordfield = (EditText) findViewById(R.id.VerifyPassword);
 
         String name = namefield.getText().toString();
+        String major = majorfield.getText().toString();
         String username = usernamefield.getText().toString();
         String password = passwordfield.getText().toString();
         String verifypassword = verifypasswordfield.getText().toString();
 
         if (password.equals(verifypassword)) {
-            ProfileModel profile = new ProfileModel(name, -1); // NONEXISTENT ID
+            ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
 
             UserService.createUser(apiService, new UserModel(username, password, profile));
         } else {

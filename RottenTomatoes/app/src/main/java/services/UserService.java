@@ -104,6 +104,7 @@ public class UserService extends APIService {
                 userModel.password,
                 new ProfileModel(
                         userModel.profile.name,
+                        userModel.profile.major,
                         userModel.profile.profileID
                 )).enqueue(
                 new Callback<UserModel>() {

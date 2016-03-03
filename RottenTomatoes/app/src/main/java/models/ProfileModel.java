@@ -11,6 +11,9 @@ public class ProfileModel {
     @JsonProperty("name")
     public String name;
 
+    @JsonProperty("major")
+    public String major;
+
     @JsonProperty("profileID")
     public int profileID;
 
@@ -19,8 +22,9 @@ public class ProfileModel {
      * @param n
      * @param pID
      */
-    public ProfileModel(String n, int pID) {
+    public ProfileModel(String n, String m, int pID) {
         name = n;
+        major = m;
         profileID = pID;
     }
 

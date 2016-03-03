@@ -36,6 +36,15 @@ public class ProfileActivity extends UserActivity {
 
         service = UserService.getService();
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
+        setTextFields();
+    }
+
+    public void setTextFields() {
+        EditText nameField = (EditText) findViewById(R.id.name);
+        EditText majorField = (EditText) findViewById(R.id.major);
+
+        nameField.setText(currentUser.profile.name);
+        majorField.setText(currentUser.profile.major);
     }
 
     /**
@@ -45,28 +54,18 @@ public class ProfileActivity extends UserActivity {
     public void onSaveButtonPressed(View view) {
         Log.d("PROFILE ACTIVITY", "updating user profile name");
         EditText nameField = (EditText) findViewById(R.id.name);
-        EditText passwordField = (EditText) findViewById(R.id.password);
+        EditText majorField = (EditText) findViewById(R.id.major);
 
-        String password = passwordField.getText().toString();
-
-        if (password.equals(currentUser.password)) {
-            Log.d("PROFILE ACTIVITY", "updating user");
-            currentUser.profile.name = nameField.getText().toString();
-            UserService.updateUser(service, currentUser);
-            Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "Profile Updated!",
-                    Toast.LENGTH_SHORT
-            );
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "Incorrect password!",
-                    Toast.LENGTH_SHORT
-            );
-            toast.show();
-        }
+        Log.d("PROFILE ACTIVITY", "updating user");
+        currentUser.profile.name = nameField.getText().toString();
+        currentUser.profile.major = majorField.getText().toString();
+        UserService.updateUser(service, currentUser);
+        Toast toast = Toast.makeText(
+                this.getApplicationContext(),
+                "Profile Updated!",
+                Toast.LENGTH_SHORT
+        );
+        toast.show();
     }
 
     /**

@@ -185,11 +185,14 @@ definitions:
     required:
       - name
       - profileID
+      - major
     properties:
       name:
         type: string
       profileID:
         type: integer
+      major:
+        type: string
   Rating:
     required:
       - rating

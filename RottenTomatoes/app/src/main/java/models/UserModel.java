@@ -23,14 +23,15 @@ public class UserModel implements Parcelable {
      * @param in
      */
     public UserModel(Parcel in){
-        String[] data = new String[4];
+        String[] data = new String[5];
 
         in.readStringArray(data);
         this.username = data[0];
         this.password = data[1];
         ProfileModel prof = new ProfileModel();
         prof.name = data[2];
-        prof.profileID = Integer.parseInt(data[3]);
+        prof.major = data[3];
+        prof.profileID = Integer.parseInt(data[4]);
         this.profile = prof;
     }
 
@@ -54,6 +55,7 @@ public class UserModel implements Parcelable {
                 this.username,
                 this.password,
                 this.profile.name,
+                this.profile.major,
                 Integer.toString(this.profile.profileID, 10)
         });
     }
@@ -74,7 +76,7 @@ public class UserModel implements Parcelable {
      * @param pass
      */
     public UserModel(String user, String pass) {
-        this(user, pass, new ProfileModel("",-1));
+        this(user, pass, new ProfileModel("","",-1));
     }
 
     /**

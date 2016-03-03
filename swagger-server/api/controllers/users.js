@@ -20,17 +20,19 @@ function createUser(req, res) {
   var password = database.escapeStringForSQL(user.password);
 
   var name = "";
+  var major = "";
   var profile = user.profile;
   console.log(user);
   
-  if (isValid(profile) && isValid(profile.name) && isValid(username) && isValid(password)) {
+  if (isValid(profile) && isValid(profile.name) && isValid(profile.major) && isValid(username) && isValid(password)) {
     name = profile.name;
+    major = profile.major;
 
     var db = database.openDatabase();
     db.serialize(function() {
       username = database.escapeStringForSQL(username);
 
-      db.run("INSERT INTO Profiles VALUES(null, '" + name + "')", function(err) {
+      db.run("INSERT INTO Profiles VALUES(null, '" + name + "', '" + major + "')", function(err) {
         if (err) {
           console.log(err);
           res.json(400, { message: "Record not created." });
@@ -50,7 +52,8 @@ function createUser(req, res) {
                   password: password,
                   profile: {
                     name: name,
-                    profileID: profileID
+                    profileID: profileID,
+                    major: major
                   }
                 });
                 res.json(201, {
@@ -58,7 +61,8 @@ function createUser(req, res) {
                   password: password,
                   profile: {
                     name: name,
-                    profileID: profileID
+                    profileID: profileID,
+                    major: major
                   }
                 });
               }
