@@ -71,5 +71,8 @@ public interface APIServiceInterface {
     @POST("ratings")
     Call<RatingModel> createRating(@Body RatingModel rating);
 
+    @GET("movie_titles")
+    Call<String[]> searchMovieTitlesToQuery(@Query("filterBy") String filterBy, @Query("options") String options);
+
 }
 
