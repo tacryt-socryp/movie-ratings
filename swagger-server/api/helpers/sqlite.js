@@ -25,7 +25,7 @@ function openDatabase() {
         "CREATE TABLE Profiles (profileID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, major TEXT NOT NULL)"
       );
       db.run(
-        "CREATE TABLE Ratings (ratingID INTEGER PRIMARY KEY AUTOINCREMENT, rating INTEGER NOT NULL, text TEXT NOT NULL, movieTitle text NOT NULL, user TEXT REFERENCES Users(username))"
+        "CREATE TABLE Ratings (ratingID INTEGER PRIMARY KEY AUTOINCREMENT, rating INTEGER NOT NULL, text TEXT NOT NULL, movieTitle text NOT NULL, user TEXT REFERENCES Users(username), major text NOT NULL)"
       );
     }
   });

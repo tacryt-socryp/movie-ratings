@@ -20,6 +20,31 @@ consumes:
 produces:
   - application/json
 paths:
+  /movie_titles/{filterBy}:
+    x-swagger-router-controller: movie_titles
+    get:
+      description: return movie titles using filterBy and options queries
+      operationId: searchFilterMovieTitles
+      parameters:
+        - name: filterBy
+          in: path
+          description: parameter to filter by. acceptable vals are: overview, major
+          required: true
+          type: string
+        - name: other
+          in: query
+          description: optional parameter. if filterBy=major, other=cs, me, etc
+          required: true
+          type: string
+      responses:
+        200:
+          description: return list of movie titles matching filter
+          schema:
+            $ref: '#/definitions/MovieTitles'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /ratings:
     x-swagger-router-controller: rating
     post:
@@ -199,6 +224,7 @@ definitions:
       - text
       - movieTitle
       - user
+      - major
     properties:
       rating:
         type: integer
@@ -207,6 +233,8 @@ definitions:
       movieTitle:
         type: string
       user:
+        type: string
+      major:
         type: string
   Ratings:
     required:
@@ -219,6 +247,14 @@ definitions:
           $ref: '#/definitions/Rating'
       movieTitle:
         type: string
+  MovieTitles:
+    required:
+      - movieTitles
+    properties:
+      movieTitles:
+        type: array
+        items:
+          type: string
   Error:
     required:
       - message

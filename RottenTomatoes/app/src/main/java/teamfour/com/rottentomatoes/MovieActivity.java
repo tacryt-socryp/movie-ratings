@@ -69,9 +69,10 @@ public class MovieActivity extends BusSubscriberActivity {
         if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
             RatingModel rating = new RatingModel(-1,
                     Integer.parseInt(ratingNum.getText().toString(), 10), text.getText().toString(),
-                    currentMovie.title, currentUser.username
+                    currentMovie.title, currentUser.username, currentUser.profile.major
             );
 
+            Log.d("ratingStuff", currentUser.profile.major);
             RatingService.createRating(service, rating);
         }
     }

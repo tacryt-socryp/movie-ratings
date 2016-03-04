@@ -21,6 +21,7 @@ function createRating(req, res) {
   var ratingNum = parseInt(rating.rating, 10);
   var movieTitle = database.escapeStringForSQL(rating.movieTitle);
   var user = rating.user;
+  var major = database.escapeStringForSQL(rating.major);
   console.log(rating.movieTitle);
   
   if (isValid(rating)) {
@@ -30,7 +31,7 @@ function createRating(req, res) {
 
       console.log()
       db.run("INSERT INTO Ratings VALUES(null, " + ratingNum + ", '" +
-             text + "', '" + movieTitle + "', '" + user + "')",
+             text + "', '" + movieTitle + "', '" + user + "', '" + major + "')",
              function(err) {
         if (err) {
           console.log(err);
@@ -45,7 +46,8 @@ function createRating(req, res) {
               rating: ratingNum,
               text: text,
               movieTitle: movieTitle,
-              user: user
+              user: user,
+              major: major
             });
           }
         }

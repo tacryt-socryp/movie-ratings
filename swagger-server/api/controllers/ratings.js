@@ -36,7 +36,8 @@ function getRatings(req, res) {
               rating: row.rating,
               text: row.text,
               movieTitle: row.movieTitle,
-              user: row.user
+              user: row.user,
+              major: row.major
             };
           });
 
