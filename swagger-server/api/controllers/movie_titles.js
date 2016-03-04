@@ -118,7 +118,7 @@ function callbackFilterByAvgRating(db, res, rows) {
       movieTitles[0] = key;
     } else {
       var i = movieTitles.length();  
-      while ((i > 0) && (value.avgRating < movieTitles[i-1].avgRating))
+      while ((i > 0) && (value.avgRating >= movieTitles[i-1].avgRating))
         {   
           movieTitles[i] = movieTitles[i - 1];
           i = i - 1;
