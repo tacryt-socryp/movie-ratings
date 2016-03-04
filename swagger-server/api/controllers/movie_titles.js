@@ -24,65 +24,25 @@ function searchFilterMovieTitles(req, res) {
   }
   
   var db = database.openDatabase();
-  if (filterBy.equals("overview")) {
+  console.log(filterBy);
+  if (filterBy === "overview") {
     db.serialize(function () {
       overviewFilter(db, res);
     });
     
-  } else if (filterBy.equals("major")) {
+  } else if (filterBy === "major") {
     db.serialize(function () {
-      majorFilter(db, res);
+      majorFilter(db, res, other);
     });
   } else {
     res.json(400, { message: "Invalid parameters, invalid (other)." });
     return;
   }
-  
-  /*
-  var rating = req.swagger.params.rating.value;
-  var text = database.escapeStringForSQL(rating.text);
-  var ratingNum = parseInt(rating.rating, 10);
-  var movieTitle = database.escapeStringForSQL(rating.movieTitle);
-  var user = rating.user;
-  console.log(rating.movieTitle);
-  
-  if (isValid(rating)) {
-
-    var db = database.openDatabase();
-    db.serialize(function () {
-
-      console.log()
-      db.run("INSERT INTO Ratings VALUES(null, " + ratingNum + ", '" +
-             text + "', '" + movieTitle + "', '" + user + "')",
-             function(err) {
-        if (err) {
-          console.log(err);
-          res.json(400, { message: "Record not created." });
-        } else {
-          if (this.changes === 0) {
-            res.json(400, { message: "Record does not exist." });
-          } else {
-            var ratingID = this.lastID;
-            res.json(201, {
-              ratingID: ratingID,
-              rating: ratingNum,
-              text: text,
-              movieTitle: movieTitle,
-              user: user
-            });
-          }
-        }
-      });
-    });
-  } else {
-    res.json(400, { message: "Sent an invalid create request." });
-  }
-  */
 }
 
 function overviewFilter(db, res) {
   
-  db.all("SELECT * FROM Ratings WHERE movieTitle LIKE '" + movieTitle + "'", function (err, rows) {
+  db.all("SELECT * FROM Ratings", function (err, rows) {
     if (err) {
       console.log(err);
       res.json(400, {
@@ -96,57 +56,82 @@ function overviewFilter(db, res) {
         ratings: []
       });
     } else {
-      var ratings = rows.map(function (row) {
-        return {
-          ratingID: row.ratingID,
-          rating: row.rating,
-          text: row.text,
-          movieTitle: row.movieTitle,
-          user: row.user
-        };
-      });
+      callbackFilterByAvgRating(db, res, rows);
+    }
+  });
+  
+}
 
-      console.log(ratings);
+
+function majorFilter(db, res, major) {
+  
+  db.all("SELECT * FROM Ratings WHERE major LIKE '" + major + "'", function (err, rows) {
+    if (err) {
+      console.log(err);
+      res.json(400, {
+        message: "Records not found for get request."
+      });
+    } else if (!isValid(rows)) {
+      console.log(err, rows);
+      console.log("didn't find any records");
       res.json(200, {
         movieTitle: movieTitle,
-        ratings: ratings
+        ratings: []
       });
+    } else {
+      callbackFilterByAvgRating(db, res, rows);
     }
   });
 }
 
-
-function majorFilter(db, res) {
-  
-  db.all("SELECT * FROM Ratings WHERE movieTitle LIKE '" + movieTitle + "'", function (err, rows) {
-    if (err) {
-      console.log(err);
-      res.json(400, {
-        message: "Records not found for get request."
-      });
-    } else if (!isValid(rows)) {
-      console.log(err, rows);
-      console.log("didn't find any records");
-      res.json(200, {
-        movieTitle: movieTitle,
-        ratings: []
-      });
+function callbackFilterByAvgRating(db, res, rows) {
+  var objDict = {};
+  /*
+   movieTitle: {
+    avgRating: 3.0,
+    numRatings: 4
+   }
+  */
+  rows.forEach(function (row) {
+    if (typeof objDict[row.movieTitle] === "undefined") {
+      objDict[row.movieTitle] = {
+        avgRating: row.rating,
+        numRatings: 1
+      };
+      
     } else {
-      var ratings = rows.map(function (row) {
-        return {
-          ratingID: row.ratingID,
-          rating: row.rating,
-          text: row.text,
-          movieTitle: row.movieTitle,
-          user: row.user
-        };
-      });
-
-      console.log(ratings);
-      res.json(200, {
-        movieTitle: movieTitle,
-        ratings: ratings
-      });
+      var avgRating = objDict[row.movieTitle].avgRating;
+      var numRatings = objDict[row.movieTitle].numRatings + 1;
+      avgRating = (avgRating * (numRatings - 1) + row.rating) / numRatings;
+      
+      objDict[row.movieTitle] = {
+        avgRating: avgRating,
+        numRatings: numRatings
+      };
     }
+  });
+  
+  var movieTitles = [];
+  for (var key in objDict) {
+    var value = objDict[key];
+    if (movieTitles.length === 0) {
+      movieTitles[0] = key;
+    } else {
+      var i = movieTitles.length();  
+      while ((i > 0) && (value.avgRating < movieTitles[i-1].avgRating))
+        {   
+          movieTitles[i] = movieTitles[i - 1];
+          i = i - 1;
+        }
+      arr[i] = key;
+    }
+  }
+  
+  // sort ratings into an dict of objects consisting of: avg rating, num ratings, movieTitle
+  // map the dict of objects into a flat array of movieTitles
+
+  console.log(movieTitles);
+  res.json(200, {
+    movieTitles: movieTitles
   });
 }
