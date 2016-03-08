@@ -2,9 +2,12 @@ package teamfour.com.rottentomatoes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
@@ -15,11 +18,6 @@ import otto.BusSubscriberActivity;
 import services.APIServiceInterface;
 import services.UserService;
 
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-
 /**
  * Created by EstellaD on 2/5/16.
  */
@@ -29,7 +27,7 @@ public class UserActivity extends BusSubscriberActivity {
     UserModel currentUser;
     boolean userActivityActive = true;
 
-    private String[] drawerItems = {"Search", "Edit Profile", "Logout"};
+    private String[] drawerItems = {"Home", "Search", "Edit Profile", "Logout"};
     private DrawerLayout drawerLayout;
     private ListView drawerList;
 
@@ -60,18 +58,24 @@ public class UserActivity extends BusSubscriberActivity {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             switch (position) {
                 case 0: {
-                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
+                    Intent intent = new Intent(UserActivity.this, UserActivity.class);
                     intent.putExtra("user", currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 1: {
-                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
                     intent.putExtra("user", currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 2: {
+                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    intent.putExtra("user", currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case 3: {
                     Intent intent = new Intent(UserActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;

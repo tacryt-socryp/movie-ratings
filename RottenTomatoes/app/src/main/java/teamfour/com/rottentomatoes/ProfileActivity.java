@@ -1,17 +1,15 @@
 package teamfour.com.rottentomatoes;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.FrameLayout;
-import android.view.LayoutInflater;
-import android.content.Context;
+import android.widget.Toast;
 
 import models.UserModel;
-import otto.BusSubscriberActivity;
 import services.APIServiceInterface;
 import services.UserService;
 
@@ -66,16 +64,5 @@ public class ProfileActivity extends UserActivity {
                 Toast.LENGTH_SHORT
         );
         toast.show();
-    }
-
-    /**
-     * Returns the user to the main screen
-     * @param view
-     */
-    public void onHomeButtonPressed(View view) {
-        Log.d("PROFILE ACTIVITY", "Home Button Pressed");
-        Intent intent = new Intent(this, UserActivity.class);
-        intent.putExtra("user", currentUser);
-        startActivity(intent);
     }
 }
