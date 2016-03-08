@@ -5,10 +5,15 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
+// Updated upstream
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+// Stashed changes
 import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.squareup.otto.Subscribe;
 
@@ -18,6 +23,15 @@ import otto.BusSubscriberActivity;
 import services.APIServiceInterface;
 import services.UserService;
 
+// Updated upstream
+
+import android.support.v4.widget.DrawerLayout;
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.support.v7.app.ActionBarDrawerToggle;
+
+// Stashed changes
 /**
  * Created by EstellaD on 2/5/16.
  */
@@ -30,6 +44,7 @@ public class UserActivity extends BusSubscriberActivity {
     private String[] drawerItems = {"Home", "Search", "Edit Profile", "Logout"};
     private DrawerLayout drawerLayout;
     private ListView drawerList;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     /**
      * receive currentUser from either registration or login via extras,
@@ -46,11 +61,26 @@ public class UserActivity extends BusSubscriberActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
-        // Set the adapter for the list view
         drawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, drawerItems));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+            }
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu();
+            }
+        };
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -105,7 +135,6 @@ public class UserActivity extends BusSubscriberActivity {
                     user.profile.profileID);
 
             currentUser = user;
-            //configureView();
         }
     }
 
@@ -124,12 +153,31 @@ public class UserActivity extends BusSubscriberActivity {
         }
     }
 
-//    /**
-//     * view is configured upon new data being received
-//     */
-//    public void configureView() {
-//        TextView nameLabel = (TextView) findViewById(R.id.ProfileNameLabel);
-//        Log.d("serviceCall", currentUser.username + " " + currentUser.profile.name);
-//        nameLabel.setText(currentUser.profile.name);
-//    }
+    public void setUpDrawer() {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        actionBarDrawerToggle.syncState();
+    }
 }
