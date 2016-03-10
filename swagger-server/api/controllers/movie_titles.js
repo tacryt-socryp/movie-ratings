@@ -117,13 +117,13 @@ function callbackFilterByAvgRating(db, res, rows) {
     if (movieTitles.length === 0) {
       movieTitles[0] = key;
     } else {
-      var i = movieTitles.length();  
+      var i = movieTitles.length;  
       while ((i > 0) && (value.avgRating >= movieTitles[i-1].avgRating))
         {   
           movieTitles[i] = movieTitles[i - 1];
           i = i - 1;
         }
-      arr[i] = key;
+      movieTitles[i] = key;
     }
   }
   

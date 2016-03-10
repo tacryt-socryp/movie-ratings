@@ -41,7 +41,7 @@ public class UserActivity extends BusSubscriberActivity {
     UserModel currentUser;
     boolean userActivityActive = true;
 
-    private String[] drawerItems = {"Home", "Search", "Edit Profile", "Logout"};
+    private String[] drawerItems = {"Home", "Search", "Get Recommendation", "Edit Profile", "Logout"};
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -100,12 +100,18 @@ public class UserActivity extends BusSubscriberActivity {
                     break;
                 }
                 case 2: {
-                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
                     intent.putExtra("user", currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 3: {
+                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    intent.putExtra("user", currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case 4: {
                     Intent intent = new Intent(UserActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;

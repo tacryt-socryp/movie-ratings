@@ -72,7 +72,7 @@ public interface APIServiceInterface {
     Call<RatingModel> createRating(@Body RatingModel rating);
 
     @GET("movie_titles/{filterBy}")
-    Call<String[]> searchMovieTitlesToQuery(@Path("filterBy") String filterBy, @Query("other") String other);
+    Call<MovieTitlesModel> searchMovieTitlesToQuery(@Path("filterBy") String filterBy, @Query("other") String other);
 
 }
 
