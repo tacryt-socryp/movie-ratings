@@ -4,6 +4,22 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="297dp"
+        android:layout_height="36dp"
+        android:id="@+id/description"
+        android:editable="true"
+        android:scrollIndicators="right"
+        android:layout_gravity="center"
+        android:autoText="false"
+        android:textAlignment="center" />
+
     <EditText
         android:id="@+id/ratingNumber"
         android:layout_width="fill_parent"

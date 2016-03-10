@@ -8,25 +8,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.FrameLayout;
 
 import com.squareup.otto.Subscribe;
 
-import java.util.List;
-
 import models.MovieListModel;
 import models.MovieModel;
-import models.RatingModel;
 import models.UserModel;
-import otto.BusSubscriberActivity;
-import services.APIService;
-import services.APIServiceInterface;
 import services.MovieService;
-import services.RatingService;
 import services.RottenTomatoesInterface;
 import services.RottenTomatoesService;
 import views.MovieListAdapter;
@@ -47,7 +39,7 @@ public class SearchActivity extends UserActivity {
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
         // inflate the custom activity layout
         LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View activityView = layoutInflater.inflate(R.layout.activity_search, null,false);
+        View activityView = layoutInflater.inflate(R.layout.activity_search, null, false);
         // add the custom layout of this activity to frame layout.
         frameLayout.addView(activityView);
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");

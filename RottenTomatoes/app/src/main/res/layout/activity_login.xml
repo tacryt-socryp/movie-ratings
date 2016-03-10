@@ -5,28 +5,13 @@
     android:layout_height="match_parent"
     android:showDividers="none">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Username"
-        android:id="@+id/textView4"
-        android:layout_gravity="center_horizontal" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Password"
-        android:id="@+id/textView5"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/editText"
+        android:hint="Username" />
 
     <EditText
         android:layout_width="match_parent"
@@ -35,7 +20,8 @@
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_below="@+id/editText"
-        android:password="true" />
+        android:password="true"
+        android:hint="Password" />
 
     <Button
         android:layout_width="375dp"

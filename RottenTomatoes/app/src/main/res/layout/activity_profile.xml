@@ -3,30 +3,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile Name"
-        android:id="@+id/textView" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/name" />
+        android:id="@+id/name"
+        android:hint="Profile Name" />
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Major"
-        android:id="@+id/majorView" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/major" />
+        android:id="@+id/major"
+        android:hint="Major" />
 
     <Button
         android:layout_width="wrap_content"

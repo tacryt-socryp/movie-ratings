@@ -1,17 +1,21 @@
 package teamfour.com.rottentomatoes;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +25,7 @@ import models.RatingsModel;
 import models.UserModel;
 import otto.BusSubscriberActivity;
 import services.APIServiceInterface;
-import services.MovieService;
 import services.RatingService;
-import services.UserService;
-import views.MovieListAdapter;
 import views.RatingListAdapter;
 
 /**
@@ -36,6 +37,7 @@ public class MovieActivity extends BusSubscriberActivity {
     MovieModel currentMovie;
     UserModel currentUser;
     RatingModel[] ratings;
+
 
     /**
      * initialize view
@@ -57,10 +59,40 @@ public class MovieActivity extends BusSubscriberActivity {
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         currentMovie = (MovieModel) this.getIntent().getParcelableExtra("movie");
         RatingService.getRatings(service, currentMovie.title);
+
+        TextView desc = (TextView) findViewById(R.id.description);
+        desc.setText("Title: " + currentMovie.title + "\nReleased: " + currentMovie.year);
+
+        new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(currentMovie.poster);
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String url = urls[0];
+            Bitmap img = null;
+            try {
+                InputStream in = new java.net.URL(url).openStream();
+                img = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return img;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 
     /**
-     * rate movie button was pressed
+     * rate movie button was pressed *
      * @param view
      */
     public void pressedRateMovie(View view) {
@@ -78,7 +110,7 @@ public class MovieActivity extends BusSubscriberActivity {
     }
 
     /**
-     * get a rating that you just made
+     * get a rating that you just made *
      * @param ratingModel
      */
     @Subscribe
@@ -87,7 +119,7 @@ public class MovieActivity extends BusSubscriberActivity {
     }
 
     /**
-     * get async ratings event from server
+     * get async ratings event from server *
      * @param ratingsModel
      */
     @Subscribe
@@ -103,15 +135,14 @@ public class MovieActivity extends BusSubscriberActivity {
         );
         toast.show();
 
-        ListView lv= (ListView) findViewById(R.id.ratingListView);
+        ListView lv = (ListView) findViewById(R.id.ratingListView);
         List<RatingModel> ratingList = new ArrayList<RatingModel>();
         if (ratings != null) {
-            for (RatingModel rating: ratings) {
+            for (RatingModel rating : ratings) {
                 ratingList.add(rating);
             }
         }
         lv.setAdapter(new RatingListAdapter(this, ratingList, ratingsModel.movieTitle));
-        // modify the list items individually based on events
+        // modify the list items individually based on event);
     }
-
 }

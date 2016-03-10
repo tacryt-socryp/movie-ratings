@@ -79,12 +79,29 @@ public class MovieModel implements Parcelable {
      * @param in
      */
     public MovieModel(Parcel in){
-        String[] data = new String[2];
+        String[] data = new String[20];
 
         in.readStringArray(data);
         this.title = data[0];
         this.year = data[1];
-
+        this.rated = data[2];
+        this.released = data[3];
+        this.runtime = data[4];
+        this.genre = data[5];
+        this.director = data[6];
+        this.writer = data[7];
+        this.actors = data[8];
+        this.plot = data[9];
+        this.lang = data[10];
+        this.country = data[11];
+        this.awards = data[12];
+        this.poster = data[13];
+        this.metascore = data[14];
+        this.imdbrating = data[15];
+        this.imdbvotes = data[16];
+        this.imdbid = data[17];
+        this.type = data[18];
+        this.response = data[19];
     }
     /**
      * stub function, idk, it's required
@@ -104,7 +121,25 @@ public class MovieModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
                 this.title,
-                this.year
+                this.year,
+                this.rated,
+                this.released,
+                this.runtime,
+                this.genre,
+                this.director,
+                this.writer,
+                this.actors,
+                this.plot,
+                this.lang,
+                this.country,
+                this.awards,
+                this.poster,
+                this.metascore,
+                this.imdbrating,
+                this.imdbvotes,
+                this.imdbid,
+                this.type,
+                this.response
                 //this.profile.name,
                 //Integer.toString(this.profile.profileID, 10)
         });
