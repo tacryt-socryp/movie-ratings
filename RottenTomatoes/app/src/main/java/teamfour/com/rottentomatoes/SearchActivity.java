@@ -34,7 +34,6 @@ public class SearchActivity extends UserActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
-        System.out.println("Got to search");
         super.onCreate(savedInstanceBundle);
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
@@ -68,12 +67,6 @@ public class SearchActivity extends UserActivity {
     public void getMoviesEvent(MovieListModel list) {
         System.out.println("Made it to get Movies event");
         if (isSearchActive) {
-            Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "Search Successful",
-                    Toast.LENGTH_SHORT
-            );
-            toast.show();
 
             final Activity self = this;
             ListView lv= (ListView) findViewById(R.id.listView2);

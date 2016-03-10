@@ -7,7 +7,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/RecommendationQuery"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:hint="overview or major" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/OtherQuery"
+        android:layout_gravity="center_horizontal"
+        android:hint="if major, fill this out!" />
+
+
 
     <Button
         android:layout_width="wrap_content"

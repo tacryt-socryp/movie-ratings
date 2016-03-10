@@ -41,7 +41,8 @@ public class RecommendationActivity extends UserActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
-        System.out.println("Got to recommend");
+
+
         super.onCreate(savedInstanceBundle);
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
@@ -61,13 +62,16 @@ public class RecommendationActivity extends UserActivity {
      * @param view
      */
     public void pressedRecommend(View view) {
-        System.out.println("Recommend pressed");
+        recommendedMovies = new ArrayList<MovieModel>();
+        setupList(recommendedMovies);
         EditText query = (EditText) findViewById(R.id.RecommendationQuery);
         String search = query.getText().toString();
 
+        EditText otherField = (EditText) findViewById(R.id.OtherQuery);
+        String other = otherField.getText().toString();
+
         // when user scrolls down to the bottom, call an event that iterates this number!
-        Log.d("PRESSED Recommend", "recommend is " + search);
-        MovieService.searchMovieTitlesToQuery(recService, search, "");
+        MovieService.searchMovieTitlesToQuery(recService, search, other);
     }
 
     @Subscribe
@@ -75,8 +79,13 @@ public class RecommendationActivity extends UserActivity {
         //hands in a string array to deal with the titles that are returned
         //should iterate through the list and call the searchMovies(movies)
         //this will take the strings and get the prominent data
-        for (int x = 0; x < list.movieTitles.length; x++) {
-            MovieService.searchMovies(tomatoService, list.movieTitles[x]);
+
+        for (String movieTitle : list.movieTitles) {
+            Log.d("title", movieTitle);
+            MovieModel m = new MovieModel();
+            m.title = movieTitle;
+            recommendedMovies.add(m);
+            MovieService.searchMovies(tomatoService, movieTitle);
         }
     }
 
@@ -87,27 +96,28 @@ public class RecommendationActivity extends UserActivity {
     @Subscribe
     public void getMoviesEvent(MovieListModel list) {
         //should add the first movie to recommendedMovies
-        recommendedMovies.add(list.movies.get(0));
-        System.out.println("Adding..." + list.movies.get(0));
+        if (list.movies.size() > 0) {
+            MovieModel newMovie = list.movies.get(0);
+            for (int i = 0; i < list.movies.size(); i++) {
+                MovieModel m = recommendedMovies.get(i);
+                if (m.title.equals(newMovie.title)) {
+                    recommendedMovies.set(i, newMovie);
+                    i = list.movies.size();
+                }
+            }
+
+        }
 
         setupList(recommendedMovies);
     }
 
 
     public void setupList(List<MovieModel> list) {
+        ListView lv = (ListView) findViewById(R.id.listView);
 
         if (isFirstTime) {
-            Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "Search Successful",
-                    Toast.LENGTH_SHORT
-            );
-            toast.show();
-            System.out.println("Getting to list view");
             final Activity self = this;
-            ListView lv = (ListView) findViewById(R.id.listView);
-            MovieListAdapter adapter = new MovieListAdapter(this, list);
-            lv.setAdapter(adapter);
+
             //should this ListView be moved somewhere else in the code?????
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -127,7 +137,11 @@ public class RecommendationActivity extends UserActivity {
                 }
 
             });
+            isFirstTime = false;
         }
-        isFirstTime = false;
+
+        MovieListAdapter adapter = new MovieListAdapter(this, list);
+        lv.setAdapter(adapter);
+
     }
 }
