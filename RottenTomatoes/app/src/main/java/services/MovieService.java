@@ -48,17 +48,19 @@ public class MovieService extends RottenTomatoesService {
     }
 
     public static void searchMovieTitlesToQuery(APIServiceInterface service, String filterBy, String other) {
-        Log.d("IN MOVIE SERVICE", "searching for movies...");
-        Log.d("SEARCHING FOR", filterBy);
+        Log.d("IN MOVIE SERVICE", "filtering movies...");
+        Log.d("Filtering by", filterBy);
         service.searchMovieTitlesToQuery(filterBy, other).enqueue(
                 new Callback<MovieTitlesModel>() {
                     @Override
                     public void onResponse(Call<MovieTitlesModel> call, Response<MovieTitlesModel> response) {
                         Log.d("tomatoesCall", String.valueOf(response.code()) + ", " + response.message());
                         if (response.isSuccess()) {
+                            System.out.println("SUCCESS BETCH");
                             bus.post(response.body());
                             Log.d("tomatoesCall", response.body().toString());
                         } else {
+                            System.out.println("YOU SUCK ASS");
                             Log.d("tomatoesCall", response.errorBody().toString());
                         }
                     }

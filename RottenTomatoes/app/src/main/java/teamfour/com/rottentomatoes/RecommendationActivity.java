@@ -1,4 +1,4 @@
-package services;
+package teamfour.com.rottentomatoes;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +26,7 @@ import teamfour.com.rottentomatoes.MovieActivity;
 import teamfour.com.rottentomatoes.R;
 import teamfour.com.rottentomatoes.UserActivity;
 import views.MovieListAdapter;
+import services.*;
 
 /**
  * Created by Jeremy on 3/8/16.
@@ -60,12 +61,12 @@ public class RecommendationActivity extends UserActivity {
      * @param view
      */
     public void pressedRecommend(View view) {
-        System.out.println("Search pressed");
+        System.out.println("Recommend pressed");
         EditText query = (EditText) findViewById(R.id.RecommendationQuery);
         String search = query.getText().toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
-        Log.d("PRESSED SEARCH", "search is " + search);
+        Log.d("PRESSED Recommend", "recommend is " + search);
         MovieService.searchMovieTitlesToQuery(recService, search, "");
     }
 
@@ -74,6 +75,7 @@ public class RecommendationActivity extends UserActivity {
         //hands in a string array to deal with the titles that are returned
         //should iterate through the list and call the searchMovies(movies)
         //this will take the strings and get the prominent data
+        System.out.println("Made it to get movie titles event");
         for (int x = 0; x < list.movieTitles.length; x++) {
             MovieService.searchMovies(tomatoService, list.movieTitles[x]);
         }
@@ -86,6 +88,7 @@ public class RecommendationActivity extends UserActivity {
     @Subscribe
     public void getMoviesEvent(MovieListModel list) {
         //should add the first movie to recommendedMovies
+        System.out.println("Made it to get Movies event");
         recommendedMovies.add(list.movies.get(0));
         setupList(list);
     }
@@ -99,7 +102,7 @@ public class RecommendationActivity extends UserActivity {
                     Toast.LENGTH_SHORT
             );
             toast.show();
-
+            System.out.println("Getting to list view");
             final Activity self = this;
 
             //should this ListView be moved somewhere else in the code?????

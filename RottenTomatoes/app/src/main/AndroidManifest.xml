@@ -49,6 +49,11 @@
             android:label="activity_movie"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".RecommendationActivity"
+            android:label="@string/activity_login"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

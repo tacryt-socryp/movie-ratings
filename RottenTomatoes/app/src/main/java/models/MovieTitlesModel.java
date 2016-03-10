@@ -9,14 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class MovieTitlesModel {
 
-    @JsonProperty("movieTitleID")
-    public int movieTitleID;
 
     @JsonProperty("movieTitles")
     public String[] movieTitles = new String[10];
 
     public MovieTitlesModel(int id, String[] movies) {
-        movieTitleID = id;
         movieTitles = movies;
     }
 

@@ -60,7 +60,6 @@ public class SearchActivity extends UserActivity {
      * @param view
      */
     public void pressedSearch(View view) {
-        System.out.println("Search pressed");
         EditText query = (EditText) findViewById(R.id.SearchQuery);
         String search = query.getText().toString();
 
@@ -75,6 +74,7 @@ public class SearchActivity extends UserActivity {
      */
     @Subscribe
     public void getMoviesEvent(MovieListModel list) {
+        System.out.println("Made it to get Movies event");
         if (isSearchActive) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
