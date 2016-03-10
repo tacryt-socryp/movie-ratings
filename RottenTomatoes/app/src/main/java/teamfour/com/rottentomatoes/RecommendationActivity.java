@@ -75,7 +75,6 @@ public class RecommendationActivity extends UserActivity {
         //hands in a string array to deal with the titles that are returned
         //should iterate through the list and call the searchMovies(movies)
         //this will take the strings and get the prominent data
-        System.out.println("Made it to get movie titles event");
         for (int x = 0; x < list.movieTitles.length; x++) {
             MovieService.searchMovies(tomatoService, list.movieTitles[x]);
         }
@@ -88,13 +87,15 @@ public class RecommendationActivity extends UserActivity {
     @Subscribe
     public void getMoviesEvent(MovieListModel list) {
         //should add the first movie to recommendedMovies
-        System.out.println("Made it to get Movies event");
         recommendedMovies.add(list.movies.get(0));
-        setupList(list);
+        System.out.println("Adding..." + list.movies.get(0));
+
+        setupList(recommendedMovies);
     }
 
 
-    public void setupList(MovieListModel list) {
+    public void setupList(List<MovieModel> list) {
+
         if (isFirstTime) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -104,11 +105,10 @@ public class RecommendationActivity extends UserActivity {
             toast.show();
             System.out.println("Getting to list view");
             final Activity self = this;
-
-            //should this ListView be moved somewhere else in the code?????
             ListView lv = (ListView) findViewById(R.id.listView);
-            MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
+            MovieListAdapter adapter = new MovieListAdapter(this, list);
             lv.setAdapter(adapter);
+            //should this ListView be moved somewhere else in the code?????
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override

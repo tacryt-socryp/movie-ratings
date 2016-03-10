@@ -13,7 +13,7 @@ public class MovieTitlesModel {
     @JsonProperty("movieTitles")
     public String[] movieTitles = new String[10];
 
-    public MovieTitlesModel(int id, String[] movies) {
+    public MovieTitlesModel(String[] movies) {
         movieTitles = movies;
     }
 
