@@ -15,49 +15,69 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.MovieListModel;
 import models.MovieModel;
+import models.MovieTitlesModel;
 import models.UserModel;
-import services.MovieService;
-import services.RottenTomatoesInterface;
-import services.RottenTomatoesService;
+import teamfour.com.rottentomatoes.MovieActivity;
+import teamfour.com.rottentomatoes.R;
+import teamfour.com.rottentomatoes.UserActivity;
 import views.MovieListAdapter;
+import services.*;
 
 /**
- * Created by wbtho on 2/20/2016.
+ * Created by Jeremy on 3/8/16.
  */
-public class SearchActivity extends UserActivity {
+public class RecommendationActivity extends UserActivity {
 
+    APIServiceInterface recService;
     RottenTomatoesInterface tomatoService;
-    boolean isSearchActive = true;
+    boolean isFirstTime = true;
     private UserModel currentUser;
+    List<MovieModel> recommendedMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
-        System.out.println("Got to search");
+        System.out.println("Got to recommend");
         super.onCreate(savedInstanceBundle);
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
         // inflate the custom activity layout
         LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View activityView = layoutInflater.inflate(R.layout.activity_search, null, false);
+        View activityView = layoutInflater.inflate(R.layout.activity_recommendation, null,false);
         // add the custom layout of this activity to frame layout.
         frameLayout.addView(activityView);
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         tomatoService = RottenTomatoesService.getService();
+        recService = APIService.getService();
+        recommendedMovies = new ArrayList<MovieModel>();
     }
 
     /**
      * Press search to receive a movie that fits your query
      * @param view
      */
-    public void pressedSearch(View view) {
-        EditText query = (EditText) findViewById(R.id.SearchQuery);
+    public void pressedRecommend(View view) {
+        System.out.println("Recommend pressed");
+        EditText query = (EditText) findViewById(R.id.RecommendationQuery);
         String search = query.getText().toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
-        Log.d("PRESSED SEARCH", "search is " + search);
-        MovieService.searchMovies(tomatoService, search);
+        Log.d("PRESSED Recommend", "recommend is " + search);
+        MovieService.searchMovieTitlesToQuery(recService, search, "");
+    }
+
+    @Subscribe
+    public void getMovieTitlesEvent(MovieTitlesModel list) {
+        //hands in a string array to deal with the titles that are returned
+        //should iterate through the list and call the searchMovies(movies)
+        //this will take the strings and get the prominent data
+        for (int x = 0; x < list.movieTitles.length; x++) {
+            MovieService.searchMovies(tomatoService, list.movieTitles[x]);
+        }
     }
 
     /**
@@ -66,19 +86,29 @@ public class SearchActivity extends UserActivity {
      */
     @Subscribe
     public void getMoviesEvent(MovieListModel list) {
-        System.out.println("Made it to get Movies event");
-        if (isSearchActive) {
+        //should add the first movie to recommendedMovies
+        recommendedMovies.add(list.movies.get(0));
+        System.out.println("Adding..." + list.movies.get(0));
+
+        setupList(recommendedMovies);
+    }
+
+
+    public void setupList(List<MovieModel> list) {
+
+        if (isFirstTime) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Search Successful",
                     Toast.LENGTH_SHORT
             );
             toast.show();
-
+            System.out.println("Getting to list view");
             final Activity self = this;
-            ListView lv= (ListView) findViewById(R.id.listView2);
-            MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
+            ListView lv = (ListView) findViewById(R.id.listView);
+            MovieListAdapter adapter = new MovieListAdapter(this, list);
             lv.setAdapter(adapter);
+            //should this ListView be moved somewhere else in the code?????
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -98,5 +128,6 @@ public class SearchActivity extends UserActivity {
 
             });
         }
+        isFirstTime = false;
     }
 }
