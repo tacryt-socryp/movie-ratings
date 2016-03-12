@@ -45,6 +45,8 @@ function getUser(req, res) {
               res.json(200, {
                 username: row.username,
                 password: row.password,
+                isActive: row.isActive === 1,
+                isAdmin: row.isAdmin === 1,
                 profile: {
                   name: row1.name,
                   profileID: row1.profileID,
@@ -116,9 +118,6 @@ function updateUser(req, res) {
           console.log(err1);
           res.json(400, { message: "Record not found for update request." });
         } else if (!isValid(row) || !isValid(row0)) {
-            console.log(row);
-            console.log(row0);
-            console.log(profileID);
             res.json(400, { message: "Record does not exist." });
         } else if (row0.password !== password) {
             res.json(403, { message: "Incorrect password." });
@@ -134,6 +133,8 @@ function updateUser(req, res) {
                 res.json(201, {
                   username: username,
                   password: password,
+                  isAdmin: row0.isAdmin === 1,
+                  isActive: row0.isActive === 1,
                   profile: {
                     profileID: profileID,
                     name: name,

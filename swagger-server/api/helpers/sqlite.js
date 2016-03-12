@@ -19,7 +19,7 @@ function openDatabase() {
   db.serialize(function() {
     if(!exists) {
       db.run(
-        "CREATE TABLE Users (username TEXT PRIMARY KEY UNIQUE, password TEXT NOT NULL, profile INTEGER REFERENCES Profiles(profileID))"
+        "CREATE TABLE Users (username TEXT PRIMARY KEY UNIQUE, password TEXT NOT NULL, profile INTEGER REFERENCES Profiles(profileID), isActive INTEGER NOT NULL, isAdmin INTEGER NOT NULL)"
       );
       db.run(
         "CREATE TABLE Profiles (profileID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, major TEXT NOT NULL)"

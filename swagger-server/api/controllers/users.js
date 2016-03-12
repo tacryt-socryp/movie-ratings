@@ -42,23 +42,16 @@ function createUser(req, res) {
           } else {
             var profileID = this.lastID;
 
-            db.run("INSERT INTO Users VALUES('" + username + "', '" + password + "', '" + profileID + "')", function(err) {
+            db.run("INSERT INTO Users VALUES('" + username + "', '" + password + "', '" + profileID + "', 1, 0)", function(err) {
               if (err) {
                 console.log(err);
                 res.json(400, { message: "Record not created." });
               } else {
-                console.log({
-                  username: username,
-                  password: password,
-                  profile: {
-                    name: name,
-                    profileID: profileID,
-                    major: major
-                  }
-                });
                 res.json(201, {
                   username: username,
                   password: password,
+                  isActive: true,
+                  isAdmin: false,
                   profile: {
                     name: name,
                     profileID: profileID,
