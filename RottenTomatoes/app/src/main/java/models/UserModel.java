@@ -18,12 +18,15 @@ public class UserModel implements Parcelable {
     @JsonProperty("profile")
     public ProfileModel profile;
 
+    @JsonProperty("status")
+    public String status;
+
     /**
      * Recreate user model from parcelable data
      * @param in
      */
     public UserModel(Parcel in){
-        String[] data = new String[5];
+        String[] data = new String[6];
 
         in.readStringArray(data);
         this.username = data[0];
@@ -33,6 +36,7 @@ public class UserModel implements Parcelable {
         prof.major = data[3];
         prof.profileID = Integer.parseInt(data[4]);
         this.profile = prof;
+        this.status = data[5];
     }
 
     /**
@@ -56,7 +60,8 @@ public class UserModel implements Parcelable {
                 this.password,
                 this.profile.name,
                 this.profile.major,
-                Integer.toString(this.profile.profileID, 10)
+                Integer.toString(this.profile.profileID, 10),
+                this.status
         });
     }
 
@@ -89,6 +94,7 @@ public class UserModel implements Parcelable {
         username = user;
         password = pass;
         profile = p;
+        status = "active";
     }
 
     /**
