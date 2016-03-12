@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import models.MovieListModel;
@@ -38,6 +39,7 @@ public class RecommendationActivity extends UserActivity {
     boolean isFirstTime = true;
     private UserModel currentUser;
     List<MovieModel> recommendedMovies;
+    HashMap<String, Integer> titleToPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
@@ -55,6 +57,7 @@ public class RecommendationActivity extends UserActivity {
         tomatoService = RottenTomatoesService.getService();
         recService = APIService.getService();
         recommendedMovies = new ArrayList<MovieModel>();
+        titleToPosition = new HashMap<>();
     }
 
     /**
@@ -81,10 +84,10 @@ public class RecommendationActivity extends UserActivity {
         //this will take the strings and get the prominent data
 
         for (String movieTitle : list.movieTitles) {
-            Log.d("title", movieTitle);
             MovieModel m = new MovieModel();
             m.title = movieTitle;
             recommendedMovies.add(m);
+            titleToPosition.put(movieTitle, recommendedMovies.size() - 1);
             MovieService.searchMovies(tomatoService, movieTitle);
         }
     }
@@ -98,14 +101,8 @@ public class RecommendationActivity extends UserActivity {
         //should add the first movie to recommendedMovies
         if (list.movies.size() > 0) {
             MovieModel newMovie = list.movies.get(0);
-            for (int i = 0; i < list.movies.size(); i++) {
-                MovieModel m = recommendedMovies.get(i);
-                if (m.title.equals(newMovie.title)) {
-                    recommendedMovies.set(i, newMovie);
-                    i = list.movies.size();
-                }
-            }
-
+            int position = titleToPosition.get(newMovie.title);
+            recommendedMovies.set(position, newMovie);
         }
 
         setupList(recommendedMovies);
@@ -125,7 +122,6 @@ public class RecommendationActivity extends UserActivity {
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 
                     MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
-                    Log.d("movieModel", item.toString());
 
                     Intent intent = new Intent(self, MovieActivity.class);
                     MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
