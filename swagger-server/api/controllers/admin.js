@@ -19,23 +19,49 @@ function banOrUnbanUser(req, res) {
   var username = req.swagger.params.username.value;
   var shouldBan = req.swagger.params.shouldBan.value;
   
-  if (!isValid(other)) {
-    res.json(400, { message: "Invalid parameters, missing (other)." });
+  if (!isValid(username) || !isValid(shouldBan)) {
+    res.json(400, { message: "Invalid parameters, missing (username or shouldBan)." });
     return;
   }
   
   var db = database.openDatabase();
-  if (filterBy === "overview") {
-    db.serialize(function () {
-      overviewFilter(db, res);
+  db.serialize(function () {
+    db.get("SELECT * FROM Users where username LIKE '" + username + "' LIMIT 1", function (err0, row0) {
+      if (err0 || !isValid(row0)) {
+        res.json(400, { message: "Record not found for ban request." });
+        return;
+      }
+      db.get("SELECT * FROM Profiles WHERE profileID IS '" + row0.profile + "' LIMIT 1", function(err1, row) {
+        if (err1 || !isValid(row)) {
+          res.json(400, { message: "Record not found for ban request." });
+        } else {
+
+          db.run("UPDATE Users SET isActive='" + name + "' WHERE username LIKE '" + username + "'", function(err) {
+            
+              if (err) {
+                console.log(err);
+                res.json(400, { message: "Something is fucked up." });
+              } else if (this.changes == 0) {
+                res.json(400, { message: "Record not changed." });
+              } else {
+                res.json(201, {
+                  username: username,
+                  password: password,
+                  isAdmin: row0.isAdmin === 1,
+                  isActive: row0.isActive === 1,
+                  profile: {
+                    profileID: profileID,
+                    name: name,
+                    major: major
+                  }
+                });
+              }
+            
+          });
+
+        }
+      });
+
     });
-    
-  } else if (filterBy === "major") {
-    db.serialize(function () {
-      majorFilter(db, res, other);
-    });
-  } else {
-    res.json(400, { message: "Invalid parameters, invalid (other)." });
-    return;
-  }
+  });
 }
