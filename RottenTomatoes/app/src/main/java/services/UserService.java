@@ -157,4 +157,33 @@ public class UserService extends APIService {
                 }
         );
     }
+
+
+    /**
+     * Send in a generated service along with a valid UserModel, perform a server call
+     * @param service
+     */
+    public static void banOrUnbanUser(APIServiceInterface service, String username, boolean shouldBlock) {
+        service.banOrUnbanUser(username, shouldBlock).enqueue(
+                new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        if (response.isSuccess()) {
+                            bus.post(response.body());
+                        } else {
+                            ErrorModel em = errorConverter(response.errorBody());
+                            bus.post(em);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        Log.d("serviceCall", "got a failure!");
+                        Log.d("serviceCall", t.toString());
+                        Log.d("serviceCall", t.getMessage());
+                    }
+                }
+        );
+    }
 }

@@ -20,6 +20,31 @@ consumes:
 produces:
   - application/json
 paths:
+  /admin/ban/{username}:
+    x-swagger-router-controller: admin
+    get:
+      description: return movie titles using filterBy and options queries
+      operationId: banOrUnbanUser
+      parameters:
+        - name: username
+          in: path
+          description: user to set ban
+          required: true
+          type: string
+        - name: shouldBan
+          in: query
+          description: true or false
+          required: true
+          type: boolean
+      responses:
+        200:
+          description: return list of movie titles matching filter
+          schema:
+            $ref: '#/definitions/MovieTitles'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /movie_titles/{filterBy}:
     x-swagger-router-controller: movie_titles
     get:

@@ -74,5 +74,8 @@ public interface APIServiceInterface {
     @GET("movie_titles/{filterBy}")
     Call<MovieTitlesModel> searchMovieTitlesToQuery(@Path("filterBy") String filterBy, @Query("other") String other);
 
+    @GET("admin/ban/{username}")
+    Call<UserModel> banOrUnbanUser(@Path("username") String username, @Query("shouldBan") Boolean shouldBan);
+
 }
 
