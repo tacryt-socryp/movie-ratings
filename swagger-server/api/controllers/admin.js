@@ -5,7 +5,8 @@ var isValid = database.isValid;
 var getProfileFromParams = database.getProfileFromParams;
 
 module.exports = {
-  banOrUnbanUser: banOrUnbanUser
+  banOrUnbanUser: banOrUnbanUser,
+  viewUserList: viewUserList
 };
 
 
@@ -61,6 +62,25 @@ function banOrUnbanUser(req, res) {
 
         }
       });
+
+    });
+  });
+}
+
+function viewUserList(req, res) {
+  
+  var db = database.openDatabase();
+  db.serialize(function () {
+    db.get("SELECT * FROM Users", function (err, rows) {
+      
+      if (err || !isValid(rows)) {
+        res.json(400, { message: "Record not found for ban request." });
+        return;
+      } else {
+        res.json(200, {
+          users: rows
+        });
+      }
 
     });
   });

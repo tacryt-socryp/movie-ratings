@@ -20,6 +20,20 @@ consumes:
 produces:
   - application/json
 paths:
+  /admin/users:
+    x-swagger-router-controller: admin
+    get:
+      description: return list of users
+      operationId: viewUserList
+      responses:
+        200:
+          description: return list of users
+          schema:
+            $ref: '#/definitions/UserList'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /admin/ban/{username}:
     x-swagger-router-controller: admin
     get:
@@ -284,6 +298,14 @@ definitions:
         type: array
         items:
           type: string
+  UserList:
+    required:
+      - users
+    properties:
+      users:
+        type: array
+        items:
+          $ref: '#/definitions/User'
   Error:
     required:
       - message

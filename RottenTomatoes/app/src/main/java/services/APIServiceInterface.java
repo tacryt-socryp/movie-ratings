@@ -77,5 +77,10 @@ public interface APIServiceInterface {
     @GET("admin/ban/{username}")
     Call<UserModel> banOrUnbanUser(@Path("username") String username, @Query("shouldBan") Boolean shouldBan);
 
+
+    @GET("admin/users")
+    Call<UserListModel> viewUserList();
+
+
 }
 
