@@ -22,6 +22,7 @@ public class LoginActivity extends BusSubscriberActivity {
 
     APIServiceInterface service;
     boolean loggedIn = false;
+    boolean active = true;
 
     /**
      * initialize the view and initialize service
@@ -51,6 +52,9 @@ public class LoginActivity extends BusSubscriberActivity {
 
         // example of calling user service
         UserService.getUser(service, new UserModel(username, password));
+
+        //checks to see if the user is banned
+        //active = UserService.getUser(service, new UserModel(username, password)).isActive;
     }
 
     /**
@@ -58,7 +62,13 @@ public class LoginActivity extends BusSubscriberActivity {
      * @param user
      */
     @Subscribe public void getUserEvent(UserModel user) {
-        if (!loggedIn) {
+        if(!active) {
+            Toast toast = Toast.makeText(
+                    this.getApplicationContext(),
+                    "This account has been banned.",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        } else if (!loggedIn) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Login Successful",

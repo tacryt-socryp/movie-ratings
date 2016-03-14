@@ -20,6 +20,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
 
     APIServiceInterface apiService;
     boolean isRegistrationActive = true;
+    boolean admin = false;
 
     /**
      * initialize view and apiService for making calls to the server using Retrofit
@@ -44,25 +45,52 @@ public class RegistrationActivity extends BusSubscriberActivity {
         EditText usernamefield = (EditText) findViewById(R.id.Username);
         EditText passwordfield = (EditText) findViewById(R.id.Password);
         EditText verifypasswordfield = (EditText) findViewById(R.id.VerifyPassword);
+        EditText verifyadminfield = (EditText) findViewById(R.id.VerifyAdmin);
 
         String name = namefield.getText().toString();
         String major = majorfield.getText().toString();
         String username = usernamefield.getText().toString();
         String password = passwordfield.getText().toString();
         String verifypassword = verifypasswordfield.getText().toString();
+        String verifyadmin = verifyadminfield.getText().toString();
 
-        if (password.equals(verifypassword)) {
-            ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
+        if (verifyadmin.equals("password")) {
+            admin = true;
+            if (password.equals(verifypassword)) {
+                ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
 
-            UserService.createUser(apiService, new UserModel(username, password, profile));
+                UserService.createUser(apiService, new UserModel(username, password, profile));
+            } else {
+                Toast toast = Toast.makeText(
+                        this.getApplicationContext(),
+                        "Make Sure Your Passwords Match",
+                        Toast.LENGTH_SHORT
+                );
+                toast.show();
+            }
+        } else if (verifyadmin.equals("")) {
+            admin = false;
+            if (password.equals(verifypassword)) {
+                ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
+
+                UserService.createUser(apiService, new UserModel(username, password, profile));
+            } else {
+                Toast toast = Toast.makeText(
+                        this.getApplicationContext(),
+                        "Make Sure Your Passwords Match",
+                        Toast.LENGTH_SHORT
+                );
+                toast.show();
+            }
         } else {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
-                    "Make Sure Your Passwords Match",
-                    Toast.LENGTH_SHORT
-            );
+                    "This is the wrong admin password. Try to register again.",
+                    Toast.LENGTH_SHORT);
             toast.show();
         }
+
+
     }
 
     /**
@@ -78,10 +106,17 @@ public class RegistrationActivity extends BusSubscriberActivity {
                     Toast.LENGTH_SHORT
             );
             toast.show();
+            if (admin) {
+                Toast welcome = Toast.makeText(this.getApplicationContext(),
+                        "Welcome Admin!",
+                        Toast.LENGTH_SHORT);
+                welcome.show();
+            }
 
             Intent intent = new Intent(this, UserActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
+            user.isAdmin = admin;
             isRegistrationActive = false;
         }
     }
