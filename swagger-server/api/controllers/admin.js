@@ -72,13 +72,20 @@ function viewUserList(req, res) {
   var db = database.openDatabase();
   db.serialize(function () {
     db.get("SELECT * FROM Users", function (err, rows) {
-      
+      var arrayRows = [];
+      if (typeof rows == "object" && isValid(rows.username)) {
+        for (var key in rows) {
+          arrayRows.push( rows[key] );
+        }
+      } else {
+        arrayRows = rows;
+      }
       if (err || !isValid(rows)) {
         res.json(400, { message: "Record not found for ban request." });
         return;
       } else {
         res.json(200, {
-          users: rows
+          users: arrayRows
         });
       }
 

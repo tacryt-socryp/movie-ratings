@@ -27,6 +27,7 @@ function openDatabase() {
       db.run(
         "CREATE TABLE Ratings (ratingID INTEGER PRIMARY KEY AUTOINCREMENT, rating INTEGER NOT NULL, text TEXT NOT NULL, movieTitle text NOT NULL, user TEXT REFERENCES Users(username), major text NOT NULL)"
       );
+      db.run("INSERT INTO Users VALUES('admin', 'admin', NULL, 1, 1)");
     }
   });
   return db;
