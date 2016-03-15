@@ -21,7 +21,6 @@ public class UserListItemView extends RelativeLayout {
 
     private TextView usernameTextView;
     private TextView statusTextView;
-    //private TextView ratingTextView;
 
     /**
      * Initialize.
@@ -41,7 +40,6 @@ public class UserListItemView extends RelativeLayout {
     private void setupChildren() {
         usernameTextView = (TextView) findViewById(R.id.listUsernameTextView);
         statusTextView = (TextView) findViewById(R.id.listStatusTextView);
-        //ratingTextView = (TextView) findViewById(R.id.listRatingTextView);
     }
 
     /**
@@ -55,25 +53,6 @@ public class UserListItemView extends RelativeLayout {
             statusTextView.setText(u.status);
         }
     }
-
-    /**
-     * Set ratings for the movie using ratings.
-     * @param ratingModels
-     */
-//    public void setRatings(RatingModel[] ratingModels) {
-//        if (ratingModels != null) {
-//            ratings = ratingModels;
-//            float avgRating = 0;
-//            if (ratings != null && ratings.length > 0) {
-//                for (RatingModel rating: ratings) {
-//                    avgRating += rating.rating;
-//                }
-//                avgRating = avgRating / ratings.length;
-//            }
-//
-//            ratingTextView.setText(String.valueOf(avgRating));
-//        }
-//    }
 
     /**
      * inflate view from layout

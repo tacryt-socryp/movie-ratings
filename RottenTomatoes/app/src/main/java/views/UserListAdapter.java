@@ -43,10 +43,6 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
         // subscribe to new events!
         bus.register(this);
         UserService.viewUserList(us);
-//        for (UserModel user: items) {
-//
-//            //UserService.viewUserList(us);
-//        }
     }
 
     /**
@@ -65,12 +61,6 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
             } else {
                 user.status = "Banned or Locked";
             }
-
-//            if (user.title.equals(users.movieTitle)) {
-//                user.ratings = users.ratings;
-//                this.notifyDataSetChanged();
-//                x = this.getCount();
-//            }
         }
 
         // modify the list items individually based on events
@@ -110,7 +100,6 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
         UserListItemView itemView = (UserListItemView)convertView;
         if (null == itemView) itemView = UserListItemView.inflate(parent);
         itemView.setUser(getItem(position));
-        //itemView.setUserStatus(getItem(position).status);
         return itemView;
     }
 
