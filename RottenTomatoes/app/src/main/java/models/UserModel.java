@@ -24,6 +24,8 @@ public class UserModel implements Parcelable {
     @JsonProperty("isActive")
     public boolean isActive;
 
+    public String status;
+
     /**
      * Recreate user model from parcelable data
      * @param in
