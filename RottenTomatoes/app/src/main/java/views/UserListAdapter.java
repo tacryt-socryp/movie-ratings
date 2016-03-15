@@ -55,7 +55,7 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
      */
 
     @Subscribe
-    public void getRatingsEvent(UserListModel users) {
+    public void getUserListEvent(UserListModel users) {
         // bad way of doing this, O(n^2). Fuck it
         UserModel user;
         for (int x = 0; x < this.getCount(); x++) {

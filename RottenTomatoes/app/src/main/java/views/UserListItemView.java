@@ -31,7 +31,7 @@ public class UserListItemView extends RelativeLayout {
     public UserListItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        LayoutInflater.from(context).inflate(R.layout.movie_item_layout_children, this, true);
+        LayoutInflater.from(context).inflate(R.layout.user_item_layout_children, this, true);
         setupChildren();
     }
 
@@ -39,8 +39,8 @@ public class UserListItemView extends RelativeLayout {
      * Link up to text views.
      */
     private void setupChildren() {
-       // usernameTextView = (TextView) findViewById(R.id.listusernameTextView);
-        //statusTextView = (TextView) findViewById(R.id.liststatusTextView);
+        usernameTextView = (TextView) findViewById(R.id.listUsernameTextView);
+        statusTextView = (TextView) findViewById(R.id.listStatusTextView);
         //ratingTextView = (TextView) findViewById(R.id.listRatingTextView);
     }
 
@@ -82,7 +82,7 @@ public class UserListItemView extends RelativeLayout {
      */
     public static UserListItemView inflate(ViewGroup parent) {
         UserListItemView itemView = (UserListItemView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movie_item_layout, parent, false);
+                .inflate(R.layout.user_item_layout, parent, false);
         return itemView;
     }
 }
