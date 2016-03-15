@@ -79,9 +79,20 @@ public class LoginActivity extends BusSubscriberActivity {
 
             Log.d("serviceCall", user.username + " " + user.password);
 
-            Intent intent = new Intent(this, UserActivity.class);
-            Log.d("user", user.toString());
-            intent.putExtra("user", user);
+
+            Intent intent;
+            if (user.isAdmin)
+            {
+                intent = new Intent(this, AdminActivity.class);
+                Log.d("user", user.toString());
+                intent.putExtra("user", user);
+            }
+            else
+            {
+                intent = new Intent(this, UserActivity.class);
+                Log.d("user", user.toString());
+                intent.putExtra("user", user);
+            }
             startActivity(intent);
         }
     }
