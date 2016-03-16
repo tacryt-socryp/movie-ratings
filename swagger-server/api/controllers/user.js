@@ -31,6 +31,7 @@ function getUser(req, res) {
           console.log(err);
           res.json(400, { message: "Record not found for get request." });
         } else if (!isValid(row)) {
+            console.log(row);
             res.json(400, { message: "Record does not exist." });
         } else if (row.password !== password) {
             res.json(403, { message: "Incorrect password." });
@@ -38,9 +39,23 @@ function getUser(req, res) {
           db.get("SELECT * FROM Profiles WHERE profileID IS '" + row.profile + "' LIMIT 1", function(err, row1) {
             if (err) {
               console.log(err);
-              res.json(400, { message: "Record not found for get request." });
+              res.json(400, { message: "Record not found for get request." }); 
             } else if (!isValid(row1)) {
+              if (row.isAdmin) {
+                res.json(200, {
+                  username: row.username,
+                  password: row.password,
+                  isActive: row.isActive === 1,
+                  isAdmin: row.isAdmin === 1,
+                  profile: {
+                    name: "",
+                    profileID: -1,
+                    major: ""
+                  }
+                });
+              } else {
                 res.json(400, { message: "Record does not exist." });
+              }
             } else {
               res.json(200, {
                 username: row.username,
