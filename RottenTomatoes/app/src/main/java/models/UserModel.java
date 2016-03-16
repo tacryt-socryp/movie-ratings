@@ -120,6 +120,7 @@ public class UserModel implements Parcelable {
         username = user;
         password = pass;
         profile = p;
+<<<<<<< HEAD
         isAdmin = admin;
         isActive = true;
     }
@@ -132,6 +133,10 @@ public class UserModel implements Parcelable {
 
     public String toString() {
         return username + "\n" + status;
+=======
+        isAdmin = isAdmin;
+        isActive = true;
+>>>>>>> origin/master
     }
     */
 
