@@ -24,9 +24,6 @@ public class UserModel implements Parcelable {
     @JsonProperty("isActive")
     public boolean isActive;
 
-//    @JsonProperty("admin")
-//    public String admin;
-
     public String status;
 
     /**

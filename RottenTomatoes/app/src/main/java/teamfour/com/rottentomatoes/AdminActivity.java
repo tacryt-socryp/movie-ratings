@@ -1,13 +1,9 @@
 package teamfour.com.rottentomatoes;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -98,10 +94,14 @@ public class AdminActivity extends BusSubscriberActivity {
     public void getUserEvent(UserListModel list) {
         System.out.println("Made it to get User event");
 
-            final Activity self = this;
-            ListView lv= (ListView) findViewById(R.id.listView3);
-            UserListAdapter adapter = new UserListAdapter(this, list.users);
-            lv.setAdapter(adapter);
+        final Activity self = this;
+        ListView lv= (ListView) findViewById(R.id.listView3);
+        List<UserModel> newList = new ArrayList<UserModel>();
+        for (UserModel user : list.users) {
+            newList.add(user);
+        }
+        UserListAdapter adapter = new UserListAdapter(this, newList);
+        lv.setAdapter(adapter);
 /*            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {

@@ -51,13 +51,13 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
         UserModel user;
         for (int x = 0; x < this.getCount(); x++) {
             user = this.getItem(x);
-            if (user != null) {
+            //if (user != null) {
                 if (user.isActive == true) {
                     user.status = "Active";
                 } else {
                     user.status = "Banned or Locked";
                 }
-            }
+            //}
         }
 
         // modify the list items individually based on events

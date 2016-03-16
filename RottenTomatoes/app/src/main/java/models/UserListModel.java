@@ -5,16 +5,13 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by EstellaD on 2/25/16.
  */
 public class UserListModel implements Parcelable {
 
     @JsonProperty("users")
-    public List<UserModel> users = new ArrayList<UserModel>();
+    public UserModel[] users;
 
     @Override
     public int describeContents(){
