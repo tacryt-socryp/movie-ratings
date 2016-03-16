@@ -121,7 +121,7 @@ public class UserModel implements Parcelable {
         password = pass;
         profile = p;
         isAdmin = isAdmin;
-        isActive = false;
+        isActive = true;
     }
 
     /**
