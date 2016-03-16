@@ -150,10 +150,11 @@ public class AdminActivity extends BusSubscriberActivity {
     public void getUserEvent(UserListModel list) {
         System.out.println("Made it to get User event");
 
-            final Activity self = this;
-            ListView lv= (ListView) findViewById(R.id.listView3);
-            UserListAdapter adapter = new UserListAdapter(this, list.users);
-            lv.setAdapter(adapter);
+        final Activity self = this;
+        ListView lv= (ListView) findViewById(R.id.listView3);
+        UserListAdapter adapter = new UserListAdapter(this, list.users);
+        lv.setAdapter(adapter);
+        Log.d("USERS = ", list.users.get(0).toString());
 //            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
