@@ -192,6 +192,7 @@ public class UserService extends APIService {
      * @param service
      */
     public static void viewUserList(APIServiceInterface service) {
+        Log.d("USER SERVICE", "Viewing user list");
         service.viewUserList().enqueue(
                 new Callback<UserListModel>() {
                     @Override

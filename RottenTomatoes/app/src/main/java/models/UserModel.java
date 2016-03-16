@@ -24,6 +24,9 @@ public class UserModel implements Parcelable {
     @JsonProperty("isActive")
     public boolean isActive;
 
+    @JsonProperty("admin")
+    public String admin;
+
     public String status;
 
     /**
@@ -103,6 +106,22 @@ public class UserModel implements Parcelable {
         profile = p;
         isActive = true;
         isAdmin = false;
+    }
+
+    /**
+     * optional constructor when isAdmin is true
+     * initialize user with all data
+     * @param user
+     * @param pass
+     * @param p
+     * @param isAdmin
+     */
+    public UserModel(String user, String pass, ProfileModel p, Boolean isAdmin) {
+        username = user;
+        password = pass;
+        profile = p;
+        isAdmin = isAdmin;
+        isActive = false;
     }
 
     /**

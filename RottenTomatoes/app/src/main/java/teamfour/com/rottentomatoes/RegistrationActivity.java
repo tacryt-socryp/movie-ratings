@@ -59,7 +59,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
             if (password.equals(verifypassword)) {
                 ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
 
-                UserService.createUser(apiService, new UserModel(username, password, profile));
+                UserService.createUser(apiService, new UserModel(username, password, profile, true));
             } else {
                 Toast toast = Toast.makeText(
                         this.getApplicationContext(),
@@ -113,7 +113,13 @@ public class RegistrationActivity extends BusSubscriberActivity {
                 welcome.show();
             }
 
-            Intent intent = new Intent(this, UserActivity.class);
+            Intent intent;
+            if (admin) {
+                intent = new Intent(this, AdminActivity.class);
+            }
+            else {
+                intent = new Intent(this, UserActivity.class);
+            }
             intent.putExtra("user", user);
             startActivity(intent);
             user.isAdmin = admin;

@@ -33,4 +33,18 @@
         android:id="@+id/pressedUnlock"
         android:layout_gravity="center_horizontal"
         android:onClick="pressedUnlock" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="show users"
+        android:id="@+id/button3"
+        android:layout_gravity="center_horizontal"
+        android:onClick="showUsers" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView3"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
