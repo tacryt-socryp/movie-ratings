@@ -24,8 +24,8 @@ public class UserModel implements Parcelable {
     @JsonProperty("isActive")
     public boolean isActive;
 
-    @JsonProperty("admin")
-    public String admin;
+//    @JsonProperty("admin")
+//    public String admin;
 
     public String status;
 
@@ -114,15 +114,31 @@ public class UserModel implements Parcelable {
      * @param user
      * @param pass
      * @param p
-     * @param isAdmin
+     * @param admin
      */
-    public UserModel(String user, String pass, ProfileModel p, Boolean isAdmin) {
+    public UserModel(String user, String pass, ProfileModel p, Boolean admin) {
         username = user;
         password = pass;
         profile = p;
-        isAdmin = isAdmin;
+<<<<<<< HEAD
+        isAdmin = admin;
         isActive = true;
     }
+    /*
+    public UserModel(String user) {
+    }
+
+    public UserModel(int a) {
+    }
+
+    public String toString() {
+        return username + "\n" + status;
+=======
+        isAdmin = isAdmin;
+        isActive = true;
+>>>>>>> origin/master
+    }
+    */
 
     /**
      * empty init for Jackson compatibility

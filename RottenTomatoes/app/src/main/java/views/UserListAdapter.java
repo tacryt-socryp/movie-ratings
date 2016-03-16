@@ -1,9 +1,6 @@
 package views;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.graphics.Movie;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -15,9 +12,9 @@ import java.util.List;
 
 import models.UserListModel;
 import models.UserModel;
+import otto.BusSingleton;
 import services.APIServiceInterface;
 import services.UserService;
-import otto.BusSingleton;
 
 /**
  * Created by wbtho on 3/14/2016.
@@ -25,7 +22,6 @@ import otto.BusSingleton;
 public class UserListAdapter extends ArrayAdapter<UserModel> {
     private Bus bus;
     APIServiceInterface us;
-    //APIServiceInterface ratingService;
     private List<UserModel> userModels;
 
     /**
@@ -55,10 +51,12 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
         UserModel user;
         for (int x = 0; x < this.getCount(); x++) {
             user = this.getItem(x);
-            if (user.isActive == true) {
-                user.status = "Active";
-            } else {
-                user.status = "Banned or Locked";
+            if (user != null) {
+                if (user.isActive == true) {
+                    user.status = "Active";
+                } else {
+                    user.status = "Banned or Locked";
+                }
             }
         }
 

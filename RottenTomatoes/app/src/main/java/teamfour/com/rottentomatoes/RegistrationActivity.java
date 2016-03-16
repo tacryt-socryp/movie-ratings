@@ -122,7 +122,6 @@ public class RegistrationActivity extends BusSubscriberActivity {
             }
             intent.putExtra("user", user);
             startActivity(intent);
-            user.isAdmin = admin;
             isRegistrationActive = false;
         }
     }

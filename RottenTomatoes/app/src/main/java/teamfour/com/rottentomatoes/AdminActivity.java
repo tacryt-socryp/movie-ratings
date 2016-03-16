@@ -100,11 +100,7 @@ public class AdminActivity extends BusSubscriberActivity {
 
             final Activity self = this;
             ListView lv= (ListView) findViewById(R.id.listView3);
-            List<UserModel> newList = new ArrayList<UserModel>();
-            for (UserModel user : list.users) {
-                newList.add(user);
-            }
-            UserListAdapter adapter = new UserListAdapter(this, newList);
+            UserListAdapter adapter = new UserListAdapter(this, list.users);
             lv.setAdapter(adapter);
 /*            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
