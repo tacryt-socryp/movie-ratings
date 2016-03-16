@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.UserListModel;
 import models.UserModel;
 import otto.BusSubscriberActivity;
@@ -97,7 +100,11 @@ public class AdminActivity extends BusSubscriberActivity {
 
             final Activity self = this;
             ListView lv= (ListView) findViewById(R.id.listView3);
-            UserListAdapter adapter = new UserListAdapter(this, list.users);
+            List<UserModel> newList = new ArrayList<UserModel>();
+            for (UserModel user : list.users) {
+                newList.add(user);
+            }
+            UserListAdapter adapter = new UserListAdapter(this, newList);
             lv.setAdapter(adapter);
 /*            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

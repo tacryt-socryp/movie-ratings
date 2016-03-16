@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class UserListModel {
 
     @JsonProperty("users")
-    public ArrayList<UserModel> users;
+    public UserModel[] users;
 
     public UserListModel() {}
 }

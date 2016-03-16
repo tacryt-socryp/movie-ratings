@@ -42,7 +42,6 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
         bus = BusSingleton.get();
         // subscribe to new events!
         bus.register(this);
-        UserService.viewUserList(us);
     }
 
     /**

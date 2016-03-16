@@ -21,7 +21,7 @@ produces:
   - application/json
 paths:
   /admin/users:
-    x-swagger-router-controller: admin
+    x-swagger-router-controller: admin_view
     get:
       description: return list of users
       operationId: viewUserList
