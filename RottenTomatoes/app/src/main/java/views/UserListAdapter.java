@@ -34,33 +34,6 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
         super(c, 0, items);
         us = UserService.getService();
         userModels = items;
-
-        bus = BusSingleton.get();
-        // subscribe to new events!
-        bus.register(this);
-    }
-
-    /**
-     * Receive asynchronous event with new ratings.
-     * @param users
-     */
-
-    @Subscribe
-    public void getUserListEvent(UserListModel users) {
-        // bad way of doing this, O(n^2). Fuck it
-        UserModel user;
-        for (int x = 0; x < this.getCount(); x++) {
-            user = this.getItem(x);
-            //if (user != null) {
-                if (user.isActive == true) {
-                    user.status = "Active";
-                } else {
-                    user.status = "Banned or Locked";
-                }
-            //}
-        }
-
-        // modify the list items individually based on events
     }
 
     /**

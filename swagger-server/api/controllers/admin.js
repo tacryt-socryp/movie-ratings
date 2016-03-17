@@ -23,6 +23,10 @@ function banOrUnbanUser(req, res) {
     res.json(400, { message: "Invalid parameters, missing (username or shouldBan)." });
     return;
   }
+  var isActive = 0;
+  if (shouldBan === false) {
+    isActive = 1;
+  } 
   
   var db = database.openDatabase();
   db.serialize(function () {
@@ -36,23 +40,23 @@ function banOrUnbanUser(req, res) {
           res.json(400, { message: "Record not found for ban request." });
         } else {
 
-          db.run("UPDATE Users SET isActive='" + name + "' WHERE username LIKE '" + username + "'", function(err) {
-            
+          db.run("UPDATE Users SET isActive='" + isActive + "' WHERE username LIKE '" + username + "'", function(err) {
+              console.log(err);
               if (err) {
                 console.log(err);
                 res.json(400, { message: "Something is fucked up." });
               } else if (this.changes == 0) {
                 res.json(400, { message: "Record not changed." });
               } else {
-                res.json(201, {
+                res.json(200, {
                   username: username,
-                  password: password,
+                  password: row0.password,
                   isAdmin: row0.isAdmin === 1,
                   isActive: row0.isActive === 1,
                   profile: {
-                    profileID: profileID,
-                    name: name,
-                    major: major
+                    profileID: row.profileID,
+                    name: row.name,
+                    major: row.major
                   }
                 });
               }

@@ -83,6 +83,9 @@ public class UserActivity extends BusSubscriberActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
     }
 
+    /**
+     * drawer handler
+     */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -157,10 +160,6 @@ public class UserActivity extends BusSubscriberActivity {
             );
             toast.show();
         }
-    }
-
-    public void setUpDrawer() {
-
     }
 
     @Override

@@ -54,7 +54,7 @@ paths:
         200:
           description: return list of movie titles matching filter
           schema:
-            $ref: '#/definitions/MovieTitles'
+            $ref: '#/definitions/User'
         default:
           description: unexpected error
           schema:

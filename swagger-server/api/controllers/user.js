@@ -27,6 +27,7 @@ function getUser(req, res) {
      db.serialize(function() {
       username = database.escapeStringForSQL(username);
       db.get("SELECT * FROM Users WHERE username IS '" + username + "' LIMIT 1", function(err, row) {
+        console.log(row.isActive);
         if (err) {
           console.log(err);
           res.json(400, { message: "Record not found for get request." });
@@ -35,6 +36,8 @@ function getUser(req, res) {
             res.json(400, { message: "Record does not exist." });
         } else if (row.password !== password) {
             res.json(403, { message: "Incorrect password." });
+        } else if (row.isActive !== 1) {
+            res.json(403, { message: "Account is locked or banned."});
         } else {
           db.get("SELECT * FROM Profiles WHERE profileID IS '" + row.profile + "' LIMIT 1", function(err, row1) {
             if (err) {

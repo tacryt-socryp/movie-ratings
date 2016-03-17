@@ -22,7 +22,6 @@ public class LoginActivity extends BusSubscriberActivity {
 
     APIServiceInterface service;
     boolean loggedIn = false;
-    boolean active = true;
 
     /**
      * initialize the view and initialize service
@@ -43,6 +42,7 @@ public class LoginActivity extends BusSubscriberActivity {
     public void onLoginButtonPressed(View view)
     {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
+        loggedIn = false;
 
         EditText namefield = (EditText) findViewById(R.id.editText);
         EditText passwordfield = (EditText) findViewById(R.id.editText2);
@@ -62,13 +62,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * @param user
      */
     @Subscribe public void getUserEvent(UserModel user) {
-        if(!active) {
-            Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "This account has been banned.",
-                    Toast.LENGTH_SHORT);
-            toast.show();
-        } else if (!loggedIn) {
+        if (!loggedIn) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Login Successful",
@@ -101,14 +95,12 @@ public class LoginActivity extends BusSubscriberActivity {
      * @param error
      */
     @Subscribe public void getErrorEvent(ErrorModel error) {
-        if (!loggedIn) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Login failed - " + error.message,
                     Toast.LENGTH_SHORT
             );
             toast.show();
-        }
     }
 
     /**

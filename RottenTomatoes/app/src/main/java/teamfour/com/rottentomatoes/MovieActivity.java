@@ -66,6 +66,9 @@ public class MovieActivity extends BusSubscriberActivity {
         new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(currentMovie.poster);
     }
 
+    /**
+     * download movie image using an async task
+     */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 

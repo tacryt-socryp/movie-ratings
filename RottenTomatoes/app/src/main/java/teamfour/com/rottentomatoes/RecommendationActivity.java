@@ -77,11 +77,15 @@ public class RecommendationActivity extends UserActivity {
         MovieService.searchMovieTitlesToQuery(recService, search, other);
     }
 
+    /**
+     *         //hands in a string array to deal with the titles that are returned
+     //should iterate through the list and call the searchMovies(movies)
+     //this will take the strings and get the prominent data
+     * @param list
+     */
     @Subscribe
     public void getMovieTitlesEvent(MovieTitlesModel list) {
-        //hands in a string array to deal with the titles that are returned
-        //should iterate through the list and call the searchMovies(movies)
-        //this will take the strings and get the prominent data
+
 
         for (String movieTitle : list.movieTitles) {
             MovieModel m = new MovieModel();
@@ -101,14 +105,19 @@ public class RecommendationActivity extends UserActivity {
         //should add the first movie to recommendedMovies
         if (list.movies.size() > 0) {
             MovieModel newMovie = list.movies.get(0);
-            int position = titleToPosition.get(newMovie.title);
-            recommendedMovies.set(position, newMovie);
+            if (titleToPosition.containsKey(newMovie.title)) {
+                int position = titleToPosition.get(newMovie.title);
+                recommendedMovies.set(position, newMovie);
+            }
         }
 
         setupList(recommendedMovies);
     }
 
-
+    /**
+     * use a list of movies to setup a list view
+     * @param list
+     */
     public void setupList(List<MovieModel> list) {
         ListView lv = (ListView) findViewById(R.id.listView);
 

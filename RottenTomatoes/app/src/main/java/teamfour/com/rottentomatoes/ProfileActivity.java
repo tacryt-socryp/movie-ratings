@@ -37,6 +37,9 @@ public class ProfileActivity extends UserActivity {
         setTextFields();
     }
 
+    /**
+     * set text fields with data
+     */
     public void setTextFields() {
         EditText nameField = (EditText) findViewById(R.id.name);
         EditText majorField = (EditText) findViewById(R.id.major);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -27,8 +28,12 @@ public class AdminActivity extends BusSubscriberActivity {
 
     APIServiceInterface apiService;
     private UserModel currentUser;
-    boolean userExists = false;
+    boolean isCurrScreen = true;
 
+    /**
+     * life cycle method
+     * @param savedInstanceBundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
@@ -36,54 +41,17 @@ public class AdminActivity extends BusSubscriberActivity {
 
         apiService = UserService.getService();
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
-    }
-
-    public void pressedBan(View view) {
-        EditText query = (EditText) findViewById(R.id.BanQuery);
-        String banRequest = query.getText().toString();
-
-        //want to get the list of users to check against
-
-        if (userExists) {
-            banOrUnbanUser(banRequest, true);
-        } else {
-            //outputs an error message to the admin
-            Toast toast = Toast.makeText(this.getApplicationContext(),
-                    "This user does not exist.", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
-
-    public void pressedUnlock(View view) {
-        EditText query = (EditText) findViewById(R.id.UnlockQuery);
-        String unlockRequest = query.getText().toString();
-
-        //want to get the list of users to check against
-
-        if (userExists) {
-            banOrUnbanUser(unlockRequest, false);
-        } else {
-            //outputs an error message to the admin
-            Toast toast = Toast.makeText(this.getApplicationContext(),
-                    "This user does not exist.", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
-
-
-    public void banOrUnbanUser(String user, Boolean ban) {
-        //currently set to take in a string username as a parameter rather
-        //than a user modeal --> need to check this change somehow for right now
-        if (ban) {
-            //user.isActive = false;
-        } else {
-            //user.isActive = true;
-        }
-    }
-
-    public void showUsers(View view) {
-        Log.d("ADMIN ACTIVITY", "Pressed show users button");
         UserService.viewUserList(apiService);
+    }
+
+    /**
+     * refresh user list upon ban
+     */
+    @Subscribe
+    public void getBanEvent(UserModel bannedUser) {
+        if (isCurrScreen) {
+            UserService.viewUserList(apiService);
+        }
     }
 
     /**
@@ -92,31 +60,31 @@ public class AdminActivity extends BusSubscriberActivity {
      */
     @Subscribe
     public void getUserEvent(UserListModel list) {
-        System.out.println("Made it to get User event");
 
         final Activity self = this;
         ListView lv= (ListView) findViewById(R.id.listView3);
         List<UserModel> newList = new ArrayList<UserModel>();
         for (UserModel user : list.users) {
+            if (user.isActive == true) {
+                user.status = "Active";
+            } else {
+                user.status = "Banned or Locked";
+            }
             newList.add(user);
         }
+
         UserListAdapter adapter = new UserListAdapter(this, newList);
         lv.setAdapter(adapter);
-/*            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 
-                MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
-                Log.d("movieModel", item.toString());
+                UserModel item = (UserModel) adapter.getItemAtPosition(position);
 
-                Intent intent = new Intent(self, MovieActivity.class);
-                MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
-                intent.putExtra("movie", movieExtra);
-                intent.putExtra("ratings", movieExtra.ratings);
-                intent.putExtra("user", currentUser);
-                startActivity(intent);
+                UserService.banOrUnbanUser(apiService, item.username, item.isActive);
             }
-        }
-*/
+        });
+
     }
 }

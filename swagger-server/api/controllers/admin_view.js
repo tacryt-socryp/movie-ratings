@@ -19,30 +19,11 @@ function viewUserList(req, res) {
   
   var db = database.openDatabase();
   db.serialize(function () {
-    db.get("SELECT * FROM Users", function (err, rows) {
+    db.all("SELECT * FROM Users", function (err, rows) {
       var arrayRows = [];
-      if (typeof rows == "object" && isValid(rows.username)) {
-        var profile = {
-          name: "",
-          profileID: -1,
-          major: ""
-        };
-        if (rows.profile) {
-          profile = {
-            name: rows.profile.name,
-            profileID: rows.profile.profileID,
-            major: rows.profile.major
-          };
-        }
-        arrayRows.push({
-          username: rows.username,
-          password: rows.password,
-          isActive: rows.isActive === 1,
-          isAdmin: rows.isAdmin === 1,
-          profile: profile
-        });
-      } else {
-        for (var row in rows) {
+      for (var x in rows) {
+        var row = rows[x];
+        if (isValid(row.username)) {
           var profile = {
             name: "",
             profileID: -1,
@@ -50,32 +31,24 @@ function viewUserList(req, res) {
           };
           if (rows.profile) {
             profile = {
-              name: rows.profile.name,
-              profileID: rows.profile.profileID,
-              major: rows.profile.major
+              name: "",
+              profileID: rows.profile,
+              major: ""
             };
           }
           arrayRows.push({
-            username: rows.username,
-            password: rows.password,
-            isActive: rows.isActive === 1,
-            isAdmin: rows.isAdmin === 1,
+            username: row.username,
+            password: row.password,
+            isActive: row.isActive === 1,
+            isAdmin: row.isAdmin === 1,
             profile: profile
           });
         }
       }
       
-      console.log(err);
-      if (err || !isValid(arrayRows)) {
-        res.json(200, {
-          users: []
-        });
-      } else {
-        console.log(arrayRows);
-        res.json(200, {
-          users: arrayRows
-        });
-      }
+      res.json(200, {
+        users: arrayRows
+      });
 
     });
   });
