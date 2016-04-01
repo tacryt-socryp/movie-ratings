@@ -124,55 +124,25 @@ public class UserService {
      */
     public static void updateUser(APIServiceInterface service, UserModel userModel) {
         service.updateUser(
-<<<<<<< HEAD
             userModel.username,
             userModel.password,
             new ProfileModel(
-                userModel.profile.name,
-                userModel.profile.major,
-                userModel.profile.profileID
+                    userModel.profile.name,
+                    userModel.profile.major,
+                    userModel.profile.profileID
             )).enqueue(
             new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    Log.d("serviceCall", response.code() + ", " + response.message());
                     if (response.isSuccess()) {
                         bus.post(response.body());
                     } else {
                         ErrorModel em = errorConverter(response.errorBody());
                         bus.post(em);
-=======
-                userModel.username,
-                userModel.password,
-                new ProfileModel(
-                        userModel.profile.name,
-                        userModel.profile.major,
-                        userModel.profile.profileID
-                )).enqueue(
-                new Callback<UserModel>() {
-                    @Override
-                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        if (response.isSuccess()) {
-                            bus.post(response.body());
-                        } else {
-                            ErrorModel em = errorConverter(response.errorBody());
-                            bus.post(em);
-                        }
->>>>>>> origin/master
                     }
                 }
-
-<<<<<<< HEAD
                 @Override
                 public void onFailure(Call<UserModel> call, Throwable t) {
-                    Log.d("serviceCall", "got a failure!");
-                    Log.d("serviceCall", t.toString());
-                    Log.d("serviceCall", t.getMessage());
-=======
-                    @Override
-                    public void onFailure(Call<UserModel> call, Throwable t) {
-                    }
->>>>>>> origin/master
                 }
             }
         );
