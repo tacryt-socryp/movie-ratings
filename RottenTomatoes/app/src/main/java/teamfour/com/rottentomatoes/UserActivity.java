@@ -31,6 +31,7 @@ import services.UserService;
  */
 public class UserActivity extends BusSubscriberActivity {
 
+    private String USER = "user";
     APIServiceInterface service;
     UserModel currentUser;
     boolean userActivityActive = true;
@@ -51,7 +52,7 @@ public class UserActivity extends BusSubscriberActivity {
         setContentView(R.layout.activity_user);
 
         service = UserService.getService();
-        currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
+        currentUser = (UserModel) this.getIntent().getParcelableExtra(USER);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -148,25 +149,25 @@ public class UserActivity extends BusSubscriberActivity {
             switch (position) {
                 case 0: {
                     Intent intent = new Intent(UserActivity.this, UserActivity.class);
-                    intent.putExtra("user", currentUser);
+                    intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 1: {
                     Intent intent = new Intent(UserActivity.this, SearchActivity.class);
-                    intent.putExtra("user", currentUser);
+                    intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 2: {
                     Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
-                    intent.putExtra("user", currentUser);
+                    intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 3: {
                     Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
-                    intent.putExtra("user", currentUser);
+                    intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }

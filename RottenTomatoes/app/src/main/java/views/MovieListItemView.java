@@ -7,11 +7,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.otto.Bus;
-
 import models.MovieModel;
 import models.RatingModel;
-import otto.BusSingleton;
 import teamfour.com.rottentomatoes.R;
 
 /**

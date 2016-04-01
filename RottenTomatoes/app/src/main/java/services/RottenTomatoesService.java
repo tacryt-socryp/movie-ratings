@@ -33,4 +33,6 @@ public class RottenTomatoesService {
             return service;
         }
     }
+
+    private RottenTomatoesService() {}
 }

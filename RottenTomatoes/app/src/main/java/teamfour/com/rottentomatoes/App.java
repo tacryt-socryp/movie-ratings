@@ -19,7 +19,7 @@ public class App extends android.app.Application {
         super.onCreate();
 
         // here we are initializing bus singleton (this should only happen once!)
-        new BusSingleton(this.getApplicationContext());
+        BusSingleton.setContext(this.getApplicationContext());
         APIService.initBus(BusSingleton.get());
         RottenTomatoesService.initBus(BusSingleton.get());
     }

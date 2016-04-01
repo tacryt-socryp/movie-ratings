@@ -2,8 +2,6 @@ package otto;
 
 import android.content.Context;
 
-import teamfour.com.rottentomatoes.App;
-
 import com.squareup.otto.Bus;
 
 /**
@@ -12,7 +10,7 @@ import com.squareup.otto.Bus;
  */
 public class BusSingleton {
     private static Bus instance;
-    private Context context;
+    private static Context context;
 
     /**
      * retrieve the bus you need to get data using this method
@@ -34,9 +32,11 @@ public class BusSingleton {
 
     /**
      * don't call this method anywhere except for App
-     * @param context
+     * @param ctx
      */
-    public BusSingleton(Context context) {
-        this.context = context;
+    public static void setContext(Context ctx) {
+        context = ctx;
     }
+
+    private BusSingleton() {}
 }
