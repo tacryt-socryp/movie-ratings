@@ -3,6 +3,7 @@ package services;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.otto.Bus;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -10,11 +11,44 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import models.*;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by logan on 2/10/16.
  */
-public class UserService extends APIService {
+public class UserService {
+
+
+    // we use this to publish changes to other objects
+    static protected Bus bus;
+    static protected APIServiceInterface service = null;
+    static protected String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
+
+    // initialize bus should occur before any of the other methods are called
+    // initBus occurs in App, only needs to happen once
+    public static void initBus(Bus newBus) {
+        bus = newBus;
+    }
+
+    /**
+     * createService creates a Retrofit service for interacting with the team's REST API
+     * @return APIServiceInterface
+     */
+    public static APIServiceInterface getService() {
+        if (service == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
+
+            service = retrofit.create(APIServiceInterface.class);
+        }
+
+        return service;
+    }
+
+    private UserService() {}
 
     /**
      * errorConverter is a private helper function for converting the response body from a server call
@@ -43,9 +77,7 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
-                            Log.d("serviceCall", response.body().toString());
                             bus.post(response.body());
                         } else {
                             ErrorModel em = errorConverter(response.errorBody());
@@ -55,9 +87,6 @@ public class UserService extends APIService {
 
                     @Override
                     public void onFailure(Call<UserModel> call, Throwable t) {
-                        Log.d("serviceCall", "got a failure!");
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
                     }
                 }
         );
@@ -73,7 +102,6 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
@@ -84,9 +112,6 @@ public class UserService extends APIService {
 
                     @Override
                     public void onFailure(Call<UserModel> call, Throwable t) {
-                        Log.d("serviceCall", "got a failure!");
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
                     }
                 }
         );
@@ -99,6 +124,7 @@ public class UserService extends APIService {
      */
     public static void updateUser(APIServiceInterface service, UserModel userModel) {
         service.updateUser(
+<<<<<<< HEAD
             userModel.username,
             userModel.password,
             new ProfileModel(
@@ -115,14 +141,38 @@ public class UserService extends APIService {
                     } else {
                         ErrorModel em = errorConverter(response.errorBody());
                         bus.post(em);
+=======
+                userModel.username,
+                userModel.password,
+                new ProfileModel(
+                        userModel.profile.name,
+                        userModel.profile.major,
+                        userModel.profile.profileID
+                )).enqueue(
+                new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        if (response.isSuccess()) {
+                            bus.post(response.body());
+                        } else {
+                            ErrorModel em = errorConverter(response.errorBody());
+                            bus.post(em);
+                        }
+>>>>>>> origin/master
                     }
                 }
 
+<<<<<<< HEAD
                 @Override
                 public void onFailure(Call<UserModel> call, Throwable t) {
                     Log.d("serviceCall", "got a failure!");
                     Log.d("serviceCall", t.toString());
                     Log.d("serviceCall", t.getMessage());
+=======
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                    }
+>>>>>>> origin/master
                 }
             }
         );
@@ -138,7 +188,6 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
@@ -149,9 +198,6 @@ public class UserService extends APIService {
 
                     @Override
                     public void onFailure(Call<UserModel> call, Throwable t) {
-                        Log.d("serviceCall", "got a failure!");
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
                     }
                 }
         );
@@ -167,7 +213,6 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
@@ -178,9 +223,6 @@ public class UserService extends APIService {
 
                     @Override
                     public void onFailure(Call<UserModel> call, Throwable t) {
-                        Log.d("serviceCall", "got a failure!");
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
                     }
                 }
         );
@@ -207,9 +249,6 @@ public class UserService extends APIService {
 
                     @Override
                     public void onFailure(Call<UserListModel> call, Throwable t) {
-                        Log.d("serviceCall", "got a failure!");
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
                     }
                 }
         );

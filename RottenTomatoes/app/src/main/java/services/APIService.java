@@ -38,4 +38,6 @@ public class APIService {
         return service;
     }
 
+    private APIService() {}
+
 }

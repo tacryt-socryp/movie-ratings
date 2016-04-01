@@ -1,17 +1,45 @@
 package services;
 
-import android.util.Log;
+import com.squareup.otto.Bus;
 
 import models.MovieListModel;
 import models.MovieTitlesModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by logan on 2/21/16.
  */
-public class MovieService extends RottenTomatoesService {
+public class MovieService {
+
+    private static final String API_BASE_URL = "http://www.omdbapi.com/";
+    private static RottenTomatoesInterface service = null;
+    protected static Bus bus;
+
+    // initialize bus should occur before any of the other methods are called
+    // initBus occurs in App, only needs to happen once
+    public static void initBus(Bus newBus) {
+        bus = newBus;
+    }
+
+    public static RottenTomatoesInterface getService() {
+        if (service == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(API_BASE_URL)
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
+
+            service = retrofit.create(RottenTomatoesInterface.class);
+            return service;
+        } else {
+            return service;
+        }
+    }
+
+    private MovieService() {}
 
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
@@ -20,50 +48,32 @@ public class MovieService extends RottenTomatoesService {
      * @param searchTitle
      */
     public static void searchMovies(RottenTomatoesInterface service, String searchTitle) {
-        Log.d("IN MOVIE SERVICE", "searching for movies...");
-        Log.d("SEARCHING FOR", searchTitle);
         service.getSearch(searchTitle).enqueue(
                 new Callback<MovieListModel>() {
                     @Override
                     public void onResponse(Call<MovieListModel> call, Response<MovieListModel> response) {
-                        Log.d("tomatoesCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
-                            Log.d("tomatoesCall", response.body().toString());
-                        } else {
-                            Log.d("tomatoesCall", response.errorBody().toString());
                         }
                     }
                     @Override
                     public void onFailure(Call<MovieListModel> call, Throwable t) {
-                        Log.d("serviceCall", "got a failure!");
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
                     }
                 }
         );
     }
 
     public static void searchMovieTitlesToQuery(APIServiceInterface service, String filterBy, String other) {
-        Log.d("Filtering by", filterBy);
-        Log.d("Other", other);
         service.searchMovieTitlesToQuery(filterBy, other).enqueue(
                 new Callback<MovieTitlesModel>() {
                     @Override
                     public void onResponse(Call<MovieTitlesModel> call, Response<MovieTitlesModel> response) {
-                        Log.d("tomatoesCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
-                            Log.d("tomatoesCall", response.body().toString());
-                        } else {
-                            Log.d("tomatoesCall", response.errorBody().toString());
                         }
                     }
                     @Override
                     public void onFailure(Call<MovieTitlesModel> call, Throwable t) {
-                        Log.d("serviceCall", "got a failure!");
-                        Log.d("serviceCall", t.toString());
-                        Log.d("serviceCall", t.getMessage());
                     }
                 });
     }

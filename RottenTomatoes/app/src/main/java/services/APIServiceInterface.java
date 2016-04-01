@@ -16,13 +16,12 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-
 /**
  * Created by logan on 2/6/16.
  */
 public interface APIServiceInterface {
 
-    // NONE OF THESE FUNCTIONS SHOULD EVER BE CALLED DIRECTLY
+    String USERNAME = "username";
 
     /**
      * createUser sends a UserModel to the REST API, and creates a new user in the database.
@@ -40,7 +39,7 @@ public interface APIServiceInterface {
      * @return
      */
     @GET("users/{username}")
-    Call<UserModel> getUser(@Path("username") String username, @Header("Password") String password);
+    Call<UserModel> getUser(@Path(USERNAME) String username, @Header("Password") String password);
 
     /**
      * updateUser allows people to send the username and password of a user along with a modified profile model for the user
@@ -51,7 +50,7 @@ public interface APIServiceInterface {
      * @return
      */
     @PUT("users/{username}")
-    Call<UserModel> updateUser(@Path("username") String username, @Header("password") String password, @Body ProfileModel profile);
+    Call<UserModel> updateUser(@Path(USERNAME) String username, @Header("password") String password, @Body ProfileModel profile);
 
     /**
      * deleteUser allows someone to delete a user
@@ -60,7 +59,7 @@ public interface APIServiceInterface {
      * @return
      */
     @DELETE("users/{username}")
-    Call<UserModel> deleteUser(@Path("username") String username, @Header("password") String password);
+    Call<UserModel> deleteUser(@Path(USERNAME) String username, @Header("password") String password);
 
 
     /**
@@ -84,7 +83,7 @@ public interface APIServiceInterface {
     Call<MovieTitlesModel> searchMovieTitlesToQuery(@Path("filterBy") String filterBy, @Query("other") String other);
 
     @GET("admin/ban/{username}")
-    Call<UserModel> banOrUnbanUser(@Path("username") String username, @Query("shouldBan") Boolean shouldBan);
+    Call<UserModel> banOrUnbanUser(@Path(USERNAME) String username, @Query("shouldBan") Boolean shouldBan);
 
 
     @GET("admin/users")
