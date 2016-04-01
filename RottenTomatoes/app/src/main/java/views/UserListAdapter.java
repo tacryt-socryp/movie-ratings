@@ -6,13 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
-import models.UserListModel;
 import models.UserModel;
-import otto.BusSingleton;
 import services.APIServiceInterface;
 import services.UserService;
 
@@ -68,7 +65,7 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         UserListItemView itemView = (UserListItemView)convertView;
-        if (null == itemView) itemView = UserListItemView.inflate(parent);
+        if (null == itemView) { itemView = UserListItemView.inflate(parent); }
         itemView.setUser(getItem(position));
         return itemView;
     }

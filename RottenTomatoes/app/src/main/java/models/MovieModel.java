@@ -140,8 +140,6 @@ public class MovieModel implements Parcelable {
                 this.imdbid,
                 this.type,
                 this.response
-                //this.profile.name,
-                //Integer.toString(this.profile.profileID, 10)
         });
     }
 

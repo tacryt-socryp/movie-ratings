@@ -88,7 +88,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         RatingListItemView itemView = (RatingListItemView) convertView;
-        if (null == itemView) itemView = RatingListItemView.inflate(parent);
+        if (null == itemView) { itemView = RatingListItemView.inflate(parent); }
         itemView.setItem(getItem(position));
         return itemView;
     }

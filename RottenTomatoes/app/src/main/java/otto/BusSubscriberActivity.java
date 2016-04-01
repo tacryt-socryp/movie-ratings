@@ -10,8 +10,6 @@ import com.squareup.otto.Bus;
  * Created by logan on 2/10/16.
  */
 public class BusSubscriberActivity extends AppCompatActivity {
-    private Bus bus;
-
     /**
      * onCreate, initialize the bus!
      * @param savedInstanceState
@@ -28,7 +26,7 @@ public class BusSubscriberActivity extends AppCompatActivity {
      * Get an instance of the event bus (otto) from the BusSingleton, and register it to receive new events
      */
     public void initializeBus() {
-        bus = BusSingleton.get();
+        Bus bus = BusSingleton.get();
 
         // subscribe to new events!
         bus.register(this);

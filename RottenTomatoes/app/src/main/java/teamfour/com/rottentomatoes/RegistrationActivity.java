@@ -137,8 +137,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
                     "Registration failed - " + error.message,
                     Toast.LENGTH_SHORT
             );
-            toast.show();
-        }
+            toast.show(); }
     }
 
     /**

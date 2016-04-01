@@ -96,7 +96,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         MovieListItemView itemView = (MovieListItemView)convertView;
-        if (null == itemView) itemView = MovieListItemView.inflate(parent);
+        if (null == itemView) { itemView = MovieListItemView.inflate(parent) };
         itemView.setMovie(getItem(position));
         itemView.setRatings(getItem(position).ratings);
         return itemView;

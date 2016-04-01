@@ -38,7 +38,6 @@ public class MovieActivity extends BusSubscriberActivity {
     UserModel currentUser;
     RatingModel[] ratings;
 
-
     /**
      * initialize view
      * @param savedInstanceState

@@ -2,8 +2,6 @@ package otto;
 
 import android.content.Context;
 
-import teamfour.com.rottentomatoes.App;
-
 import com.squareup.otto.Bus;
 
 /**
@@ -19,7 +17,7 @@ public class BusSingleton {
      * @return instance of Bus
      */
     public static Bus get() {
-        if(instance == null) instance = getSync();
+        if(instance == null) { instance = getSync(); }
         return instance;
     }
 
@@ -28,7 +26,7 @@ public class BusSingleton {
      * @return instance of Bus
      */
     private static synchronized Bus getSync() {
-        if(instance == null) instance = new Bus();
+        if(instance == null) { instance = new Bus(); }
         return instance;
     }
 

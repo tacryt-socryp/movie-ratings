@@ -75,13 +75,11 @@ public class LoginActivity extends BusSubscriberActivity {
 
 
             Intent intent;
-            if (user.isAdmin)
-            {
+            if (user.isAdmin) {
                 intent = new Intent(this, AdminActivity.class);
                 Log.d("user", user.toString());
             }
-            else
-            {
+            else {
                 intent = new Intent(this, UserActivity.class);
                 Log.d("user", user.toString());
             }
@@ -95,20 +93,19 @@ public class LoginActivity extends BusSubscriberActivity {
      * @param error
      */
     @Subscribe public void getErrorEvent(ErrorModel error) {
-            Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "Login failed - " + error.message,
-                    Toast.LENGTH_SHORT
-            );
-            toast.show();
+        Toast toast = Toast.makeText(
+                this.getApplicationContext(),
+                "Login failed - " + error.message,
+                Toast.LENGTH_SHORT
+        );
+        toast.show();
     }
 
     /**
      * Return to the main view.
      * @param view
      */
-    public void onCancelButtonPressed(View view)
-    {
+    public void onCancelButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Cancel button pressed");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
