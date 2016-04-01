@@ -82,12 +82,12 @@ public class RatingModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
-                String.valueOf(this.ratingID),
-                String.valueOf(this.rating),
-                this.text,
-                this.movieTitle,
-                this.user,
-                this.major
+            String.valueOf(this.ratingID),
+            String.valueOf(this.rating),
+            this.text,
+            this.movieTitle,
+            this.user,
+            this.major
         });
     }
 

@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import models.MovieModel;
-import models.RatingModel;
 import models.UserModel;
 import teamfour.com.rottentomatoes.R;
 

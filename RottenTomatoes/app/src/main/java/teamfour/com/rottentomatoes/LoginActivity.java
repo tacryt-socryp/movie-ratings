@@ -39,8 +39,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * login button was pressed, perform a getUser server call
      * @param view
      */
-    public void onLoginButtonPressed(View view)
-    {
+    public void onLoginButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
         loggedIn = false;
 

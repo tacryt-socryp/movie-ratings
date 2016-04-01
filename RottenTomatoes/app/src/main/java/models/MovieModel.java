@@ -72,8 +72,6 @@ public class MovieModel implements Parcelable {
 
     public RatingModel[] ratings;
 
-    // TODO: implement Parcelable!
-
     /**
      * Recreate user model from parcelable data
      * @param in
@@ -120,26 +118,26 @@ public class MovieModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
-                this.title,
-                this.year,
-                this.rated,
-                this.released,
-                this.runtime,
-                this.genre,
-                this.director,
-                this.writer,
-                this.actors,
-                this.plot,
-                this.lang,
-                this.country,
-                this.awards,
-                this.poster,
-                this.metascore,
-                this.imdbrating,
-                this.imdbvotes,
-                this.imdbid,
-                this.type,
-                this.response
+            this.title,
+            this.year,
+            this.rated,
+            this.released,
+            this.runtime,
+            this.genre,
+            this.director,
+            this.writer,
+            this.actors,
+            this.plot,
+            this.lang,
+            this.country,
+            this.awards,
+            this.poster,
+            this.metascore,
+            this.imdbrating,
+            this.imdbvotes,
+            this.imdbid,
+            this.type,
+            this.response
         });
     }
 

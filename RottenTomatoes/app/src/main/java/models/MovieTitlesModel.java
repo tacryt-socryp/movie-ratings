@@ -1,7 +1,5 @@
 package models;
 
-import android.graphics.Movie;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**

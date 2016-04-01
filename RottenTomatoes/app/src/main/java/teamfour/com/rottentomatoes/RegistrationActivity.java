@@ -62,9 +62,9 @@ public class RegistrationActivity extends BusSubscriberActivity {
                 UserService.createUser(apiService, new UserModel(username, password, profile, true));
             } else {
                 Toast toast = Toast.makeText(
-                        this.getApplicationContext(),
-                        "Make Sure Your Passwords Match",
-                        Toast.LENGTH_SHORT
+                    this.getApplicationContext(),
+                    "Make Sure Your Passwords Match",
+                    Toast.LENGTH_SHORT
                 );
                 toast.show();
             }
@@ -76,17 +76,17 @@ public class RegistrationActivity extends BusSubscriberActivity {
                 UserService.createUser(apiService, new UserModel(username, password, profile));
             } else {
                 Toast toast = Toast.makeText(
-                        this.getApplicationContext(),
-                        "Make Sure Your Passwords Match",
-                        Toast.LENGTH_SHORT
+                    this.getApplicationContext(),
+                    "Make Sure Your Passwords Match",
+                    Toast.LENGTH_SHORT
                 );
                 toast.show();
             }
         } else {
             Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "This is the wrong admin password. Try to register again.",
-                    Toast.LENGTH_SHORT);
+                this.getApplicationContext(),
+                "This is the wrong admin password. Try to register again.",
+                Toast.LENGTH_SHORT);
             toast.show();
         }
 
@@ -101,15 +101,15 @@ public class RegistrationActivity extends BusSubscriberActivity {
     public void getUserEvent(UserModel user) {
         if (isRegistrationActive) {
             Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "Registration Successful",
-                    Toast.LENGTH_SHORT
+                this.getApplicationContext(),
+                "Registration Successful",
+                Toast.LENGTH_SHORT
             );
             toast.show();
             if (admin) {
                 Toast welcome = Toast.makeText(this.getApplicationContext(),
-                        "Welcome Admin!",
-                        Toast.LENGTH_SHORT);
+                "Welcome Admin!",
+                Toast.LENGTH_SHORT);
                 welcome.show();
             }
 
@@ -133,11 +133,12 @@ public class RegistrationActivity extends BusSubscriberActivity {
     @Subscribe public void getErrorEvent(ErrorModel error) {
         if (isRegistrationActive) {
             Toast toast = Toast.makeText(
-                    this.getApplicationContext(),
-                    "Registration failed - " + error.message,
-                    Toast.LENGTH_SHORT
+                this.getApplicationContext(),
+                "Registration failed - " + error.message,
+                Toast.LENGTH_SHORT
             );
-            toast.show(); }
+            toast.show();
+        }
     }
 
     /**

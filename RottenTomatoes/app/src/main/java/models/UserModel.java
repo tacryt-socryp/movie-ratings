@@ -62,13 +62,13 @@ public class UserModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
-                this.username,
-                this.password,
-                this.profile.name,
-                this.profile.major,
-                Integer.toString(this.profile.profileID, 10),
-                Boolean.toString(this.isAdmin),
-                Boolean.toString(this.isActive)
+            this.username,
+            this.password,
+            this.profile.name,
+            this.profile.major,
+            Integer.toString(this.profile.profileID, 10),
+            Boolean.toString(this.isAdmin),
+            Boolean.toString(this.isActive)
         });
     }
 

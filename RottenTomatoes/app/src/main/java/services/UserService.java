@@ -21,9 +21,9 @@ public class UserService {
 
 
     // we use this to publish changes to other objects
-    static protected Bus bus;
-    static protected APIServiceInterface service = null;
-    static protected String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
+    protected static Bus bus;
+    protected static APIServiceInterface service = null;
+    protected static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
     // initialize bus should occur before any of the other methods are called
     // initBus occurs in App, only needs to happen once
@@ -127,9 +127,9 @@ public class UserService {
             userModel.username,
             userModel.password,
             new ProfileModel(
-                    userModel.profile.name,
-                    userModel.profile.major,
-                    userModel.profile.profileID
+                userModel.profile.name,
+                userModel.profile.major,
+                userModel.profile.profileID
             )).enqueue(
             new Callback<UserModel>() {
                 @Override
