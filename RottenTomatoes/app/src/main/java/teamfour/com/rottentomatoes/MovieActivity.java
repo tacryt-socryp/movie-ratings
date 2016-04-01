@@ -67,34 +67,6 @@ public class MovieActivity extends BusSubscriberActivity {
     }
 
     /**
-     * download movie image using an async task
-     */
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String url = urls[0];
-            Bitmap img = null;
-            try {
-                InputStream in = new java.net.URL(url).openStream();
-                img = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return img;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
-    /**
      * rate movie button was pressed *
      * @param view
      */
@@ -147,5 +119,32 @@ public class MovieActivity extends BusSubscriberActivity {
         }
         lv.setAdapter(new RatingListAdapter(this, ratingList, ratingsModel.movieTitle));
         // modify the list items individually based on event);
+    }
+
+    /**
+     * download movie image using an async task
+     */
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String url = urls[0];
+            Bitmap img = null;
+            try {
+                InputStream in = new java.net.URL(url).openStream();
+                img = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+            }
+            return img;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

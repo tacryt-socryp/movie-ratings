@@ -2,12 +2,9 @@ package teamfour.com.rottentomatoes;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -27,7 +24,6 @@ import views.UserListAdapter;
 public class AdminActivity extends BusSubscriberActivity {
 
     APIServiceInterface apiService;
-    private UserModel currentUser;
     boolean isCurrScreen = true;
 
     /**
@@ -40,7 +36,7 @@ public class AdminActivity extends BusSubscriberActivity {
         setContentView(R.layout.activity_admin);
 
         apiService = UserService.getService();
-        currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
+        UserModel currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         UserService.viewUserList(apiService);
     }
 
@@ -65,7 +61,7 @@ public class AdminActivity extends BusSubscriberActivity {
         ListView lv= (ListView) findViewById(R.id.listView3);
         List<UserModel> newList = new ArrayList<UserModel>();
         for (UserModel user : list.users) {
-            if (user.isActive == true) {
+            if (user.isActive) {
                 user.status = "Active";
             } else {
                 user.status = "Banned or Locked";

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.ErrorModel;
 import models.RatingModel;
 import models.RatingsModel;
-import models.UserModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,8 +26,7 @@ public class RatingService extends APIService {
     private static ErrorModel errorConverter(ResponseBody errorBody) {
         ObjectMapper om = new ObjectMapper();
         try {
-            ErrorModel em = om.readValue(errorBody.string(), ErrorModel.class);
-            return em;
+            return om.readValue(errorBody.string(), ErrorModel.class);
         } catch (Exception e) {
             Log.d("errorConverting", e.toString());
         }
@@ -46,7 +44,7 @@ public class RatingService extends APIService {
                 new Callback<RatingModel>() {
                     @Override
                     public void onResponse(Call<RatingModel> call, Response<RatingModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             Log.d("serviceCall", response.body().toString());
                             bus.post(response.body());
@@ -76,7 +74,7 @@ public class RatingService extends APIService {
                 new Callback<RatingsModel>() {
                     @Override
                     public void onResponse(Call<RatingsModel> call, Response<RatingsModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {

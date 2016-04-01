@@ -12,7 +12,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class RottenTomatoesService {
     private static final String API_BASE_URL = "http://www.omdbapi.com/";
     private static RottenTomatoesInterface service = null;
-    static protected Bus bus;
+    protected static Bus bus;
 
     // initialize bus should occur before any of the other methods are called
     // initBus occurs in App, only needs to happen once
@@ -20,7 +20,7 @@ public class RottenTomatoesService {
         bus = newBus;
     }
 
-    static public RottenTomatoesInterface getService() {
+    public static RottenTomatoesInterface getService() {
         if (service == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)

@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -65,9 +64,7 @@ public class SearchActivity extends UserActivity {
      */
     @Subscribe
     public void getMoviesEvent(MovieListModel list) {
-        System.out.println("Made it to get Movies event");
         if (isSearchActive) {
-
             final Activity self = this;
             ListView lv= (ListView) findViewById(R.id.listView2);
             MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
@@ -76,7 +73,6 @@ public class SearchActivity extends UserActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-
                     MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
                     Log.d("movieModel", item.toString());
 
@@ -86,7 +82,6 @@ public class SearchActivity extends UserActivity {
                     intent.putExtra("ratings", movieExtra.ratings);
                     intent.putExtra("user", currentUser);
                     startActivity(intent);
-
                 }
 
             });

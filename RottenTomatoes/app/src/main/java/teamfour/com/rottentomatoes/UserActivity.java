@@ -3,17 +3,15 @@ package teamfour.com.rottentomatoes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-// Updated upstream
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-// Stashed changes
 import android.widget.Toast;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.squareup.otto.Subscribe;
 
@@ -24,12 +22,8 @@ import services.APIServiceInterface;
 import services.UserService;
 
 // Updated upstream
-
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-import android.support.v7.app.ActionBarDrawerToggle;
+// Stashed changes
+// Updated upstream
 
 // Stashed changes
 /**
@@ -81,47 +75,6 @@ public class UserActivity extends BusSubscriberActivity {
         };
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
-    }
-
-    /**
-     * drawer handler
-     */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            switch (position) {
-                case 0: {
-                    Intent intent = new Intent(UserActivity.this, UserActivity.class);
-                    intent.putExtra("user", currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 1: {
-                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
-                    intent.putExtra("user", currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 2: {
-                    Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
-                    intent.putExtra("user", currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 3: {
-                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
-                    intent.putExtra("user", currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 4: {
-                    Intent intent = new Intent(UserActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    break;
-                }
-            }
-            drawerLayout.closeDrawer(drawerList);
-        }
     }
 
     /**
@@ -184,5 +137,46 @@ public class UserActivity extends BusSubscriberActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
+    }
+
+    /**
+     * drawer handler
+     */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+            switch (position) {
+                case 0: {
+                    Intent intent = new Intent(UserActivity.this, UserActivity.class);
+                    intent.putExtra("user", currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case 1: {
+                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
+                    intent.putExtra("user", currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case 2: {
+                    Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
+                    intent.putExtra("user", currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case 3: {
+                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    intent.putExtra("user", currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case 4: {
+                    Intent intent = new Intent(UserActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+            }
+            drawerLayout.closeDrawer(drawerList);
+        }
     }
 }

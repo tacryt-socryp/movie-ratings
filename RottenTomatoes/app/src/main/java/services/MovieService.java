@@ -26,7 +26,7 @@ public class MovieService extends RottenTomatoesService {
                 new Callback<MovieListModel>() {
                     @Override
                     public void onResponse(Call<MovieListModel> call, Response<MovieListModel> response) {
-                        Log.d("tomatoesCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("tomatoesCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                             Log.d("tomatoesCall", response.body().toString());
@@ -34,10 +34,7 @@ public class MovieService extends RottenTomatoesService {
                             Log.d("tomatoesCall", response.errorBody().toString());
                         }
                     }
-
                     @Override
-                    //public void onFailure(Call<MovieModel> call, Throwable t) {
-                    //public void onFailure(Call<ArrayList<MovieModel>> call, Throwable t) {
                     public void onFailure(Call<MovieListModel> call, Throwable t) {
                         Log.d("serviceCall", "got a failure!");
                         Log.d("serviceCall", t.toString());
@@ -54,7 +51,7 @@ public class MovieService extends RottenTomatoesService {
                 new Callback<MovieTitlesModel>() {
                     @Override
                     public void onResponse(Call<MovieTitlesModel> call, Response<MovieTitlesModel> response) {
-                        Log.d("tomatoesCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("tomatoesCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                             Log.d("tomatoesCall", response.body().toString());
@@ -62,10 +59,7 @@ public class MovieService extends RottenTomatoesService {
                             Log.d("tomatoesCall", response.errorBody().toString());
                         }
                     }
-
                     @Override
-                    //public void onFailure(Call<MovieModel> call, Throwable t) {
-                    //public void onFailure(Call<ArrayList<MovieModel>> call, Throwable t) {
                     public void onFailure(Call<MovieTitlesModel> call, Throwable t) {
                         Log.d("serviceCall", "got a failure!");
                         Log.d("serviceCall", t.toString());

@@ -1,7 +1,6 @@
 package views;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -11,7 +10,6 @@ import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
-import models.MovieModel;
 import models.RatingModel;
 import models.RatingsModel;
 import otto.BusSingleton;
@@ -22,7 +20,6 @@ import services.RatingService;
  * Created by logan on 2/27/16.
  */
 public class RatingListAdapter extends ArrayAdapter<RatingModel> {
-    private Bus bus;
     APIServiceInterface ratingService;
     private List<RatingModel> ratings;
     private String movieTitle;
@@ -39,7 +36,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
         ratings = ratingList;
         movieTitle = movieT;
 
-        bus = BusSingleton.get();
+        Bus bus = BusSingleton.get();
         // subscribe to new events!
         bus.register(this);
     }

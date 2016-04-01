@@ -25,8 +25,7 @@ public class UserService extends APIService {
     private static ErrorModel errorConverter(ResponseBody errorBody) {
         ObjectMapper om = new ObjectMapper();
         try {
-            ErrorModel em = om.readValue(errorBody.string(), ErrorModel.class);
-            return em;
+            return om.readValue(errorBody.string(), ErrorModel.class);
         } catch (Exception e) {
             Log.d("errorConverting", e.toString());
         }
@@ -44,7 +43,7 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             Log.d("serviceCall", response.body().toString());
                             bus.post(response.body());
@@ -74,7 +73,7 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
@@ -110,7 +109,7 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
@@ -139,7 +138,7 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
@@ -168,7 +167,7 @@ public class UserService extends APIService {
                 new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
@@ -197,7 +196,7 @@ public class UserService extends APIService {
                 new Callback<UserListModel>() {
                     @Override
                     public void onResponse(Call<UserListModel> call, Response<UserListModel> response) {
-                        Log.d("serviceCall", String.valueOf(response.code()) + ", " + response.message());
+                        Log.d("serviceCall", response.code() + ", " + response.message());
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {

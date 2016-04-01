@@ -4,30 +4,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.MovieListModel;
 import models.MovieModel;
 import models.MovieTitlesModel;
 import models.UserModel;
-import teamfour.com.rottentomatoes.MovieActivity;
-import teamfour.com.rottentomatoes.R;
-import teamfour.com.rottentomatoes.UserActivity;
+import services.APIService;
+import services.APIServiceInterface;
+import services.MovieService;
+import services.RottenTomatoesInterface;
+import services.RottenTomatoesService;
 import views.MovieListAdapter;
-import services.*;
 
 /**
  * Created by Jeremy on 3/8/16.
@@ -39,7 +39,7 @@ public class RecommendationActivity extends UserActivity {
     boolean isFirstTime = true;
     private UserModel currentUser;
     List<MovieModel> recommendedMovies;
-    HashMap<String, Integer> titleToPosition;
+    Map<String, Integer> titleToPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle) {

@@ -1,16 +1,9 @@
 package services;
 
-import android.util.Log;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.Response;
-import retrofit2.converter.jackson.JacksonConverterFactory;
-
 import com.squareup.otto.Bus;
 
-import models.UserModel;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by logan on 2/6/16.
