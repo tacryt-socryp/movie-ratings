@@ -69,22 +69,14 @@ public class MovieActivity extends BusSubscriberActivity {
      * rate movie button was pressed *
      * @param view
      */
-<<<<<<< HEAD
-    public void pressedRateMovie(View view) {
+    public final void pressedRateMovie(View view) {
         final EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
         final EditText text = (EditText) findViewById(R.id.RatingText);
-        if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
-            final RatingModel rating = new RatingModel(-1,
-                    Integer.parseInt(ratingNum.getText().toString(), 10), text.getText().toString(),
-=======
-    public final void pressedRateMovie(View view) {
-        EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
-        EditText text = (EditText) findViewById(R.id.RatingText);
+
         if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
             int integerRadix = 10;
             RatingModel rating = new RatingModel(-1,
                     Integer.parseInt(ratingNum.getText().toString(), integerRadix), text.getText().toString(),
->>>>>>> origin/master
                     currentMovie.title, currentUser.username, currentUser.profile.major
             );
 
@@ -136,13 +128,8 @@ public class MovieActivity extends BusSubscriberActivity {
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         private ImageView bmImage;
 
-<<<<<<< HEAD
-        public DownloadImageTask(ImageView bmapImage) {
-            bmImage = bmapImage;
-=======
         public DownloadImageTask(ImageView newImage) {
             this.bmImage = newImage;
->>>>>>> origin/master
         }
 
         protected Bitmap doInBackground(String... urls) {

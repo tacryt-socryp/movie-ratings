@@ -40,15 +40,9 @@ public class ProfileActivity extends UserActivity {
     /**
      * set text fields with data
      */
-<<<<<<< HEAD
-    public void setTextFields() {
+    public final void setTextFields() {
         final EditText nameField = (EditText) findViewById(R.id.name);
         final EditText majorField = (EditText) findViewById(R.id.major);
-=======
-    public final void setTextFields() {
-        EditText nameField = (EditText) findViewById(R.id.name);
-        EditText majorField = (EditText) findViewById(R.id.major);
->>>>>>> origin/master
 
         nameField.setText(currentUser.profile.name);
         majorField.setText(currentUser.profile.major);

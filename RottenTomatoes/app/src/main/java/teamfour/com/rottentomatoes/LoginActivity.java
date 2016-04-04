@@ -91,14 +91,9 @@ public class LoginActivity extends BusSubscriberActivity {
      * On unsuccessful login, receive back the error message!
      * @param error
      */
-<<<<<<< HEAD
-    @Subscribe public void getErrorEvent(ErrorModel error) {
-        final Toast toast = Toast.makeText(
-=======
     @Subscribe
     public final void getErrorEvent(ErrorModel error) {
-        Toast toast = Toast.makeText(
->>>>>>> origin/master
+        final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "Login failed - " + error.message,
                 Toast.LENGTH_SHORT

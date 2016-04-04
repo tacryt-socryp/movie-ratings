@@ -31,12 +31,8 @@ public class UserModel implements Parcelable {
      * @param in
      */
     public UserModel(Parcel in){
-<<<<<<< HEAD
-        final String[] data = new String[7];
-=======
         int dataLength = 7;
         String[] data = new String[dataLength];
->>>>>>> origin/master
 
         in.readStringArray(data);
         this.username = data[0];

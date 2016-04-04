@@ -78,14 +78,8 @@ public class MovieModel implements Parcelable {
      * Recreate user model from parcelable data
      * @param in
      */
-<<<<<<< HEAD
     public MovieModel(Parcel in){
-        final String[] data = new String[20];
-=======
-    public MovieModel(Parcel in) {
-        String[] data = new String[dataLength];
->>>>>>> origin/master
-
+        final String[] data = new String[dataLength];
         in.readStringArray(data);
         this.title = data[0];
         this.year = data[1];

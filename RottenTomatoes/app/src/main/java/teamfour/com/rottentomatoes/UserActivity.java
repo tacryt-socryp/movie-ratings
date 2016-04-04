@@ -131,13 +131,8 @@ public class UserActivity extends BusSubscriberActivity {
     }
 
     @Override
-<<<<<<< HEAD
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final int id = item.getItemId();
-=======
     public final boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
->>>>>>> origin/master
         if (id == R.id.action_settings) {
             return true;
         }
@@ -159,36 +154,6 @@ public class UserActivity extends BusSubscriberActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-<<<<<<< HEAD
-            switch (position) {
-                case 0: {
-                    final Intent intent = new Intent(UserActivity.this, UserActivity.class);
-                    intent.putExtra(USER, currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 1: {
-                    final Intent intent = new Intent(UserActivity.this, SearchActivity.class);
-                    intent.putExtra(USER, currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 2: {
-                    final Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
-                    intent.putExtra(USER, currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 3: {
-                    final Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
-                    intent.putExtra(USER, currentUser);
-                    startActivity(intent);
-                    break;
-                }
-                case 4: {
-                    final Intent intent = new Intent(UserActivity.this, MainActivity.class);
-=======
-
             switch (Activities.values()[position]) {
 
                 case User: {
@@ -217,7 +182,6 @@ public class UserActivity extends BusSubscriberActivity {
                 }
                 case Main: {
                     Intent intent = new Intent(UserActivity.this, MainActivity.class);
->>>>>>> origin/master
                     startActivity(intent);
                     break;
                 }

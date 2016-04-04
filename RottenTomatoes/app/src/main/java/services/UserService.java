@@ -36,13 +36,9 @@ public final class UserService {
      * @return APIServiceInterface
      */
     public static APIServiceInterface getService() {
-<<<<<<< HEAD
-        if (service == null) {
-            final Retrofit retrofit = new Retrofit.Builder()
-=======
+
         if (uService == null) {
-            Retrofit retrofit = new Retrofit.Builder()
->>>>>>> origin/master
+            final Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();

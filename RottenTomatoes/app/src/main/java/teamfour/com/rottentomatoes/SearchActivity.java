@@ -49,15 +49,9 @@ public class SearchActivity extends UserActivity {
      * Press search to receive a movie that fits your query
      * @param view
      */
-<<<<<<< HEAD
-    public void pressedSearch(View view) {
+    public final void pressedSearch(View view) {
         final EditText query = (EditText) findViewById(R.id.SearchQuery);
         final String search = query.getText().toString();
-=======
-    public final void pressedSearch(View view) {
-        EditText query = (EditText) findViewById(R.id.SearchQuery);
-        String search = query.getText().toString();
->>>>>>> origin/master
 
         // when user scrolls down to the bottom, call an event that iterates this number!
         Log.d("PRESSED SEARCH", "search is " + search);

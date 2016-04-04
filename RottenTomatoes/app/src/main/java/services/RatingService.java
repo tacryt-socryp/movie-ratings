@@ -36,13 +36,8 @@ public final class RatingService {
      * @return APIServiceInterface
      */
     public static APIServiceInterface getService() {
-<<<<<<< HEAD
-        if (service == null) {
-            final Retrofit retrofit = new Retrofit.Builder()
-=======
         if (rService == null) {
-            Retrofit retrofit = new Retrofit.Builder()
->>>>>>> origin/master
+            final Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();

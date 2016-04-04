@@ -35,10 +35,6 @@ public class AdminActivity extends BusSubscriberActivity {
         setContentView(R.layout.activity_admin);
 
         apiService = UserService.getService();
-<<<<<<< HEAD
-        final UserModel currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
-=======
->>>>>>> origin/master
         UserService.viewUserList(apiService);
     }
 
@@ -59,14 +55,9 @@ public class AdminActivity extends BusSubscriberActivity {
     @Subscribe
     public final void getUserEvent(UserListModel list) {
 
-<<<<<<< HEAD
-        final Activity self = this;
         final ListView lv= (ListView) findViewById(R.id.listView3);
         final List<UserModel> newList = new ArrayList<UserModel>();
-=======
-        ListView lv= (ListView) findViewById(R.id.listView3);
-        List<UserModel> newList = new ArrayList<UserModel>();
->>>>>>> origin/master
+
         for (UserModel user : list.users) {
             if (user.isActive) {
                 user.status = "Active";

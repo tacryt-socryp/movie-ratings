@@ -25,13 +25,8 @@ public class BusSubscriberActivity extends AppCompatActivity {
     /**
      * Get an instance of the event bus (otto) from the BusSingleton, and register it to receive new events
      */
-<<<<<<< HEAD
-    public void initializeBus() {
-        final Bus bus = BusSingleton.get();
-=======
     public final void initializeBus() {
-        Bus bus = BusSingleton.get();
->>>>>>> origin/master
+        final Bus bus = BusSingleton.get();
 
         // subscribe to new events!
         bus.register(this);

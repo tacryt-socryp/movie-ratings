@@ -118,13 +118,8 @@ public class RecommendationActivity extends UserActivity {
      * use a list of movies to setup a list view
      * @param list
      */
-<<<<<<< HEAD
-    public void setupList(List<MovieModel> list) {
-        final ListView lv = (ListView) findViewById(R.id.listView);
-=======
     public final void setupList(List<MovieModel> list) {
-        ListView lv = (ListView) findViewById(R.id.listView);
->>>>>>> origin/master
+        final ListView lv = (ListView) findViewById(R.id.listView);
 
         if (isFirstTime) {
             final Activity self = this;
@@ -134,21 +129,13 @@ public class RecommendationActivity extends UserActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-
-<<<<<<< HEAD
-                    final MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
-
                     final Intent intent = new Intent(self, MovieActivity.class);
                     final MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
-=======
-                    Intent intent = new Intent(self, MovieActivity.class);
-                    MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
->>>>>>> origin/master
+
                     intent.putExtra("movie", movieExtra);
                     intent.putExtra("ratings", movieExtra.ratings);
                     intent.putExtra("user", currentUser);
                     startActivity(intent);
-
                 }
 
             });
