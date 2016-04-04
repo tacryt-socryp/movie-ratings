@@ -25,10 +25,10 @@ public class ProfileActivity extends UserActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
         // inflate the custom activity layout
-        LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View activityView = layoutInflater.inflate(R.layout.activity_profile, null,false);
+        final LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View activityView = layoutInflater.inflate(R.layout.activity_profile, null,false);
         // add the custom layout of this activity to frame layout.
         frameLayout.addView(activityView);
 
@@ -41,8 +41,8 @@ public class ProfileActivity extends UserActivity {
      * set text fields with data
      */
     public void setTextFields() {
-        EditText nameField = (EditText) findViewById(R.id.name);
-        EditText majorField = (EditText) findViewById(R.id.major);
+        final EditText nameField = (EditText) findViewById(R.id.name);
+        final EditText majorField = (EditText) findViewById(R.id.major);
 
         nameField.setText(currentUser.profile.name);
         majorField.setText(currentUser.profile.major);
@@ -54,14 +54,14 @@ public class ProfileActivity extends UserActivity {
      */
     public void onSaveButtonPressed(View view) {
         Log.d("PROFILE ACTIVITY", "updating user profile name");
-        EditText nameField = (EditText) findViewById(R.id.name);
-        EditText majorField = (EditText) findViewById(R.id.major);
+        final EditText nameField = (EditText) findViewById(R.id.name);
+        final EditText majorField = (EditText) findViewById(R.id.major);
 
         Log.d("PROFILE ACTIVITY", "updating user");
         currentUser.profile.name = nameField.getText().toString();
         currentUser.profile.major = majorField.getText().toString();
         UserService.updateUser(service, currentUser);
-        Toast toast = Toast.makeText(
+        final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "Profile Updated!",
                 Toast.LENGTH_SHORT

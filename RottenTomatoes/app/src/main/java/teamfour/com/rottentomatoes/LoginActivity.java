@@ -43,11 +43,11 @@ public class LoginActivity extends BusSubscriberActivity {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
         loggedIn = false;
 
-        EditText namefield = (EditText) findViewById(R.id.editText);
-        EditText passwordfield = (EditText) findViewById(R.id.editText2);
+        final EditText namefield = (EditText) findViewById(R.id.editText);
+        final EditText passwordfield = (EditText) findViewById(R.id.editText2);
 
-        String username = namefield.getText().toString();
-        String password = passwordfield.getText().toString();
+        final String username = namefield.getText().toString();
+        final String password = passwordfield.getText().toString();
 
         // example of calling user service
         UserService.getUser(service, new UserModel(username, password));
@@ -62,7 +62,7 @@ public class LoginActivity extends BusSubscriberActivity {
      */
     @Subscribe public void getUserEvent(UserModel user) {
         if (!loggedIn) {
-            Toast toast = Toast.makeText(
+            final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Login Successful",
                     Toast.LENGTH_SHORT
@@ -77,8 +77,7 @@ public class LoginActivity extends BusSubscriberActivity {
             if (user.isAdmin) {
                 intent = new Intent(this, AdminActivity.class);
                 Log.d("user", user.toString());
-            }
-            else {
+            } else {
                 intent = new Intent(this, UserActivity.class);
                 Log.d("user", user.toString());
             }
@@ -92,7 +91,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * @param error
      */
     @Subscribe public void getErrorEvent(ErrorModel error) {
-        Toast toast = Toast.makeText(
+        final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "Login failed - " + error.message,
                 Toast.LENGTH_SHORT
@@ -106,7 +105,7 @@ public class LoginActivity extends BusSubscriberActivity {
      */
     public void onCancelButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Cancel button pressed");
-        Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

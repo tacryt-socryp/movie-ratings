@@ -85,7 +85,7 @@ public class UserActivity extends BusSubscriberActivity {
     @Subscribe
     public void getUserEvent(UserModel user) {
         if (userActivityActive) {
-            Toast toast = Toast.makeText(
+            final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "User information updated!",
                     Toast.LENGTH_SHORT
@@ -107,7 +107,7 @@ public class UserActivity extends BusSubscriberActivity {
      */
     @Subscribe public void getErrorEvent(ErrorModel error) {
         if (userActivityActive) {
-            Toast toast = Toast.makeText(
+            final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Login failed - " + error.message,
                     Toast.LENGTH_SHORT
@@ -124,7 +124,7 @@ public class UserActivity extends BusSubscriberActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        final int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
@@ -148,31 +148,31 @@ public class UserActivity extends BusSubscriberActivity {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             switch (position) {
                 case 0: {
-                    Intent intent = new Intent(UserActivity.this, UserActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, UserActivity.class);
                     intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 1: {
-                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, SearchActivity.class);
                     intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 2: {
-                    Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
                     intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 3: {
-                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
                     intent.putExtra(USER, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case 4: {
-                    Intent intent = new Intent(UserActivity.this, MainActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 }

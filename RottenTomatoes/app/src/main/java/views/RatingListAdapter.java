@@ -36,7 +36,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
         ratings = ratingList;
         movieTitle = movieT;
 
-        Bus bus = BusSingleton.get();
+        final Bus bus = BusSingleton.get();
         // subscribe to new events!
         bus.register(this);
     }

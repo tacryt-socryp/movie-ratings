@@ -26,7 +26,7 @@ public class MainActivity extends BusSubscriberActivity {
      */
     public void onLoginButtonClicked(View v) {
         Log.d("OPENING SCREEN", "Pressed login");
-        Intent intent = new Intent(this, LoginActivity.class);
+        final Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
@@ -51,7 +51,7 @@ public class MainActivity extends BusSubscriberActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        final int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -67,7 +67,7 @@ public class MainActivity extends BusSubscriberActivity {
      */
     public void onRegisterButtonPressed(View w) {
         Log.d("OPENING SCREEN", "Pressed register");
-        Intent intent = new Intent(this, RegistrationActivity.class);
+        final Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
 }

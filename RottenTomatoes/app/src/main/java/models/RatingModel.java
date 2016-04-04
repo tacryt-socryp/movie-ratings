@@ -55,7 +55,7 @@ public class RatingModel implements Parcelable {
      * @param in
      */
     public RatingModel(Parcel in){
-        String[] data = new String[6];
+        final String[] data = new String[6];
 
         in.readStringArray(data);
         this.ratingID = Integer.parseInt(data[0], 10);

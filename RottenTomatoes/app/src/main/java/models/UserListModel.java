@@ -41,7 +41,7 @@ public class UserListModel implements Parcelable {
      * @param in
      */
     public UserListModel(Parcel in) {
-        String[] data = new String[2];
+        final String[] data = new String[2];
 
         in.readStringArray(data);
     }

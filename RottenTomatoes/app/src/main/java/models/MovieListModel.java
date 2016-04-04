@@ -50,7 +50,7 @@ public class MovieListModel implements Parcelable {
      * @param in
      */
     public MovieListModel(Parcel in) {
-        String[] data = new String[2];
+        final String[] data = new String[2];
 
         in.readStringArray(data);
     }

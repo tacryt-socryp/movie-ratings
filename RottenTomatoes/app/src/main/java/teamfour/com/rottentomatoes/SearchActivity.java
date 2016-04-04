@@ -35,10 +35,10 @@ public class SearchActivity extends UserActivity {
     protected void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
 
-        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
         // inflate the custom activity layout
-        LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View activityView = layoutInflater.inflate(R.layout.activity_search, null, false);
+        final LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View activityView = layoutInflater.inflate(R.layout.activity_search, null, false);
         // add the custom layout of this activity to frame layout.
         frameLayout.addView(activityView);
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
@@ -50,8 +50,8 @@ public class SearchActivity extends UserActivity {
      * @param view
      */
     public void pressedSearch(View view) {
-        EditText query = (EditText) findViewById(R.id.SearchQuery);
-        String search = query.getText().toString();
+        final EditText query = (EditText) findViewById(R.id.SearchQuery);
+        final String search = query.getText().toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
         Log.d("PRESSED SEARCH", "search is " + search);
@@ -66,18 +66,18 @@ public class SearchActivity extends UserActivity {
     public void getMoviesEvent(MovieListModel list) {
         if (isSearchActive) {
             final Activity self = this;
-            ListView lv= (ListView) findViewById(R.id.listView2);
-            MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
+            final ListView lv= (ListView) findViewById(R.id.listView2);
+            final MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
             lv.setAdapter(adapter);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                    MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
+                    final MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
                     Log.d("movieModel", item.toString());
 
-                    Intent intent = new Intent(self, MovieActivity.class);
-                    MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
+                    final Intent intent = new Intent(self, MovieActivity.class);
+                    final MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
                     intent.putExtra("movie", movieExtra);
                     intent.putExtra("ratings", movieExtra.ratings);
                     intent.putExtra("user", currentUser);

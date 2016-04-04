@@ -13,7 +13,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * Created by logan on 2/21/16.
  */
-public class MovieService {
+public final class MovieService {
 
     private static final String API_BASE_URL = "http://www.omdbapi.com/";
     private static RottenTomatoesInterface service = null;
@@ -27,7 +27,7 @@ public class MovieService {
 
     public static RottenTomatoesInterface getService() {
         if (service == null) {
-            Retrofit retrofit = new Retrofit.Builder()
+            final Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();

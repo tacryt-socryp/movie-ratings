@@ -80,7 +80,7 @@ public class MovieListItemView extends RelativeLayout {
      * @return
      */
     public static MovieListItemView inflate(ViewGroup parent) {
-        MovieListItemView itemView = (MovieListItemView) LayoutInflater.from(parent.getContext())
+        final MovieListItemView itemView = (MovieListItemView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.movie_item_layout, parent, false);
         return itemView;
     }

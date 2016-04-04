@@ -40,28 +40,28 @@ public class RegistrationActivity extends BusSubscriberActivity {
     public void onRegisterButtonClicked(View view) {
         Log.d("REGISTRATION ACTIVITY", "Register Button Pressed");
 
-        EditText namefield = (EditText) findViewById((R.id.Name));
-        EditText majorfield = (EditText) findViewById((R.id.Major));
-        EditText usernamefield = (EditText) findViewById(R.id.Username);
-        EditText passwordfield = (EditText) findViewById(R.id.Password);
-        EditText verifypasswordfield = (EditText) findViewById(R.id.VerifyPassword);
-        EditText verifyadminfield = (EditText) findViewById(R.id.VerifyAdmin);
+        final EditText namefield = (EditText) findViewById((R.id.Name));
+        final EditText majorfield = (EditText) findViewById((R.id.Major));
+        final EditText usernamefield = (EditText) findViewById(R.id.Username);
+        final EditText passwordfield = (EditText) findViewById(R.id.Password);
+        final EditText verifypasswordfield = (EditText) findViewById(R.id.VerifyPassword);
+        final EditText verifyadminfield = (EditText) findViewById(R.id.VerifyAdmin);
 
-        String name = namefield.getText().toString();
-        String major = majorfield.getText().toString();
-        String username = usernamefield.getText().toString();
-        String password = passwordfield.getText().toString();
-        String verifypassword = verifypasswordfield.getText().toString();
-        String verifyadmin = verifyadminfield.getText().toString();
+        final String name = namefield.getText().toString();
+        final String major = majorfield.getText().toString();
+        final String username = usernamefield.getText().toString();
+        final String password = passwordfield.getText().toString();
+        final String verifypassword = verifypasswordfield.getText().toString();
+        final String verifyadmin = verifyadminfield.getText().toString();
 
         if (verifyadmin.equals("password")) {
             admin = true;
             if (password.equals(verifypassword)) {
-                ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
+                final ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
 
                 UserService.createUser(apiService, new UserModel(username, password, profile, true));
             } else {
-                Toast toast = Toast.makeText(
+                final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Make Sure Your Passwords Match",
                     Toast.LENGTH_SHORT
@@ -71,11 +71,11 @@ public class RegistrationActivity extends BusSubscriberActivity {
         } else if (verifyadmin.equals("")) {
             admin = false;
             if (password.equals(verifypassword)) {
-                ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
+                final ProfileModel profile = new ProfileModel(name, major, -1); // NONEXISTENT ID
 
                 UserService.createUser(apiService, new UserModel(username, password, profile));
             } else {
-                Toast toast = Toast.makeText(
+                final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
                     "Make Sure Your Passwords Match",
                     Toast.LENGTH_SHORT
@@ -83,7 +83,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
                 toast.show();
             }
         } else {
-            Toast toast = Toast.makeText(
+            final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "This is the wrong admin password. Try to register again.",
                 Toast.LENGTH_SHORT);
@@ -100,24 +100,25 @@ public class RegistrationActivity extends BusSubscriberActivity {
     @Subscribe
     public void getUserEvent(UserModel user) {
         if (isRegistrationActive) {
-            Toast toast = Toast.makeText(
+            final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "Registration Successful",
                 Toast.LENGTH_SHORT
             );
             toast.show();
             if (admin) {
-                Toast welcome = Toast.makeText(this.getApplicationContext(),
-                "Welcome Admin!",
-                Toast.LENGTH_SHORT);
+                final Toast welcome = Toast.makeText(
+                    this.getApplicationContext(),
+                    "Welcome Admin!",
+                    Toast.LENGTH_SHORT
+                );
                 welcome.show();
             }
 
             Intent intent;
             if (admin) {
                 intent = new Intent(this, AdminActivity.class);
-            }
-            else {
+            } else {
                 intent = new Intent(this, UserActivity.class);
             }
             intent.putExtra("user", user);
@@ -132,7 +133,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
      */
     @Subscribe public void getErrorEvent(ErrorModel error) {
         if (isRegistrationActive) {
-            Toast toast = Toast.makeText(
+            final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "Registration failed - " + error.message,
                 Toast.LENGTH_SHORT
@@ -147,7 +148,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
      */
     public void onCancelButtonClicked(View view) {
         Log.d("REGISTRATION ACTIVITY", "Cancel button pressed");
-        Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

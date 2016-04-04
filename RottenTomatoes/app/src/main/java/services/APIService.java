@@ -8,7 +8,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * Created by logan on 2/6/16.
  */
-public class APIService {
+public final class APIService {
 
     // we use this to publish changes to other objects
     protected static Bus bus;
@@ -27,7 +27,7 @@ public class APIService {
      */
     public static APIServiceInterface getService() {
         if (service == null) {
-            Retrofit retrofit = new Retrofit.Builder()
+            final Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();

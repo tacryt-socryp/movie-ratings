@@ -17,7 +17,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * Created by logan on 2/10/16.
  */
-public class UserService {
+public final class UserService {
 
 
     // we use this to publish changes to other objects
@@ -37,7 +37,7 @@ public class UserService {
      */
     public static APIServiceInterface getService() {
         if (service == null) {
-            Retrofit retrofit = new Retrofit.Builder()
+            final Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
@@ -57,7 +57,7 @@ public class UserService {
      * @return
      */
     private static ErrorModel errorConverter(ResponseBody errorBody) {
-        ObjectMapper om = new ObjectMapper();
+        final ObjectMapper om = new ObjectMapper();
         try {
             return om.readValue(errorBody.string(), ErrorModel.class);
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class UserService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-                            ErrorModel em = errorConverter(response.errorBody());
+                            final ErrorModel em = errorConverter(response.errorBody());
                             bus.post(em);
                         }
                     }
@@ -105,7 +105,7 @@ public class UserService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-                            ErrorModel em = errorConverter(response.errorBody());
+                            final ErrorModel em = errorConverter(response.errorBody());
                             bus.post(em);
                         }
                     }
@@ -137,7 +137,7 @@ public class UserService {
                     if (response.isSuccess()) {
                         bus.post(response.body());
                     } else {
-                        ErrorModel em = errorConverter(response.errorBody());
+                        final ErrorModel em = errorConverter(response.errorBody());
                         bus.post(em);
                     }
                 }
@@ -161,7 +161,7 @@ public class UserService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-                            ErrorModel em = errorConverter(response.errorBody());
+                            final ErrorModel em = errorConverter(response.errorBody());
                             bus.post(em);
                         }
                     }
@@ -186,7 +186,7 @@ public class UserService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-                            ErrorModel em = errorConverter(response.errorBody());
+                            final ErrorModel em = errorConverter(response.errorBody());
                             bus.post(em);
                         }
                     }
@@ -212,7 +212,7 @@ public class UserService {
                         if (response.isSuccess()) {
                             bus.post(response.body());
                         } else {
-                            ErrorModel em = errorConverter(response.errorBody());
+                            final ErrorModel em = errorConverter(response.errorBody());
                             bus.post(em);
                         }
                     }

@@ -58,7 +58,7 @@ public class UserListItemView extends RelativeLayout {
      * @return
      */
     public static UserListItemView inflate(ViewGroup parent) {
-        UserListItemView itemView = (UserListItemView) LayoutInflater.from(parent.getContext())
+        final UserListItemView itemView = (UserListItemView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.user_item_layout, parent, false);
         return itemView;
     }

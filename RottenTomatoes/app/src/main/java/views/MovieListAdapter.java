@@ -35,7 +35,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
         ratingService = RatingService.getService();
         movieModels = items;
 
-        Bus bus = BusSingleton.get();
+        final Bus bus = BusSingleton.get();
         // subscribe to new events!
         bus.register(this);
         for (MovieModel movie: items) {

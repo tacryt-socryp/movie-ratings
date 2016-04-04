@@ -45,7 +45,7 @@ public class RatingListItemView extends RelativeLayout {
     }
 
     public static RatingListItemView inflate(ViewGroup parent) {
-        RatingListItemView itemView = (RatingListItemView) LayoutInflater.from(parent.getContext())
+        final RatingListItemView itemView = (RatingListItemView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rating_item_layout, parent, false);
         return itemView;
     }

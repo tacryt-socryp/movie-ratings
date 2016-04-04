@@ -47,10 +47,10 @@ public class RecommendationActivity extends UserActivity {
 
         super.onCreate(savedInstanceBundle);
 
-        FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
         // inflate the custom activity layout
-        LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View activityView = layoutInflater.inflate(R.layout.activity_recommendation, null,false);
+        final LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View activityView = layoutInflater.inflate(R.layout.activity_recommendation, null,false);
         // add the custom layout of this activity to frame layout.
         frameLayout.addView(activityView);
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
@@ -67,11 +67,11 @@ public class RecommendationActivity extends UserActivity {
     public void pressedRecommend(View view) {
         recommendedMovies = new ArrayList<MovieModel>();
         setupList(recommendedMovies);
-        EditText query = (EditText) findViewById(R.id.RecommendationQuery);
-        String search = query.getText().toString();
+        final EditText query = (EditText) findViewById(R.id.RecommendationQuery);
+        final String search = query.getText().toString();
 
-        EditText otherField = (EditText) findViewById(R.id.OtherQuery);
-        String other = otherField.getText().toString();
+        final EditText otherField = (EditText) findViewById(R.id.OtherQuery);
+        final String other = otherField.getText().toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
         MovieService.searchMovieTitlesToQuery(recService, search, other);
@@ -88,7 +88,7 @@ public class RecommendationActivity extends UserActivity {
 
 
         for (String movieTitle : list.movieTitles) {
-            MovieModel m = new MovieModel();
+            final MovieModel m = new MovieModel();
             m.title = movieTitle;
             recommendedMovies.add(m);
             titleToPosition.put(movieTitle, recommendedMovies.size() - 1);
@@ -104,9 +104,9 @@ public class RecommendationActivity extends UserActivity {
     public void getMoviesEvent(MovieListModel list) {
         //should add the first movie to recommendedMovies
         if (list.movies.size() > 0) {
-            MovieModel newMovie = list.movies.get(0);
+            final MovieModel newMovie = list.movies.get(0);
             if (titleToPosition.containsKey(newMovie.title)) {
-                int position = titleToPosition.get(newMovie.title);
+                final int position = titleToPosition.get(newMovie.title);
                 recommendedMovies.set(position, newMovie);
             }
         }
@@ -119,7 +119,7 @@ public class RecommendationActivity extends UserActivity {
      * @param list
      */
     public void setupList(List<MovieModel> list) {
-        ListView lv = (ListView) findViewById(R.id.listView);
+        final ListView lv = (ListView) findViewById(R.id.listView);
 
         if (isFirstTime) {
             final Activity self = this;
@@ -130,10 +130,10 @@ public class RecommendationActivity extends UserActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 
-                    MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
+                    final MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
 
-                    Intent intent = new Intent(self, MovieActivity.class);
-                    MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
+                    final Intent intent = new Intent(self, MovieActivity.class);
+                    final MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
                     intent.putExtra("movie", movieExtra);
                     intent.putExtra("ratings", movieExtra.ratings);
                     intent.putExtra("user", currentUser);
@@ -145,7 +145,7 @@ public class RecommendationActivity extends UserActivity {
             isFirstTime = false;
         }
 
-        MovieListAdapter adapter = new MovieListAdapter(this, list);
+        final MovieListAdapter adapter = new MovieListAdapter(this, list);
         lv.setAdapter(adapter);
 
     }

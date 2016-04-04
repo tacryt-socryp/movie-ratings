@@ -36,7 +36,7 @@ public class AdminActivity extends BusSubscriberActivity {
         setContentView(R.layout.activity_admin);
 
         apiService = UserService.getService();
-        UserModel currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
+        final UserModel currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         UserService.viewUserList(apiService);
     }
 
@@ -58,8 +58,8 @@ public class AdminActivity extends BusSubscriberActivity {
     public void getUserEvent(UserListModel list) {
 
         final Activity self = this;
-        ListView lv= (ListView) findViewById(R.id.listView3);
-        List<UserModel> newList = new ArrayList<UserModel>();
+        final ListView lv= (ListView) findViewById(R.id.listView3);
+        final List<UserModel> newList = new ArrayList<UserModel>();
         for (UserModel user : list.users) {
             if (user.isActive) {
                 user.status = "Active";
@@ -69,14 +69,14 @@ public class AdminActivity extends BusSubscriberActivity {
             newList.add(user);
         }
 
-        UserListAdapter adapter = new UserListAdapter(this, newList);
+        final UserListAdapter adapter = new UserListAdapter(this, newList);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 
-                UserModel item = (UserModel) adapter.getItemAtPosition(position);
+                final UserModel item = (UserModel) adapter.getItemAtPosition(position);
 
                 UserService.banOrUnbanUser(apiService, item.username, item.isActive);
             }

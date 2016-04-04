@@ -48,7 +48,7 @@ public class MovieActivity extends BusSubscriberActivity {
         setContentView(R.layout.activity_movie);
 
         service = RatingService.getService();
-        Parcelable[] parcelableRatings = this.getIntent().getParcelableArrayExtra("ratings");
+        final Parcelable[] parcelableRatings = this.getIntent().getParcelableArrayExtra("ratings");
         if (parcelableRatings != null) {
             ratings = new RatingModel[parcelableRatings.length];
             for(int i = 0; i < parcelableRatings.length; i++) {
@@ -59,7 +59,7 @@ public class MovieActivity extends BusSubscriberActivity {
         currentMovie = (MovieModel) this.getIntent().getParcelableExtra("movie");
         RatingService.getRatings(service, currentMovie.title);
 
-        TextView desc = (TextView) findViewById(R.id.description);
+        final TextView desc = (TextView) findViewById(R.id.description);
         desc.setText("Title: " + currentMovie.title + "\nReleased: " + currentMovie.year);
 
         new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(currentMovie.poster);
@@ -70,10 +70,10 @@ public class MovieActivity extends BusSubscriberActivity {
      * @param view
      */
     public void pressedRateMovie(View view) {
-        EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
-        EditText text = (EditText) findViewById(R.id.RatingText);
+        final EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
+        final EditText text = (EditText) findViewById(R.id.RatingText);
         if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
-            RatingModel rating = new RatingModel(-1,
+            final RatingModel rating = new RatingModel(-1,
                     Integer.parseInt(ratingNum.getText().toString(), 10), text.getText().toString(),
                     currentMovie.title, currentUser.username, currentUser.profile.major
             );
@@ -102,15 +102,15 @@ public class MovieActivity extends BusSubscriberActivity {
             ratings = ratingsModel.ratings;
         }
 
-        Toast toast = Toast.makeText(
+        final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "get ratings Successful",
                 Toast.LENGTH_SHORT
         );
         toast.show();
 
-        ListView lv = (ListView) findViewById(R.id.ratingListView);
-        List<RatingModel> ratingList = new ArrayList<RatingModel>();
+        final ListView lv = (ListView) findViewById(R.id.ratingListView);
+        final List<RatingModel> ratingList = new ArrayList<RatingModel>();
         if (ratings != null) {
             for (RatingModel rating : ratings) {
                 ratingList.add(rating);
@@ -126,15 +126,15 @@ public class MovieActivity extends BusSubscriberActivity {
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+        public DownloadImageTask(ImageView bmapImage) {
+            bmImage = bmapImage;
         }
 
         protected Bitmap doInBackground(String... urls) {
-            String url = urls[0];
+            final String url = urls[0];
             Bitmap img = null;
             try {
-                InputStream in = new java.net.URL(url).openStream();
+                final InputStream in = new java.net.URL(url).openStream();
                 img = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());

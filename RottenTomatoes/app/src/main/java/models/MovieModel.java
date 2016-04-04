@@ -77,7 +77,7 @@ public class MovieModel implements Parcelable {
      * @param in
      */
     public MovieModel(Parcel in){
-        String[] data = new String[20];
+        final String[] data = new String[20];
 
         in.readStringArray(data);
         this.title = data[0];
