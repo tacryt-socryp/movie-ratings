@@ -12,7 +12,7 @@ import com.squareup.otto.Bus;
 public class BusSubscriberActivity extends AppCompatActivity {
     /**
      * onCreate, initialize the bus!
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

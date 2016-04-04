@@ -21,12 +21,24 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public final class RatingService {
 
     // we use this to publish changes to other objects
+    /**
+     * Bus
+     */
     protected static Bus bus;
+    /**
+     * APIServiceInterface
+     */
     protected static APIServiceInterface rService = null;
+    /**
+     * baseUrl
+     */
     protected static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
-    // initialize bus should occur before any of the other methods are called
-    // initBus occurs in App, only needs to happen once
+    /**
+     * initialize bus should occur before any of the other methods are called
+     * initBus occurs in App, only needs to happen once
+     * @param newBus newBus
+     */
     public static void initBus(Bus newBus) {
         bus = newBus;
     }
@@ -48,13 +60,16 @@ public final class RatingService {
         return rService;
     }
 
+    /**
+     * Empty constructor
+     */
     private RatingService() {}
 
     /**
      * errorConverter is a private helper function for converting the response body from a server call
      * to an error model when an error is received
-     * @param errorBody
-     * @return
+     * @param errorBody errorBody
+     * @return ErrorModel
      */
     private static ErrorModel errorConverter(ResponseBody errorBody) {
         final ObjectMapper om = new ObjectMapper();
@@ -69,8 +84,8 @@ public final class RatingService {
 
     /**
      * Send in a generated service along with a valid RatingModel, perform a server call to create a movie rating
-     * @param service
-     * @param ratingModel
+     * @param service service
+     * @param ratingModel ratingModel
      */
     public static void createRating(APIServiceInterface service, RatingModel ratingModel) {
         service.createRating(ratingModel).enqueue(
@@ -94,8 +109,8 @@ public final class RatingService {
 
     /**
      * Send in a generated service along with a movie title, perform a server call to get ratings for that movie
-     * @param service
-     * @param movieTitle
+     * @param service service
+     * @param movieTitle movieTitle
      */
     public static void getRatings(APIServiceInterface service, String movieTitle) {
         service.getRatings(movieTitle).enqueue(

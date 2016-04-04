@@ -9,7 +9,14 @@ import com.squareup.otto.Bus;
  * Created by logan on 2/10/16.
  */
 public final class BusSingleton {
+
+    /**
+     * Bus
+     */
     private static Bus instance;
+    /**
+     * Context
+     */
     private static Context context;
 
     /**
@@ -33,11 +40,14 @@ public final class BusSingleton {
     /**
      * don't call this method anywhere except for App, we keep this to prevent this method from
      * being garbage collected
-     * @param ctx
+     * @param ctx ctx
      */
     public static void setContext(Context ctx) {
         context = ctx;
     }
 
+    /**
+     * Empty constructor
+     */
     private BusSingleton() {}
 }

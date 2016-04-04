@@ -10,31 +10,50 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class RatingModel implements Parcelable {
 
+    /**
+     * ratingID
+     */
     @JsonProperty("ratingID")
     public int ratingID;
 
+    /**
+     * rating
+     */
     @JsonProperty("rating")
     public int rating;
 
+    /**
+     * text
+     */
     @JsonProperty("text")
     public String text;
 
+    /**
+     * movieTitle
+     */
     @JsonProperty("movieTitle")
     public String movieTitle;
 
+    /**
+     * user
+     */
     @JsonProperty("user")
     public String user;
 
+    /**
+     * major
+     */
     @JsonProperty("major")
     public String major;
 
     /**
      * set up a rating model
-     * @param rID
-     * @param r
-     * @param t
-     * @param mT
-     * @param u
+     * @param rID rID
+     * @param r r
+     * @param t t
+     * @param mT mT
+     * @param u u
+     * @param m m
      */
     public RatingModel(int rID, int r, String t, String mT, String u, String m) {
         ratingID = rID;
@@ -52,13 +71,13 @@ public class RatingModel implements Parcelable {
 
     /**
      * Recreate user model from parcelable data
-     * @param in
+     * @param in in
      */
     public RatingModel(Parcel in){
         final String[] data = new String[6];
 
         in.readStringArray(data);
-        int integerRadix = 10;
+        final int integerRadix = 10;
         this.ratingID = Integer.parseInt(data[0], integerRadix);
         this.rating = Integer.parseInt(data[1], integerRadix);
         this.text = data[2];
@@ -68,7 +87,7 @@ public class RatingModel implements Parcelable {
     }
     /**
      * stub function, idk, it's required
-     * @return
+     * @return int
      */
     @Override
     public final int describeContents() {
@@ -77,8 +96,8 @@ public class RatingModel implements Parcelable {
 
     /**
      * Transcribe the contents of this object to a parcel
-     * @param dest
-     * @param flags
+     * @param dest dest
+     * @param flags flags
      */
     @Override
     public final void writeToParcel(Parcel dest, int flags) {

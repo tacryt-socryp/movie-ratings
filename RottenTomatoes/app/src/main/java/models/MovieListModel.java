@@ -13,12 +13,21 @@ import java.util.List;
  */
 public class MovieListModel implements Parcelable {
 
+    /**
+     * Search
+     */
     @JsonProperty("Search")
     public List<MovieModel> movies = new ArrayList<MovieModel>();
 
+    /**
+     * totalResults
+     */
     @JsonProperty("totalResults")
     public String totalResults;
 
+    /**
+     * Response
+     */
     @JsonProperty("Response")
     public String response;
 
@@ -47,7 +56,7 @@ public class MovieListModel implements Parcelable {
 
     /**
      * Constructor using parcelable stuff
-     * @param in
+     * @param in in
      */
     public MovieListModel(Parcel in) {
         final String[] data = new String[2];
@@ -55,5 +64,8 @@ public class MovieListModel implements Parcelable {
         in.readStringArray(data);
     }
 
+    /**
+     * Empty constructor
+     */
     public MovieListModel() {}
 }

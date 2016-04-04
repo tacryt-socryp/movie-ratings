@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class UserListModel implements Parcelable {
 
+    /**
+     * users
+     */
     @JsonProperty("users")
     public UserModel[] users;
 
@@ -38,7 +41,7 @@ public class UserListModel implements Parcelable {
 
     /**
      * Constructor using parcelable stuff
-     * @param in
+     * @param in in
      */
     public UserListModel(Parcel in) {
         final String[] data = new String[2];
@@ -46,5 +49,8 @@ public class UserListModel implements Parcelable {
         in.readStringArray(data);
     }
 
+    /**
+     * Empty constructor
+     */
     public UserListModel() {}
 }

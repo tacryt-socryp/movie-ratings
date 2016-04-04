@@ -12,7 +12,7 @@ import otto.BusSubscriberActivity;
 public class MainActivity extends BusSubscriberActivity {
     /**
      * initialize view onCreate
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MainActivity extends BusSubscriberActivity {
 
     /**
      * Login button was pressed, open LoginActivity!
-     * @param v
+     * @param v v
      */
     public final void onLoginButtonClicked(View v) {
         Log.d("OPENING SCREEN", "Pressed login");
@@ -32,8 +32,8 @@ public class MainActivity extends BusSubscriberActivity {
 
     /**
      * Inflate the menu; this adds items to the action bar if it is present.
-     * @param menu
-     * @return
+     * @param menu menu
+     * @return menu
      */
     @Override
     public final boolean onCreateOptionsMenu(Menu menu) {
@@ -43,8 +43,8 @@ public class MainActivity extends BusSubscriberActivity {
 
     /**
      * an item was selected from the action bar
-     * @param item
-     * @return
+     * @param item item
+     * @return item
      */
     @Override
     public final boolean onOptionsItemSelected(MenuItem item) {
@@ -63,7 +63,7 @@ public class MainActivity extends BusSubscriberActivity {
 
     /**
      * open register button upon register button pressed!
-     * @param w
+     * @param w w
      */
     public final void onRegisterButtonPressed(View w) {
         Log.d("OPENING SCREEN", "Pressed register");

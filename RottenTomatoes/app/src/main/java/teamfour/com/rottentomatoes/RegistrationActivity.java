@@ -18,13 +18,22 @@ import otto.*;
  */
 public class RegistrationActivity extends BusSubscriberActivity {
 
+    /**
+     * APIServiceInterface
+     */
     private APIServiceInterface apiService;
+    /**
+     * isRegistrationActive
+     */
     private boolean isRegistrationActive = true;
+    /**
+     * admin
+     */
     private boolean admin = false;
 
     /**
      * initialize view and apiService for making calls to the server using Retrofit
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstance
      */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -95,7 +104,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
 
     /**
      * Asynchronously receive a successful usermodel upon successful user creation
-     * @param user
+     * @param user user
      */
     @Subscribe
     public final void getUserEvent(UserModel user) {
@@ -129,7 +138,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
 
     /**
      * Asynchronously receive an errormodel upon unsuccessful user creation
-     * @param error
+     * @param error error
      */
     @Subscribe
     public final void getErrorEvent(ErrorModel error) {

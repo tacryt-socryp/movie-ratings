@@ -12,7 +12,7 @@ public interface RottenTomatoesInterface {
 
     /**
      * Get search method to connect with omdb api
-     * @param searchQuery
+     * @param searchQuery searchQuery
      * @return MovieListModel
      */
     @GET("?")

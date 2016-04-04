@@ -21,12 +21,24 @@ public final class UserService {
 
 
     // we use this to publish changes to other objects
+    /**
+     * Bus
+     */
     protected static Bus bus;
+    /**
+     * APIServiceInterface
+     */
     protected static APIServiceInterface uService = null;
+    /**
+     * baseUrl
+     */
     protected static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
-    // initialize bus should occur before any of the other methods are called
-    // initBus occurs in App, only needs to happen once
+    /**
+     * initialize bus should occur before any of the other methods are called
+     * initBus occurs in App, only needs to happen once
+     * @param newBus newBus
+     */
     public static void initBus(Bus newBus) {
         bus = newBus;
     }
@@ -49,13 +61,16 @@ public final class UserService {
         return uService;
     }
 
+    /**
+     * Empty constructor
+     */
     private UserService() {}
 
     /**
      * errorConverter is a private helper function for converting the response body from a server call
      * to an error model when an error is received
-     * @param errorBody
-     * @return
+     * @param errorBody errorBody
+     * @return ErrorModel
      */
     private static ErrorModel errorConverter(ResponseBody errorBody) {
         final ObjectMapper om = new ObjectMapper();
@@ -70,8 +85,8 @@ public final class UserService {
 
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
-     * @param service
-     * @param userModel
+     * @param service service
+     * @param userModel userModel
      */
     public static void createUser(APIServiceInterface service, UserModel userModel) {
         service.createUser(userModel).enqueue(
@@ -95,8 +110,8 @@ public final class UserService {
 
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
-     * @param service
-     * @param userModel
+     * @param service service
+     * @param userModel userModel
      */
     public static void getUser(APIServiceInterface service, UserModel userModel) {
         service.getUser(userModel.username, userModel.password).enqueue(
@@ -120,8 +135,8 @@ public final class UserService {
 
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
-     * @param service
-     * @param userModel
+     * @param service service
+     * @param userModel userModel
      */
     public static void updateUser(APIServiceInterface service, UserModel userModel) {
         service.updateUser(
@@ -132,27 +147,27 @@ public final class UserService {
                 userModel.profile.major,
                 userModel.profile.profileID
             )).enqueue(
-            new Callback<UserModel>() {
-                @Override
-                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    if (response.isSuccess()) {
-                        bus.post(response.body());
-                    } else {
-                        final ErrorModel em = errorConverter(response.errorBody());
-                        bus.post(em);
+                new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        if (response.isSuccess()) {
+                            bus.post(response.body());
+                        } else {
+                            final ErrorModel em = errorConverter(response.errorBody());
+                            bus.post(em);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
                     }
                 }
-                @Override
-                public void onFailure(Call<UserModel> call, Throwable t) {
-                }
-            }
-        );
+            );
     }
 
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
-     * @param service
-     * @param userModel
+     * @param service service
+     * @param userModel userModel
      */
     public static void deleteUser(APIServiceInterface service, UserModel userModel) {
         service.deleteUser(userModel.username, userModel.password).enqueue(
@@ -177,7 +192,9 @@ public final class UserService {
 
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
-     * @param service
+     * @param service service
+     * @param username username
+     * @param shouldBlock shouldBlock
      */
     public static void banOrUnbanUser(APIServiceInterface service, String username, boolean shouldBlock) {
         service.banOrUnbanUser(username, shouldBlock).enqueue(
@@ -201,7 +218,7 @@ public final class UserService {
 
     /**
      * Send in a generated service along with a valid UserModel, perform a server call
-     * @param service
+     * @param service service
      */
     public static void viewUserList(APIServiceInterface service) {
         Log.d("USER SERVICE", "Viewing user list");

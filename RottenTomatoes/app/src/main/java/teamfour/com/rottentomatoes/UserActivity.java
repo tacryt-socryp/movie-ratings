@@ -30,28 +30,76 @@ import services.UserService;
  * Created by EstellaD on 2/5/16.
  */
 public class UserActivity extends BusSubscriberActivity {
-
+    /**
+     * userString
+     */
     private String userString = "user";
-    APIServiceInterface service;
-    UserModel currentUser;
-    boolean userActivityActive = true;
 
+    /**
+     * APIServiceInterface
+     */
+    private APIServiceInterface service;
+
+    /**
+     * currentUser
+     */
+    private UserModel currentUser;
+
+    /**
+     * userActivityActive
+     */
+    private boolean userActivityActive = true;
+
+    /**
+     * drawerItems
+     */
     private String[] drawerItems = {"Home", "Search", "Get Recommendation", "Edit Profile", "Logout"};
+
+    /**
+     * drawerLayout
+     */
     private DrawerLayout drawerLayout;
+
+    /**
+     * drawerList
+     */
     private ListView drawerList;
+
+    /**
+     * actionBarDrawerToggle
+     */
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    /**
+     * Activities
+     */
     enum Activities {
+        /**
+         * User
+         */
         User,
+        /**
+         * Search
+         */
         Search,
+        /**
+         * Recommendation
+         */
         Recommendation,
+        /**
+         * Profile
+         */
         Profile,
+        /**
+         * Main
+         */
         Main
     }
 
     /**
      * receive currentUser from either registration or login via extras,
      * initialize view and create service for interacting with the server
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstance
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +135,7 @@ public class UserActivity extends BusSubscriberActivity {
 
     /**
      * Asynchronously receive a successful usermodel upon successful user get
-     * @param user
+     * @param user user
      */
     @Subscribe
     public final void getUserEvent(UserModel user) {
@@ -110,7 +158,7 @@ public class UserActivity extends BusSubscriberActivity {
 
     /**
      * Asynchronously receive an errormodel upon unsuccessful user creation or login
-     * @param error
+     * @param error error
      */
     @Subscribe
     public final void getErrorEvent(ErrorModel error) {
@@ -132,7 +180,7 @@ public class UserActivity extends BusSubscriberActivity {
 
     @Override
     public final boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        final int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
@@ -157,31 +205,31 @@ public class UserActivity extends BusSubscriberActivity {
             switch (Activities.values()[position]) {
 
                 case User: {
-                    Intent intent = new Intent(UserActivity.this, UserActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, UserActivity.class);
                     intent.putExtra(userString, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case Search: {
-                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, SearchActivity.class);
                     intent.putExtra(userString, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case Recommendation: {
-                    Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
                     intent.putExtra(userString, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case Profile: {
-                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
                     intent.putExtra(userString, currentUser);
                     startActivity(intent);
                     break;
                 }
                 case Main: {
-                    Intent intent = new Intent(UserActivity.this, MainActivity.class);
+                    final Intent intent = new Intent(UserActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 }

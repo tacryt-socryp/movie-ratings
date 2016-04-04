@@ -7,12 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 public class ErrorModel {
+    /**
+     * message
+     */
     @JsonProperty("message")
     public String message;
 
     /**
      * Make an error model with an error message
-     * @param msg
+     * @param msg msg
      */
     public ErrorModel(String msg) {
         message = msg;

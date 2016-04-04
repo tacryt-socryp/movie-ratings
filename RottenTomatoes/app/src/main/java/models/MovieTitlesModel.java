@@ -10,9 +10,16 @@ import java.util.Arrays;
 public class MovieTitlesModel {
 
 
+    /**
+     * movieTitles
+     */
     @JsonProperty("movieTitles")
     public String[] movieTitles;
 
+    /**
+     * Constructor for MovieTitlesModel
+     * @param movies movies
+     */
     public MovieTitlesModel(String[] movies) {
         if(movies == null) {
             this.movieTitles = new String[0];
@@ -21,6 +28,9 @@ public class MovieTitlesModel {
         }
     }
 
+    /**
+     * Empty constructor
+     */
     public MovieTitlesModel() {
 
     }

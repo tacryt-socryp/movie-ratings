@@ -15,12 +15,29 @@ import teamfour.com.rottentomatoes.R;
  * Created by logan on 2/27/16.
  */
 public class RatingListItemView extends RelativeLayout {
+    /**
+     * RatingModel
+     */
     private RatingModel rating = null;
 
+    /**
+     * ratingNumTextView
+     */
     private TextView ratingNumTextView;
+    /**
+     * userTextView
+     */
     private TextView userTextView;
+    /**
+     * descriptionTextView
+     */
     private TextView descriptionTextView;
 
+    /**
+     * Constructor for RatingListItemView
+     * @param context context
+     * @param attrs attrs
+     */
     public RatingListItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -28,12 +45,19 @@ public class RatingListItemView extends RelativeLayout {
         setupChildren();
     }
 
+    /**
+     * Sets up children
+     */
     private void setupChildren() {
         ratingNumTextView = (TextView) findViewById(R.id.listRatingDescriptionNumTextView);
         userTextView = (TextView) findViewById(R.id.listRatingUserTextView);
         descriptionTextView = (TextView) findViewById(R.id.listRatingDescriptionTextView);
     }
 
+    /**
+     * Sets item
+     * @param ratingModel ratingModel
+     */
     public final void setItem(RatingModel ratingModel) {
         if (ratingModel != null) {
             rating = ratingModel;
@@ -44,6 +68,11 @@ public class RatingListItemView extends RelativeLayout {
         }
     }
 
+    /**
+     * Inflates rating list item view
+     * @param parent parent
+     * @return itemView
+     */
     public static RatingListItemView inflate(ViewGroup parent) {
         final RatingListItemView itemView = (RatingListItemView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rating_item_layout, parent, false);

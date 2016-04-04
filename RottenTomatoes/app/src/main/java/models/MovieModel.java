@@ -10,73 +10,139 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class MovieModel implements Parcelable {
 
-    int dataLength = 20;
+    /**
+     * dataLength
+     */
+    private int dataLength = 20;
 
+    /**
+     * Title
+     */
     @JsonProperty("Title")
     public String title;
 
+    /**
+     * Year
+     */
     @JsonProperty("Year")
     public String year;
 
+    /**
+     * Rated
+     */
     @JsonProperty("Rated")
     public String rated;
 
+    /**
+     * Released
+     */
     @JsonProperty("Released")
     public String released;
 
+    /**
+     * Runtime
+     */
     @JsonProperty("Runtime")
     public String runtime;
 
+    /**
+     * Genre
+     */
     @JsonProperty("Genre")
     public String genre;
 
+    /**
+     * Director
+     */
     @JsonProperty("Director")
     public String director;
 
+    /**
+     * Writer
+     */
     @JsonProperty("Writer")
     public String writer;
 
+    /**
+     * Actors
+     */
     @JsonProperty("Actors")
     public String actors;
 
+    /**
+     * Plot
+     */
     @JsonProperty("Plot")
     public String plot;
 
+    /**
+     * Language
+     */
     @JsonProperty("Language")
     public String lang;
 
+    /**
+     * Country
+     */
     @JsonProperty("Country")
     public String country;
 
+    /**
+     * Awards
+     */
     @JsonProperty("Awards")
     public String awards;
 
+    /**
+     * Poster
+     */
     @JsonProperty("Poster")
     public String poster;
 
+    /**
+     * Metascore
+     */
     @JsonProperty("Metascore")
     public String metascore;
 
+    /**
+     * imdbRating
+     */
     @JsonProperty("imdbRating")
     public String imdbrating;
 
+    /**
+     * imdbVotes
+     */
     @JsonProperty("imdbVotes")
     public String imdbvotes;
 
+    /**
+     * imdbID
+     */
     @JsonProperty("imdbID")
     public String imdbid;
 
+    /**
+     * Type
+     */
     @JsonProperty("Type")
     public String type;
 
+    /**
+     * Response
+     */
     @JsonProperty("Response")
     public String response;
 
+    /**
+     * ratings
+     */
     public RatingModel[] ratings;
 
     /**
      * Recreate user model from parcelable data
-     * @param in
+     * @param in in
      */
     public MovieModel(Parcel in){
         final String[] data = new String[dataLength];
@@ -104,7 +170,7 @@ public class MovieModel implements Parcelable {
     }
     /**
      * stub function, idk, it's required
-     * @return
+     * @return int
      */
     @Override
     public final int describeContents() {
@@ -113,8 +179,8 @@ public class MovieModel implements Parcelable {
 
     /**
      * Transcribe the contents of this object to a parcel
-     * @param dest
-     * @param flags
+     * @param dest dest
+     * @param flags flags
      */
     @Override
     public final void writeToParcel(Parcel dest, int flags) {
@@ -142,6 +208,9 @@ public class MovieModel implements Parcelable {
         });
     }
 
+    /**
+     * Needed to implement Parcelable
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MovieModel createFromParcel(Parcel in) {
             return new MovieModel(in);
@@ -152,6 +221,11 @@ public class MovieModel implements Parcelable {
         }
     };
 
+
+    /**
+     * toString for MovieModel
+     * @return string
+     */
     public final String toString() {
         return title + "\n" + year + "\n";
     }

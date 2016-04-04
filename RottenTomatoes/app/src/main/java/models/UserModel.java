@@ -9,30 +9,48 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by logan on 2/6/16.
  */
 public class UserModel implements Parcelable {
+    /**
+     * username
+     */
     @JsonProperty("username")
     public String username;
 
+    /**
+     * password
+     */
     @JsonProperty("password")
     public String password;
 
+    /**
+     * profile
+     */
     @JsonProperty("profile")
     public ProfileModel profile;
 
+    /**
+     * isAdmin
+     */
     @JsonProperty("isAdmin")
     public boolean isAdmin;
 
+    /**
+     * isActive
+     */
     @JsonProperty("isActive")
     public boolean isActive;
 
+    /**
+     * status
+     */
     public String status;
 
     /**
      * Recreate user model from parcelable data
-     * @param in
+     * @param in in
      */
     public UserModel(Parcel in){
-        int dataLength = 7;
-        String[] data = new String[dataLength];
+        final int dataLength = 7;
+        final String[] data = new String[dataLength];
 
         in.readStringArray(data);
         this.username = data[0];
@@ -48,7 +66,7 @@ public class UserModel implements Parcelable {
 
     /**
      * stub function, idk, it's required
-     * @return
+     * @return int
      */
     @Override
     public final int describeContents() {
@@ -57,12 +75,12 @@ public class UserModel implements Parcelable {
 
     /**
      * Transcribe the contents of this object to a parcel
-     * @param dest
-     * @param flags
+     * @param dest dest
+     * @param flags flags
      */
     @Override
     public final void writeToParcel(Parcel dest, int flags) {
-        int integerRadix = 10;
+        final int integerRadix = 10;
         dest.writeStringArray(new String[] {
             this.username,
             this.password,
@@ -74,6 +92,9 @@ public class UserModel implements Parcelable {
         });
     }
 
+    /**
+     * Needed to implement Parcelable
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public UserModel createFromParcel(Parcel in) {
             return new UserModel(in);
@@ -86,8 +107,8 @@ public class UserModel implements Parcelable {
 
     /**
      * initializer for creating a user for registration
-     * @param user
-     * @param pass
+     * @param user user
+     * @param pass pass
      */
     public UserModel(String user, String pass) {
         this(user, pass, new ProfileModel("","",-1));
@@ -95,9 +116,9 @@ public class UserModel implements Parcelable {
 
     /**
      * initialize user with all data
-     * @param user
-     * @param pass
-     * @param p
+     * @param user user
+     * @param pass pass
+     * @param p p
      */
     public UserModel(String user, String pass, ProfileModel p) {
         username = user;
@@ -110,10 +131,10 @@ public class UserModel implements Parcelable {
     /**
      * optional constructor when isAdmin is true
      * initialize user with all data
-     * @param user
-     * @param pass
-     * @param p
-     * @param admin
+     * @param user user
+     * @param pass pass
+     * @param p p
+     * @param admin admin
      */
     public UserModel(String user, String pass, ProfileModel p, Boolean admin) {
         username = user;

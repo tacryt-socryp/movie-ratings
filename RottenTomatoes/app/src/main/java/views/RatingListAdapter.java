@@ -20,15 +20,24 @@ import services.RatingService;
  * Created by logan on 2/27/16.
  */
 public class RatingListAdapter extends ArrayAdapter<RatingModel> {
+    /**
+     * APIServiceInterface
+     */
     private APIServiceInterface ratingService;
+    /**
+     * list of ratings
+     */
     private List<RatingModel> ratings;
+    /**
+     * movieTitle
+     */
     private String movieTitle;
 
     /**
      * initialize adapter
-     * @param c
-     * @param ratingList
-     * @param movieT
+     * @param c c
+     * @param ratingList ratingList
+     * @param movieT movieT
      */
     public RatingListAdapter(Context c, List<RatingModel> ratingList, String movieT) {
         super(c, 0, ratingList);
@@ -43,7 +52,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
 
     /**
      * get async ratings event from server
-     * @param newRatings
+     * @param newRatings newRatings
      */
     @Subscribe
     public final void getRatingsEvent(RatingsModel newRatings) {
@@ -58,7 +67,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
 
     /**
      * override get count to use internal data structure
-     * @return
+     * @return count
      */
     @Override
     public final int getCount() {
@@ -70,8 +79,8 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
 
     /**
      * override get item to use internal data structure
-     * @param position
-     * @return
+     * @param position position
+     * @return item
      */
     @Override
     public final RatingModel getItem(int position) {
@@ -80,10 +89,10 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
 
     /**
      * override get view
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     * @param position position
+     * @param convertView convertView
+     * @param parent parent
+     * @return view
      */
     @Override
     public final View getView(int position, View convertView, ViewGroup parent) {

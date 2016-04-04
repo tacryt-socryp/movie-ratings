@@ -14,16 +14,28 @@ import teamfour.com.rottentomatoes.R;
  * Created by wbtho on 3/14/2016.
  */
 public class UserListItemView extends RelativeLayout {
+    /**
+     * user
+     */
     public UserModel user = null;
+    /**
+     * userModels
+     */
     public UserModel[] userModels = null;
 
+    /**
+     * usernameTextView
+     */
     private TextView usernameTextView;
+    /**
+     * statusTextView
+     */
     private TextView statusTextView;
 
     /**
      * Initialize.
-     * @param context
-     * @param attrs
+     * @param context context
+     * @param attrs attrs
      */
     public UserListItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -42,7 +54,7 @@ public class UserListItemView extends RelativeLayout {
 
     /**
      * Set text using the user model.
-     * @param u
+     * @param u u
      */
     public final void setUser(UserModel u) {
         if (u != null) {
@@ -54,8 +66,8 @@ public class UserListItemView extends RelativeLayout {
 
     /**
      * inflate view from layout
-     * @param parent
-     * @return
+     * @param parent parent
+     * @return itemView
      */
     public static UserListItemView inflate(ViewGroup parent) {
         final UserListItemView itemView = (UserListItemView) LayoutInflater.from(parent.getContext())

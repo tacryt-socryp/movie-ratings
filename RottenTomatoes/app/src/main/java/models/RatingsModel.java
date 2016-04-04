@@ -7,9 +7,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class RatingsModel {
 
+    /**
+     * movieTitle
+     */
     @JsonProperty("movieTitle")
     public String movieTitle;
 
+    /**
+     * ratings
+     */
     @JsonProperty("ratings")
     public RatingModel[] ratings;
 

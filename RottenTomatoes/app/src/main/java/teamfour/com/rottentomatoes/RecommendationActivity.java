@@ -34,11 +34,29 @@ import views.MovieListAdapter;
  */
 public class RecommendationActivity extends UserActivity {
 
+    /**
+     * APIServiceInterface
+     */
     private APIServiceInterface recService;
+    /**
+     * RottenTomatoesInterface
+     */
     private RottenTomatoesInterface tomatoService;
+    /**
+     * isFirstTime
+     */
     private boolean isFirstTime = true;
+    /**
+     * currentUser
+     */
     private UserModel currentUser;
+    /**
+     * List of recommendedMovies
+     */
     private List<MovieModel> recommendedMovies;
+    /**
+     * titleToPosition map
+     */
     private Map<String, Integer> titleToPosition;
 
     @Override
@@ -62,7 +80,7 @@ public class RecommendationActivity extends UserActivity {
 
     /**
      * Press search to receive a movie that fits your query
-     * @param view
+     * @param view view
      */
     public final void pressedRecommend(View view) {
         recommendedMovies = new ArrayList<MovieModel>();
@@ -81,7 +99,7 @@ public class RecommendationActivity extends UserActivity {
      *         //hands in a string array to deal with the titles that are returned
      //should iterate through the list and call the searchMovies(movies)
      //this will take the strings and get the prominent data
-     * @param list
+     * @param list list
      */
     @Subscribe
     public final void getMovieTitlesEvent(MovieTitlesModel list) {
@@ -98,7 +116,7 @@ public class RecommendationActivity extends UserActivity {
 
     /**
      * Asynchronously receive list of movies upon successful movie search
-     * @param list
+     * @param list list
      */
     @Subscribe
     public final void getMoviesEvent(MovieListModel list) {
@@ -116,7 +134,7 @@ public class RecommendationActivity extends UserActivity {
 
     /**
      * use a list of movies to setup a list view
-     * @param list
+     * @param list list
      */
     public final void setupList(List<MovieModel> list) {
         final ListView lv = (ListView) findViewById(R.id.listView);

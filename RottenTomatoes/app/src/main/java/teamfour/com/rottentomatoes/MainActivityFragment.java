@@ -19,10 +19,10 @@ public class MainActivityFragment extends Fragment {
 
     /**
      * inflate the fragment once the view is created
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater inflater
+     * @param container container
+     * @param savedInstanceState savedInstanceState
+     * @return view
      */
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container,

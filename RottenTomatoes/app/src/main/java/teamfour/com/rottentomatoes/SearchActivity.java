@@ -26,9 +26,17 @@ import views.MovieListAdapter;
  * Created by wbtho on 2/20/2016.
  */
 public class SearchActivity extends UserActivity {
-
+    /**
+     * RottenTomatoesInterface
+     */
     private RottenTomatoesInterface tomatoService;
+    /**
+     * isSearchActive
+     */
     private boolean isSearchActive = true;
+    /**
+     * currentUser
+     */
     private UserModel currentUser;
 
     @Override
@@ -47,7 +55,7 @@ public class SearchActivity extends UserActivity {
 
     /**
      * Press search to receive a movie that fits your query
-     * @param view
+     * @param view view
      */
     public final void pressedSearch(View view) {
         final EditText query = (EditText) findViewById(R.id.SearchQuery);
@@ -60,7 +68,7 @@ public class SearchActivity extends UserActivity {
 
     /**
      * Asynchronously receive list of movies upon successful movie search
-     * @param list
+     * @param list list
      */
     @Subscribe
     public final void getMoviesEvent(MovieListModel list) {

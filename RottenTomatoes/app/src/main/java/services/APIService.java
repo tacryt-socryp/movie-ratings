@@ -11,12 +11,24 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public final class APIService {
 
     // we use this to publish changes to other objects
+    /**
+     * Bus
+     */
     protected static Bus bus;
+    /**
+     * APIServiceInterface
+     */
     protected static APIServiceInterface service = null;
+    /**
+     * baseUrl
+     */
     protected static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
-    // initialize bus should occur before any of the other methods are called
-    // initBus occurs in App, only needs to happen once
+    /**
+     * initialize bus should occur before any of the other methods are called
+     * initBus occurs in App, only needs to happen once
+     * @param newBus newBus
+     */
     public static void initBus(Bus newBus) {
         bus = newBus;
     }
@@ -38,6 +50,9 @@ public final class APIService {
         return service;
     }
 
+    /**
+     * Empty constructor
+     */
     private APIService() {}
 
 }

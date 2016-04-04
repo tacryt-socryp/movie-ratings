@@ -10,16 +10,32 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  * Created by wbtho on 2/20/2016.
  */
 public final class RottenTomatoesService {
+    /**
+     * API_BASE_URL
+     */
     private static final String API_BASE_URL = "http://www.omdbapi.com/";
+    /**
+     * RottenTomatoesInterface
+     */
     private static RottenTomatoesInterface service = null;
+    /**
+     * Bus
+     */
     protected static Bus bus;
 
-    // initialize bus should occur before any of the other methods are called
-    // initBus occurs in App, only needs to happen once
+    /**
+     * initialize bus should occur before any of the other methods are called
+     * initBus occurs in App, only needs to happen once
+     * @param newBus newBus
+     */
     public static void initBus(Bus newBus) {
         bus = newBus;
     }
 
+    /**
+     * Gets service
+     * @return RottenTomatoesInterface
+     */
     public static RottenTomatoesInterface getService() {
         if (service == null) {
             final Retrofit retrofit = new Retrofit.Builder()
@@ -34,5 +50,8 @@ public final class RottenTomatoesService {
         }
     }
 
+    /**
+     * Empty constructor
+     */
     private RottenTomatoesService() {}
 }

@@ -20,12 +20,18 @@ import services.UserService;
  */
 public class LoginActivity extends BusSubscriberActivity {
 
+    /**
+     * APIServiceInterface
+     */
     private APIServiceInterface service;
+    /**
+     * boolean loggedIn
+     */
     private boolean loggedIn = false;
 
     /**
      * initialize the view and initialize service
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class LoginActivity extends BusSubscriberActivity {
 
     /**
      * login button was pressed, perform a getUser server call
-     * @param view
+     * @param view view
      */
     public final void onLoginButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
@@ -58,7 +64,7 @@ public class LoginActivity extends BusSubscriberActivity {
 
     /**
      * On successful login, receive back the asynchronous event using Otto!
-     * @param user
+     * @param user user
      */
     @Subscribe
     public final void getUserEvent(UserModel user) {
@@ -89,7 +95,7 @@ public class LoginActivity extends BusSubscriberActivity {
 
     /**
      * On unsuccessful login, receive back the error message!
-     * @param error
+     * @param error error
      */
     @Subscribe
     public final void getErrorEvent(ErrorModel error) {
@@ -103,7 +109,7 @@ public class LoginActivity extends BusSubscriberActivity {
 
     /**
      * Return to the main view.
-     * @param view
+     * @param view view
      */
     public final void onCancelButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Cancel button pressed");

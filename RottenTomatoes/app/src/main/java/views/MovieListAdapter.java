@@ -21,13 +21,19 @@ import services.RatingService;
  * Created by logan on 2/27/16.
  */
 public class MovieListAdapter extends ArrayAdapter<MovieModel> {
+    /**
+     * APIServiceInterface
+     */
     private APIServiceInterface ratingService;
+    /**
+     * List of MovieModels
+     */
     private List<MovieModel> movieModels;
 
     /**
      * Initialize UI and initialize bus.
-     * @param c
-     * @param items
+     * @param c c
+     * @param items items
      */
 
     public MovieListAdapter(Context c, List<MovieModel> items) {
@@ -45,9 +51,8 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
 
     /**
      * Receive asynchronous event with new ratings.
-     * @param ratings
+     * @param ratings ratings
      */
-
     @Subscribe
     public final void getRatingsEvent(RatingsModel ratings) {
         // bad way of doing this, O(n^2). Fuck it
@@ -66,7 +71,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
 
     /**
      * Get count override function
-     * @return
+     * @return size of list
      */
     @Override
     public final int getCount() {
@@ -78,8 +83,8 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
 
     /**
      * Get item override
-     * @param position
-     * @return
+     * @param position position
+     * @return item
      */
     @Override
     public final MovieModel getItem(int position) {
@@ -88,10 +93,10 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
 
     /**
      * Get view override that sets up item view.
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     * @param position position
+     * @param convertView convertView
+     * @param parent parent
+     * @return view
      */
     @Override
     public final View getView(int position, View convertView, ViewGroup parent) {

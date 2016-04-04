@@ -21,12 +21,15 @@ import retrofit2.http.Query;
  */
 public interface APIServiceInterface {
 
+    /**
+     * USERNAME
+     */
     String USERNAME = "username";
 
     /**
      * createUser sends a UserModel to the REST API, and creates a new user in the database.
-     * @param user
-     * @return
+     * @param user user
+     * @return user
      */
     @POST("users")
     Call<UserModel> createUser(@Body UserModel user);
@@ -34,9 +37,9 @@ public interface APIServiceInterface {
     /**
      * getUser sends the username and password of a user, and receives the full user model back if the data is correct
      * otherwise, receives an error
-     * @param username
-     * @param password
-     * @return
+     * @param username username
+     * @param password password
+     * @return user
      */
     @GET("users/{username}")
     Call<UserModel> getUser(@Path(USERNAME) String username, @Header("Password") String password);
@@ -44,19 +47,19 @@ public interface APIServiceInterface {
     /**
      * updateUser allows people to send the username and password of a user along with a modified profile model for the user
      * updateUser only allows for the profile of the user to change, not the username or password.
-     * @param username
-     * @param password
-     * @param profile
-     * @return
+     * @param username username
+     * @param password password
+     * @param profile profile
+     * @return user
      */
     @PUT("users/{username}")
     Call<UserModel> updateUser(@Path(USERNAME) String username, @Header("password") String password, @Body ProfileModel profile);
 
     /**
      * deleteUser allows someone to delete a user
-     * @param username
-     * @param password
-     * @return
+     * @param username username
+     * @param password password
+     * @return users
      */
     @DELETE("users/{username}")
     Call<UserModel> deleteUser(@Path(USERNAME) String username, @Header("password") String password);
@@ -64,8 +67,8 @@ public interface APIServiceInterface {
 
     /**
      * get list of movie ratings for a movie title
-     * @param movieTitle
-     * @return
+     * @param movieTitle movieTitle
+     * @return movie ratings
      */
     @GET("ratings/{movieTitle}")
     Call<RatingsModel> getRatings(@Path("movieTitle") String movieTitle);
@@ -73,22 +76,35 @@ public interface APIServiceInterface {
 
     /**
      * Create a rating on the server from a rating model
-     * @param rating
-     * @return
+     * @param rating rating
+     * @return rating
      */
     @POST("ratings")
     Call<RatingModel> createRating(@Body RatingModel rating);
 
+    /**
+     * Filters movies by movie title
+     * @param filterBy filterBy
+     * @param other other
+     * @return movie list
+     */
     @GET("movie_titles/{filterBy}")
     Call<MovieTitlesModel> searchMovieTitlesToQuery(@Path("filterBy") String filterBy, @Query("other") String other);
 
+    /**
+     * Changes status of user
+     * @param username username
+     * @param shouldBan shouldBan
+     * @return user
+     */
     @GET("admin/ban/{username}")
     Call<UserModel> banOrUnbanUser(@Path(USERNAME) String username, @Query("shouldBan") Boolean shouldBan);
 
-
+    /**
+     * Returns user list
+     * @return user list
+     */
     @GET("admin/users")
     Call<UserListModel> viewUserList();
-
-
 }
 

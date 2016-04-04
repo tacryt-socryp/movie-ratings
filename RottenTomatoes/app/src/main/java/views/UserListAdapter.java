@@ -15,15 +15,20 @@ import services.UserService;
  * Created by wbtho on 3/14/2016.
  */
 public class UserListAdapter extends ArrayAdapter<UserModel> {
-    APIServiceInterface us;
+    /**
+     * APIServiceInterface
+     */
+    private APIServiceInterface us;
+    /**
+     * List of UserModels
+     */
     private List<UserModel> userModels;
 
     /**
      * Initialize UI and initialize bus.
-     * @param c
-     * @param items
+     * @param c c
+     * @param items items
      */
-
     public UserListAdapter(Context c, List<UserModel> items) {
         super(c, 0, items);
         us = UserService.getService();
@@ -32,7 +37,7 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
 
     /**
      * Get count override function
-     * @return
+     * @return size of user models
      */
     @Override
     public final int getCount() {
@@ -44,8 +49,8 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
 
     /**
      * Get item override
-     * @param position
-     * @return
+     * @param position position
+     * @return item item
      */
     @Override
     public final UserModel getItem(int position) {
@@ -54,10 +59,10 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
 
     /**
      * Get view override that sets up item view.
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     * @param position position
+     * @param convertView convertView
+     * @param parent parent
+     * @return view
      */
     @Override
     public final View getView(int position, View convertView, ViewGroup parent) {

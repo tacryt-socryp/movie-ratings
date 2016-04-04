@@ -18,9 +18,18 @@ import services.UserService;
  */
 public class ProfileActivity extends UserActivity {
 
-    boolean userActivityActive = true;
-    APIServiceInterface service;
-    UserModel currentUser;
+    /**
+     * userActivityActive
+     */
+    private boolean userActivityActive = true;
+    /**
+     * APIServiceInterface
+     */
+    private APIServiceInterface service;
+    /**
+     * currentUser
+     */
+    private UserModel currentUser;
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
@@ -50,7 +59,7 @@ public class ProfileActivity extends UserActivity {
 
     /**
      * simple test to see if edit profile works
-     * @param view
+     * @param view view
      */
     public final void onSaveButtonPressed(View view) {
         Log.d("PROFILE ACTIVITY", "updating user profile name");

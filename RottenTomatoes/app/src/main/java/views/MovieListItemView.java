@@ -17,17 +17,32 @@ import teamfour.com.rottentomatoes.R;
  * Created by logan on 2/27/16.
  */
 public class MovieListItemView extends RelativeLayout {
+    /**
+     * ModelModel
+     */
     public MovieModel movie = null;
+    /**
+     * array of RatingModels
+     */
     public RatingModel[] ratings = null;
 
+    /**
+     * titleTextView
+     */
     private TextView titleTextView;
+    /**
+     * yearTextView
+     */
     private TextView yearTextView;
+    /**
+     * ratingTextView
+     */
     private TextView ratingTextView;
 
     /**
      * Initialize.
-     * @param context
-     * @param attrs
+     * @param context context
+     * @param attrs attrs
      */
     public MovieListItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,7 +62,7 @@ public class MovieListItemView extends RelativeLayout {
 
     /**
      * Set text using the movie model.
-     * @param movieModel
+     * @param movieModel movieModel
      */
     public final void setMovie(MovieModel movieModel) {
         if (movieModel != null) {
@@ -59,7 +74,7 @@ public class MovieListItemView extends RelativeLayout {
 
     /**
      * Set ratings for the movie using ratings.
-     * @param ratingModels
+     * @param ratingModels ratingsModel
      */
     public final void setRatings(RatingModel[] ratingModels) {
         if(ratingModels == null) {
@@ -81,8 +96,8 @@ public class MovieListItemView extends RelativeLayout {
 
     /**
      * inflate view from layout
-     * @param parent
-     * @return
+     * @param parent parent
+     * @return movie list item view
      */
     public static MovieListItemView inflate(ViewGroup parent) {
         final MovieListItemView itemView = (MovieListItemView) LayoutInflater.from(parent.getContext())

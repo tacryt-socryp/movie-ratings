@@ -22,12 +22,18 @@ import views.UserListAdapter;
  */
 public class AdminActivity extends BusSubscriberActivity {
 
+    /**
+     * APIServiceInterface
+     */
     private APIServiceInterface apiService;
+    /**
+     * isCurrScreen
+     */
     private boolean isCurrScreen = true;
 
     /**
      * life cycle method
-     * @param savedInstanceBundle
+     * @param savedInstanceBundle savedInstance
      */
     @Override
     protected final void onCreate(Bundle savedInstanceBundle) {
@@ -40,6 +46,7 @@ public class AdminActivity extends BusSubscriberActivity {
 
     /**
      * refresh user list upon ban
+     * @param bannedUser bannedUser
      */
     @Subscribe
     public final void getBanEvent(UserModel bannedUser) {
@@ -50,7 +57,7 @@ public class AdminActivity extends BusSubscriberActivity {
 
     /**
      * Asynchronously receive list of users upon successful user search
-     * @param list
+     * @param list list
      */
     @Subscribe
     public final void getUserEvent(UserListModel list) {
