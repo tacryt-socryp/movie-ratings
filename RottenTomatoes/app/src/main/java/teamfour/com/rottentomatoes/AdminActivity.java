@@ -1,6 +1,5 @@
 package teamfour.com.rottentomatoes;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,8 +22,8 @@ import views.UserListAdapter;
  */
 public class AdminActivity extends BusSubscriberActivity {
 
-    APIServiceInterface apiService;
-    boolean isCurrScreen = true;
+    private APIServiceInterface apiService;
+    private boolean isCurrScreen = true;
 
     /**
      * life cycle method
@@ -36,7 +35,6 @@ public class AdminActivity extends BusSubscriberActivity {
         setContentView(R.layout.activity_admin);
 
         apiService = UserService.getService();
-        UserModel currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         UserService.viewUserList(apiService);
     }
 
@@ -57,7 +55,6 @@ public class AdminActivity extends BusSubscriberActivity {
     @Subscribe
     public final void getUserEvent(UserListModel list) {
 
-        final Activity self = this;
         ListView lv= (ListView) findViewById(R.id.listView3);
         List<UserModel> newList = new ArrayList<UserModel>();
         for (UserModel user : list.users) {

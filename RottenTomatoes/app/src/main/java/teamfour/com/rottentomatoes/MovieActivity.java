@@ -33,10 +33,10 @@ import views.RatingListAdapter;
  */
 public class MovieActivity extends BusSubscriberActivity {
 
-    APIServiceInterface service;
-    MovieModel currentMovie;
-    UserModel currentUser;
-    RatingModel[] ratings;
+    private APIServiceInterface service;
+    private MovieModel currentMovie;
+    private UserModel currentUser;
+    private RatingModel[] ratings;
 
     /**
      * initialize view
@@ -125,7 +125,7 @@ public class MovieActivity extends BusSubscriberActivity {
      * download movie image using an async task
      */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+        private ImageView bmImage;
 
         public DownloadImageTask(ImageView newImage) {
             this.bmImage = newImage;

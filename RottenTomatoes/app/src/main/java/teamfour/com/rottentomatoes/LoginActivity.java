@@ -20,8 +20,8 @@ import services.UserService;
  */
 public class LoginActivity extends BusSubscriberActivity {
 
-    APIServiceInterface service;
-    boolean loggedIn = false;
+    private APIServiceInterface service;
+    private boolean loggedIn = false;
 
     /**
      * initialize the view and initialize service

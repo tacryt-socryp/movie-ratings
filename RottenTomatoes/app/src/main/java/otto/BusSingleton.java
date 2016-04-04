@@ -31,7 +31,8 @@ public final class BusSingleton {
     }
 
     /**
-     * don't call this method anywhere except for App
+     * don't call this method anywhere except for App, we keep this to prevent this method from
+     * being garbage collected
      * @param ctx
      */
     public static void setContext(Context ctx) {

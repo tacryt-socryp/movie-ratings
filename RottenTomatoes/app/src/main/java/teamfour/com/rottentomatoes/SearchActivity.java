@@ -27,8 +27,8 @@ import views.MovieListAdapter;
  */
 public class SearchActivity extends UserActivity {
 
-    RottenTomatoesInterface tomatoService;
-    boolean isSearchActive = true;
+    private RottenTomatoesInterface tomatoService;
+    private boolean isSearchActive = true;
     private UserModel currentUser;
 
     @Override

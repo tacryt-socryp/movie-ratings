@@ -34,12 +34,12 @@ import views.MovieListAdapter;
  */
 public class RecommendationActivity extends UserActivity {
 
-    APIServiceInterface recService;
-    RottenTomatoesInterface tomatoService;
-    boolean isFirstTime = true;
+    private APIServiceInterface recService;
+    private RottenTomatoesInterface tomatoService;
+    private boolean isFirstTime = true;
     private UserModel currentUser;
-    List<MovieModel> recommendedMovies;
-    Map<String, Integer> titleToPosition;
+    private List<MovieModel> recommendedMovies;
+    private Map<String, Integer> titleToPosition;
 
     @Override
     protected final void onCreate(Bundle savedInstanceBundle) {
@@ -129,8 +129,6 @@ public class RecommendationActivity extends UserActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-
-                    MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
 
                     Intent intent = new Intent(self, MovieActivity.class);
                     MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);

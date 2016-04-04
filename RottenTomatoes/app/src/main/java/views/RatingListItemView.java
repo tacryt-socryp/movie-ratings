@@ -15,7 +15,7 @@ import teamfour.com.rottentomatoes.R;
  * Created by logan on 2/27/16.
  */
 public class RatingListItemView extends RelativeLayout {
-    public RatingModel rating = null;
+    private RatingModel rating = null;
 
     private TextView ratingNumTextView;
     private TextView userTextView;

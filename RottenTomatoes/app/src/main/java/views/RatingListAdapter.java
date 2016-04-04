@@ -20,7 +20,7 @@ import services.RatingService;
  * Created by logan on 2/27/16.
  */
 public class RatingListAdapter extends ArrayAdapter<RatingModel> {
-    APIServiceInterface ratingService;
+    private APIServiceInterface ratingService;
     private List<RatingModel> ratings;
     private String movieTitle;
 

@@ -21,7 +21,7 @@ import services.RatingService;
  * Created by logan on 2/27/16.
  */
 public class MovieListAdapter extends ArrayAdapter<MovieModel> {
-    APIServiceInterface ratingService;
+    private APIServiceInterface ratingService;
     private List<MovieModel> movieModels;
 
     /**

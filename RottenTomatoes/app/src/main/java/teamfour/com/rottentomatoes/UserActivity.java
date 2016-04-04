@@ -54,7 +54,7 @@ public class UserActivity extends BusSubscriberActivity {
      * @param savedInstanceState
      */
     @Override
-    protected final void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 

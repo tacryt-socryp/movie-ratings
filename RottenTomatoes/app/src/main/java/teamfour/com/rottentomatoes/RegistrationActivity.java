@@ -18,9 +18,9 @@ import otto.*;
  */
 public class RegistrationActivity extends BusSubscriberActivity {
 
-    APIServiceInterface apiService;
-    boolean isRegistrationActive = true;
-    boolean admin = false;
+    private APIServiceInterface apiService;
+    private boolean isRegistrationActive = true;
+    private boolean admin = false;
 
     /**
      * initialize view and apiService for making calls to the server using Retrofit

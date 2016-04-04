@@ -5,8 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.squareup.otto.Bus;
-
 import java.util.List;
 
 import models.UserModel;
@@ -17,7 +15,6 @@ import services.UserService;
  * Created by wbtho on 3/14/2016.
  */
 public class UserListAdapter extends ArrayAdapter<UserModel> {
-    private Bus bus;
     APIServiceInterface us;
     private List<UserModel> userModels;
 
