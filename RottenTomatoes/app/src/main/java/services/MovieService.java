@@ -16,7 +16,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public final class MovieService {
 
     private static final String API_BASE_URL = "http://www.omdbapi.com/";
-    private static RottenTomatoesInterface service = null;
+    private static RottenTomatoesInterface rService = null;
     protected static Bus bus;
 
     // initialize bus should occur before any of the other methods are called
@@ -26,16 +26,21 @@ public final class MovieService {
     }
 
     public static RottenTomatoesInterface getService() {
+<<<<<<< HEAD
         if (service == null) {
             final Retrofit retrofit = new Retrofit.Builder()
+=======
+        if (rService == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+>>>>>>> origin/master
                     .baseUrl(API_BASE_URL)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
-            service = retrofit.create(RottenTomatoesInterface.class);
-            return service;
+            rService = retrofit.create(RottenTomatoesInterface.class);
+            return rService;
         } else {
-            return service;
+            return rService;
         }
     }
 

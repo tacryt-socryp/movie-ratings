@@ -2,7 +2,10 @@ package teamfour.com.rottentomatoes;
 
 import services.APIService;
 import otto.BusSingleton;
+import services.MovieService;
+import services.RatingService;
 import services.RottenTomatoesService;
+import services.UserService;
 
 
 /**
@@ -15,12 +18,16 @@ public class App extends android.app.Application {
      * We initialize the asynchronous event bus here (Otto)
      */
     @Override
-    public void onCreate() {
+    public final void onCreate() {
         super.onCreate();
 
         // here we are initializing bus singleton (this should only happen once!)
         BusSingleton.setContext(this.getApplicationContext());
         APIService.initBus(BusSingleton.get());
+        MovieService.initBus(BusSingleton.get());
+        RatingService.initBus(BusSingleton.get());
+        RottenTomatoesService.initBus(BusSingleton.get());
+        UserService.initBus(BusSingleton.get());
         RottenTomatoesService.initBus(BusSingleton.get());
     }
 

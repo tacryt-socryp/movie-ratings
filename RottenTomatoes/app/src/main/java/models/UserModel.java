@@ -31,7 +31,12 @@ public class UserModel implements Parcelable {
      * @param in
      */
     public UserModel(Parcel in){
+<<<<<<< HEAD
         final String[] data = new String[7];
+=======
+        int dataLength = 7;
+        String[] data = new String[dataLength];
+>>>>>>> origin/master
 
         in.readStringArray(data);
         this.username = data[0];
@@ -50,7 +55,7 @@ public class UserModel implements Parcelable {
      * @return
      */
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 
@@ -60,13 +65,14 @@ public class UserModel implements Parcelable {
      * @param flags
      */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
+        int integerRadix = 10;
         dest.writeStringArray(new String[] {
             this.username,
             this.password,
             this.profile.name,
             this.profile.major,
-            Integer.toString(this.profile.profileID, 10),
+            Integer.toString(this.profile.profileID, integerRadix),
             Boolean.toString(this.isAdmin),
             Boolean.toString(this.isActive)
         });

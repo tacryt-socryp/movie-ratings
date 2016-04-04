@@ -33,17 +33,17 @@ import views.RatingListAdapter;
  */
 public class MovieActivity extends BusSubscriberActivity {
 
-    APIServiceInterface service;
-    MovieModel currentMovie;
-    UserModel currentUser;
-    RatingModel[] ratings;
+    private APIServiceInterface service;
+    private MovieModel currentMovie;
+    private UserModel currentUser;
+    private RatingModel[] ratings;
 
     /**
      * initialize view
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
@@ -69,12 +69,22 @@ public class MovieActivity extends BusSubscriberActivity {
      * rate movie button was pressed *
      * @param view
      */
+<<<<<<< HEAD
     public void pressedRateMovie(View view) {
         final EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
         final EditText text = (EditText) findViewById(R.id.RatingText);
         if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
             final RatingModel rating = new RatingModel(-1,
                     Integer.parseInt(ratingNum.getText().toString(), 10), text.getText().toString(),
+=======
+    public final void pressedRateMovie(View view) {
+        EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
+        EditText text = (EditText) findViewById(R.id.RatingText);
+        if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
+            int integerRadix = 10;
+            RatingModel rating = new RatingModel(-1,
+                    Integer.parseInt(ratingNum.getText().toString(), integerRadix), text.getText().toString(),
+>>>>>>> origin/master
                     currentMovie.title, currentUser.username, currentUser.profile.major
             );
 
@@ -88,7 +98,7 @@ public class MovieActivity extends BusSubscriberActivity {
      * @param ratingModel
      */
     @Subscribe
-    public void getCreatedRating(RatingModel ratingModel) {
+    public final void getCreatedRating(RatingModel ratingModel) {
         RatingService.getRatings(service, currentMovie.title);
     }
 
@@ -97,7 +107,7 @@ public class MovieActivity extends BusSubscriberActivity {
      * @param ratingsModel
      */
     @Subscribe
-    public void getRatingsEvent(RatingsModel ratingsModel) {
+    public final void getRatingsEvent(RatingsModel ratingsModel) {
         if (ratingsModel.movieTitle.equals(currentMovie.title)) {
             ratings = ratingsModel.ratings;
         }
@@ -124,10 +134,15 @@ public class MovieActivity extends BusSubscriberActivity {
      * download movie image using an async task
      */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+        private ImageView bmImage;
 
+<<<<<<< HEAD
         public DownloadImageTask(ImageView bmapImage) {
             bmImage = bmapImage;
+=======
+        public DownloadImageTask(ImageView newImage) {
+            this.bmImage = newImage;
+>>>>>>> origin/master
         }
 
         protected Bitmap doInBackground(String... urls) {

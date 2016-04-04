@@ -1,6 +1,5 @@
 package teamfour.com.rottentomatoes;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,20 +22,23 @@ import views.UserListAdapter;
  */
 public class AdminActivity extends BusSubscriberActivity {
 
-    APIServiceInterface apiService;
-    boolean isCurrScreen = true;
+    private APIServiceInterface apiService;
+    private boolean isCurrScreen = true;
 
     /**
      * life cycle method
      * @param savedInstanceBundle
      */
     @Override
-    protected void onCreate(Bundle savedInstanceBundle) {
+    protected final void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.activity_admin);
 
         apiService = UserService.getService();
+<<<<<<< HEAD
         final UserModel currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
+=======
+>>>>>>> origin/master
         UserService.viewUserList(apiService);
     }
 
@@ -44,7 +46,7 @@ public class AdminActivity extends BusSubscriberActivity {
      * refresh user list upon ban
      */
     @Subscribe
-    public void getBanEvent(UserModel bannedUser) {
+    public final void getBanEvent(UserModel bannedUser) {
         if (isCurrScreen) {
             UserService.viewUserList(apiService);
         }
@@ -55,11 +57,16 @@ public class AdminActivity extends BusSubscriberActivity {
      * @param list
      */
     @Subscribe
-    public void getUserEvent(UserListModel list) {
+    public final void getUserEvent(UserListModel list) {
 
+<<<<<<< HEAD
         final Activity self = this;
         final ListView lv= (ListView) findViewById(R.id.listView3);
         final List<UserModel> newList = new ArrayList<UserModel>();
+=======
+        ListView lv= (ListView) findViewById(R.id.listView3);
+        List<UserModel> newList = new ArrayList<UserModel>();
+>>>>>>> origin/master
         for (UserModel user : list.users) {
             if (user.isActive) {
                 user.status = "Active";

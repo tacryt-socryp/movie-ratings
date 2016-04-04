@@ -20,7 +20,7 @@ import services.RatingService;
  * Created by logan on 2/27/16.
  */
 public class RatingListAdapter extends ArrayAdapter<RatingModel> {
-    APIServiceInterface ratingService;
+    private APIServiceInterface ratingService;
     private List<RatingModel> ratings;
     private String movieTitle;
 
@@ -46,7 +46,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
      * @param newRatings
      */
     @Subscribe
-    public void getRatingsEvent(RatingsModel newRatings) {
+    public final void getRatingsEvent(RatingsModel newRatings) {
         if (newRatings.movieTitle.equals(movieTitle)) {
             ratings.clear();
             for (RatingModel rating: newRatings.ratings) {
@@ -61,7 +61,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
      * @return
      */
     @Override
-    public int getCount() {
+    public final int getCount() {
         if (ratings == null) {
             return 0;
         }
@@ -74,7 +74,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
      * @return
      */
     @Override
-    public RatingModel getItem(int position) {
+    public final RatingModel getItem(int position) {
         return ratings == null? null : ratings.get(position);
     }
 
@@ -86,7 +86,7 @@ public class RatingListAdapter extends ArrayAdapter<RatingModel> {
      * @return
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(int position, View convertView, ViewGroup parent) {
         RatingListItemView itemView = (RatingListItemView) convertView;
         if (null == itemView) { itemView = RatingListItemView.inflate(parent); }
         itemView.setItem(getItem(position));

@@ -34,15 +34,15 @@ import views.MovieListAdapter;
  */
 public class RecommendationActivity extends UserActivity {
 
-    APIServiceInterface recService;
-    RottenTomatoesInterface tomatoService;
-    boolean isFirstTime = true;
+    private APIServiceInterface recService;
+    private RottenTomatoesInterface tomatoService;
+    private boolean isFirstTime = true;
     private UserModel currentUser;
-    List<MovieModel> recommendedMovies;
-    Map<String, Integer> titleToPosition;
+    private List<MovieModel> recommendedMovies;
+    private Map<String, Integer> titleToPosition;
 
     @Override
-    protected void onCreate(Bundle savedInstanceBundle) {
+    protected final void onCreate(Bundle savedInstanceBundle) {
 
 
         super.onCreate(savedInstanceBundle);
@@ -64,7 +64,7 @@ public class RecommendationActivity extends UserActivity {
      * Press search to receive a movie that fits your query
      * @param view
      */
-    public void pressedRecommend(View view) {
+    public final void pressedRecommend(View view) {
         recommendedMovies = new ArrayList<MovieModel>();
         setupList(recommendedMovies);
         final EditText query = (EditText) findViewById(R.id.RecommendationQuery);
@@ -84,7 +84,7 @@ public class RecommendationActivity extends UserActivity {
      * @param list
      */
     @Subscribe
-    public void getMovieTitlesEvent(MovieTitlesModel list) {
+    public final void getMovieTitlesEvent(MovieTitlesModel list) {
 
 
         for (String movieTitle : list.movieTitles) {
@@ -101,7 +101,7 @@ public class RecommendationActivity extends UserActivity {
      * @param list
      */
     @Subscribe
-    public void getMoviesEvent(MovieListModel list) {
+    public final void getMoviesEvent(MovieListModel list) {
         //should add the first movie to recommendedMovies
         if (list.movies.size() > 0) {
             final MovieModel newMovie = list.movies.get(0);
@@ -118,8 +118,13 @@ public class RecommendationActivity extends UserActivity {
      * use a list of movies to setup a list view
      * @param list
      */
+<<<<<<< HEAD
     public void setupList(List<MovieModel> list) {
         final ListView lv = (ListView) findViewById(R.id.listView);
+=======
+    public final void setupList(List<MovieModel> list) {
+        ListView lv = (ListView) findViewById(R.id.listView);
+>>>>>>> origin/master
 
         if (isFirstTime) {
             final Activity self = this;
@@ -130,10 +135,15 @@ public class RecommendationActivity extends UserActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 
+<<<<<<< HEAD
                     final MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
 
                     final Intent intent = new Intent(self, MovieActivity.class);
                     final MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
+=======
+                    Intent intent = new Intent(self, MovieActivity.class);
+                    MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
+>>>>>>> origin/master
                     intent.putExtra("movie", movieExtra);
                     intent.putExtra("ratings", movieExtra.ratings);
                     intent.putExtra("user", currentUser);

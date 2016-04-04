@@ -22,7 +22,7 @@ public final class RatingService {
 
     // we use this to publish changes to other objects
     protected static Bus bus;
-    protected static APIServiceInterface service = null;
+    protected static APIServiceInterface rService = null;
     protected static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
     // initialize bus should occur before any of the other methods are called
@@ -36,16 +36,21 @@ public final class RatingService {
      * @return APIServiceInterface
      */
     public static APIServiceInterface getService() {
+<<<<<<< HEAD
         if (service == null) {
             final Retrofit retrofit = new Retrofit.Builder()
+=======
+        if (rService == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+>>>>>>> origin/master
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
-            service = retrofit.create(APIServiceInterface.class);
+            rService = retrofit.create(APIServiceInterface.class);
         }
 
-        return service;
+        return rService;
     }
 
     private RatingService() {}

@@ -23,7 +23,7 @@ public class ProfileActivity extends UserActivity {
     UserModel currentUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
         // inflate the custom activity layout
@@ -40,9 +40,15 @@ public class ProfileActivity extends UserActivity {
     /**
      * set text fields with data
      */
+<<<<<<< HEAD
     public void setTextFields() {
         final EditText nameField = (EditText) findViewById(R.id.name);
         final EditText majorField = (EditText) findViewById(R.id.major);
+=======
+    public final void setTextFields() {
+        EditText nameField = (EditText) findViewById(R.id.name);
+        EditText majorField = (EditText) findViewById(R.id.major);
+>>>>>>> origin/master
 
         nameField.setText(currentUser.profile.name);
         majorField.setText(currentUser.profile.major);
@@ -52,7 +58,7 @@ public class ProfileActivity extends UserActivity {
      * simple test to see if edit profile works
      * @param view
      */
-    public void onSaveButtonPressed(View view) {
+    public final void onSaveButtonPressed(View view) {
         Log.d("PROFILE ACTIVITY", "updating user profile name");
         final EditText nameField = (EditText) findViewById(R.id.name);
         final EditText majorField = (EditText) findViewById(R.id.major);

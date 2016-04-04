@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 import models.MovieModel;
 import models.RatingModel;
 import teamfour.com.rottentomatoes.R;
@@ -47,7 +49,7 @@ public class MovieListItemView extends RelativeLayout {
      * Set text using the movie model.
      * @param movieModel
      */
-    public void setMovie(MovieModel movieModel) {
+    public final void setMovie(MovieModel movieModel) {
         if (movieModel != null) {
             movie = movieModel;
             titleTextView.setText(movieModel.title);
@@ -59,9 +61,12 @@ public class MovieListItemView extends RelativeLayout {
      * Set ratings for the movie using ratings.
      * @param ratingModels
      */
-    public void setRatings(RatingModel[] ratingModels) {
-        if (ratingModels != null) {
-            ratings = ratingModels;
+    public final void setRatings(RatingModel[] ratingModels) {
+        if(ratingModels == null) {
+            this.ratings = new RatingModel[0];
+        } else {
+            this.ratings = Arrays.copyOf(ratingModels, ratingModels.length);
+
             float avgRating = 0;
             if (ratings != null && ratings.length > 0) {
                 for (RatingModel rating: ratings) {

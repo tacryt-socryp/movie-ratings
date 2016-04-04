@@ -31,7 +31,7 @@ import services.UserService;
  */
 public class UserActivity extends BusSubscriberActivity {
 
-    private String USER = "user";
+    private String userString = "user";
     APIServiceInterface service;
     UserModel currentUser;
     boolean userActivityActive = true;
@@ -40,6 +40,13 @@ public class UserActivity extends BusSubscriberActivity {
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    enum Activities {
+        User,
+        Search,
+        Recommendation,
+        Profile,
+        Main
+    }
 
     /**
      * receive currentUser from either registration or login via extras,
@@ -52,7 +59,7 @@ public class UserActivity extends BusSubscriberActivity {
         setContentView(R.layout.activity_user);
 
         service = UserService.getService();
-        currentUser = (UserModel) this.getIntent().getParcelableExtra(USER);
+        currentUser = (UserModel) this.getIntent().getParcelableExtra(userString);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -83,7 +90,7 @@ public class UserActivity extends BusSubscriberActivity {
      * @param user
      */
     @Subscribe
-    public void getUserEvent(UserModel user) {
+    public final void getUserEvent(UserModel user) {
         if (userActivityActive) {
             final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -105,7 +112,8 @@ public class UserActivity extends BusSubscriberActivity {
      * Asynchronously receive an errormodel upon unsuccessful user creation or login
      * @param error
      */
-    @Subscribe public void getErrorEvent(ErrorModel error) {
+    @Subscribe
+    public final void getErrorEvent(ErrorModel error) {
         if (userActivityActive) {
             final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -117,14 +125,19 @@ public class UserActivity extends BusSubscriberActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public final boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
+<<<<<<< HEAD
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
+=======
+    public final boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+>>>>>>> origin/master
         if (id == R.id.action_settings) {
             return true;
         }
@@ -135,7 +148,7 @@ public class UserActivity extends BusSubscriberActivity {
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected final void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
     }
@@ -146,6 +159,7 @@ public class UserActivity extends BusSubscriberActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+<<<<<<< HEAD
             switch (position) {
                 case 0: {
                     final Intent intent = new Intent(UserActivity.this, UserActivity.class);
@@ -173,6 +187,37 @@ public class UserActivity extends BusSubscriberActivity {
                 }
                 case 4: {
                     final Intent intent = new Intent(UserActivity.this, MainActivity.class);
+=======
+
+            switch (Activities.values()[position]) {
+
+                case User: {
+                    Intent intent = new Intent(UserActivity.this, UserActivity.class);
+                    intent.putExtra(userString, currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case Search: {
+                    Intent intent = new Intent(UserActivity.this, SearchActivity.class);
+                    intent.putExtra(userString, currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case Recommendation: {
+                    Intent intent = new Intent(UserActivity.this, RecommendationActivity.class);
+                    intent.putExtra(userString, currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case Profile: {
+                    Intent intent = new Intent(UserActivity.this, ProfileActivity.class);
+                    intent.putExtra(userString, currentUser);
+                    startActivity(intent);
+                    break;
+                }
+                case Main: {
+                    Intent intent = new Intent(UserActivity.this, MainActivity.class);
+>>>>>>> origin/master
                     startActivity(intent);
                     break;
                 }

@@ -27,12 +27,12 @@ import views.MovieListAdapter;
  */
 public class SearchActivity extends UserActivity {
 
-    RottenTomatoesInterface tomatoService;
-    boolean isSearchActive = true;
+    private RottenTomatoesInterface tomatoService;
+    private boolean isSearchActive = true;
     private UserModel currentUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceBundle) {
+    protected final void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
 
         final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
@@ -49,9 +49,15 @@ public class SearchActivity extends UserActivity {
      * Press search to receive a movie that fits your query
      * @param view
      */
+<<<<<<< HEAD
     public void pressedSearch(View view) {
         final EditText query = (EditText) findViewById(R.id.SearchQuery);
         final String search = query.getText().toString();
+=======
+    public final void pressedSearch(View view) {
+        EditText query = (EditText) findViewById(R.id.SearchQuery);
+        String search = query.getText().toString();
+>>>>>>> origin/master
 
         // when user scrolls down to the bottom, call an event that iterates this number!
         Log.d("PRESSED SEARCH", "search is " + search);
@@ -63,7 +69,7 @@ public class SearchActivity extends UserActivity {
      * @param list
      */
     @Subscribe
-    public void getMoviesEvent(MovieListModel list) {
+    public final void getMoviesEvent(MovieListModel list) {
         if (isSearchActive) {
             final Activity self = this;
             final ListView lv= (ListView) findViewById(R.id.listView2);

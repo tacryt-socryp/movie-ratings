@@ -22,7 +22,7 @@ public final class UserService {
 
     // we use this to publish changes to other objects
     protected static Bus bus;
-    protected static APIServiceInterface service = null;
+    protected static APIServiceInterface uService = null;
     protected static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
     // initialize bus should occur before any of the other methods are called
@@ -36,16 +36,21 @@ public final class UserService {
      * @return APIServiceInterface
      */
     public static APIServiceInterface getService() {
+<<<<<<< HEAD
         if (service == null) {
             final Retrofit retrofit = new Retrofit.Builder()
+=======
+        if (uService == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+>>>>>>> origin/master
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
-            service = retrofit.create(APIServiceInterface.class);
+            uService = retrofit.create(APIServiceInterface.class);
         }
 
-        return service;
+        return uService;
     }
 
     private UserService() {}

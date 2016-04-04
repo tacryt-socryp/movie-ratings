@@ -58,8 +58,9 @@ public class RatingModel implements Parcelable {
         final String[] data = new String[6];
 
         in.readStringArray(data);
-        this.ratingID = Integer.parseInt(data[0], 10);
-        this.rating = Integer.parseInt(data[1], 10);
+        int integerRadix = 10;
+        this.ratingID = Integer.parseInt(data[0], integerRadix);
+        this.rating = Integer.parseInt(data[1], integerRadix);
         this.text = data[2];
         this.movieTitle = data[3];
         this.user = data[4];
@@ -70,7 +71,7 @@ public class RatingModel implements Parcelable {
      * @return
      */
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 
@@ -80,7 +81,7 @@ public class RatingModel implements Parcelable {
      * @param flags
      */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
             String.valueOf(this.ratingID),
             String.valueOf(this.rating),

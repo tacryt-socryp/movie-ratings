@@ -20,15 +20,15 @@ import services.UserService;
  */
 public class LoginActivity extends BusSubscriberActivity {
 
-    APIServiceInterface service;
-    boolean loggedIn = false;
+    private APIServiceInterface service;
+    private boolean loggedIn = false;
 
     /**
      * initialize the view and initialize service
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -39,7 +39,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * login button was pressed, perform a getUser server call
      * @param view
      */
-    public void onLoginButtonPressed(View view) {
+    public final void onLoginButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
         loggedIn = false;
 
@@ -60,7 +60,8 @@ public class LoginActivity extends BusSubscriberActivity {
      * On successful login, receive back the asynchronous event using Otto!
      * @param user
      */
-    @Subscribe public void getUserEvent(UserModel user) {
+    @Subscribe
+    public final void getUserEvent(UserModel user) {
         if (!loggedIn) {
             final Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -90,8 +91,14 @@ public class LoginActivity extends BusSubscriberActivity {
      * On unsuccessful login, receive back the error message!
      * @param error
      */
+<<<<<<< HEAD
     @Subscribe public void getErrorEvent(ErrorModel error) {
         final Toast toast = Toast.makeText(
+=======
+    @Subscribe
+    public final void getErrorEvent(ErrorModel error) {
+        Toast toast = Toast.makeText(
+>>>>>>> origin/master
                 this.getApplicationContext(),
                 "Login failed - " + error.message,
                 Toast.LENGTH_SHORT
@@ -103,7 +110,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * Return to the main view.
      * @param view
      */
-    public void onCancelButtonPressed(View view) {
+    public final void onCancelButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Cancel button pressed");
         final Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

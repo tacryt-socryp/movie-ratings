@@ -15,7 +15,7 @@ public class MainActivity extends BusSubscriberActivity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
@@ -24,7 +24,7 @@ public class MainActivity extends BusSubscriberActivity {
      * Login button was pressed, open LoginActivity!
      * @param v
      */
-    public void onLoginButtonClicked(View v) {
+    public final void onLoginButtonClicked(View v) {
         Log.d("OPENING SCREEN", "Pressed login");
         final Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -36,7 +36,7 @@ public class MainActivity extends BusSubscriberActivity {
      * @return
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public final boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -47,7 +47,7 @@ public class MainActivity extends BusSubscriberActivity {
      * @return
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public final boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -65,7 +65,7 @@ public class MainActivity extends BusSubscriberActivity {
      * open register button upon register button pressed!
      * @param w
      */
-    public void onRegisterButtonPressed(View w) {
+    public final void onRegisterButtonPressed(View w) {
         Log.d("OPENING SCREEN", "Pressed register");
         final Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);

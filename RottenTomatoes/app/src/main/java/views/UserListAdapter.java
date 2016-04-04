@@ -5,8 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.squareup.otto.Bus;
-
 import java.util.List;
 
 import models.UserModel;
@@ -17,7 +15,6 @@ import services.UserService;
  * Created by wbtho on 3/14/2016.
  */
 public class UserListAdapter extends ArrayAdapter<UserModel> {
-    private Bus bus;
     APIServiceInterface us;
     private List<UserModel> userModels;
 
@@ -38,7 +35,7 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
      * @return
      */
     @Override
-    public int getCount() {
+    public final int getCount() {
         if (userModels == null) {
             return 0;
         }
@@ -51,7 +48,7 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
      * @return
      */
     @Override
-    public UserModel getItem(int position) {
+    public final UserModel getItem(int position) {
         return userModels == null? null : userModels.get(position);
     }
 
@@ -63,7 +60,7 @@ public class UserListAdapter extends ArrayAdapter<UserModel> {
      * @return
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(int position, View convertView, ViewGroup parent) {
         UserListItemView itemView = (UserListItemView)convertView;
         if (null == itemView) { itemView = UserListItemView.inflate(parent); }
         itemView.setUser(getItem(position));

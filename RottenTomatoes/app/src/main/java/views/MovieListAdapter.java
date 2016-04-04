@@ -21,7 +21,7 @@ import services.RatingService;
  * Created by logan on 2/27/16.
  */
 public class MovieListAdapter extends ArrayAdapter<MovieModel> {
-    APIServiceInterface ratingService;
+    private APIServiceInterface ratingService;
     private List<MovieModel> movieModels;
 
     /**
@@ -49,7 +49,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
      */
 
     @Subscribe
-    public void getRatingsEvent(RatingsModel ratings) {
+    public final void getRatingsEvent(RatingsModel ratings) {
         // bad way of doing this, O(n^2). Fuck it
         MovieModel movie;
         for (int x = 0; x < this.getCount(); x++) {
@@ -69,7 +69,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
      * @return
      */
     @Override
-    public int getCount() {
+    public final int getCount() {
         if (movieModels == null) {
             return 0;
         }
@@ -82,7 +82,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
      * @return
      */
     @Override
-    public MovieModel getItem(int position) {
+    public final MovieModel getItem(int position) {
         return movieModels == null? null : movieModels.get(position);
     }
 
@@ -94,7 +94,7 @@ public class MovieListAdapter extends ArrayAdapter<MovieModel> {
      * @return
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public final View getView(int position, View convertView, ViewGroup parent) {
         MovieListItemView itemView = (MovieListItemView)convertView;
         if (null == itemView) { itemView = MovieListItemView.inflate(parent); }
         itemView.setMovie(getItem(position));

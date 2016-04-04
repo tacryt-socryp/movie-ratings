@@ -15,7 +15,7 @@ import teamfour.com.rottentomatoes.R;
  * Created by logan on 2/27/16.
  */
 public class RatingListItemView extends RelativeLayout {
-    public RatingModel rating = null;
+    private RatingModel rating = null;
 
     private TextView ratingNumTextView;
     private TextView userTextView;
@@ -34,7 +34,7 @@ public class RatingListItemView extends RelativeLayout {
         descriptionTextView = (TextView) findViewById(R.id.listRatingDescriptionTextView);
     }
 
-    public void setItem(RatingModel ratingModel) {
+    public final void setItem(RatingModel ratingModel) {
         if (ratingModel != null) {
             rating = ratingModel;
             Log.d("rating", rating.toString());
