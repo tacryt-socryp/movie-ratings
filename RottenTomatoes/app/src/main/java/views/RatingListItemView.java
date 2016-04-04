@@ -34,7 +34,7 @@ public class RatingListItemView extends RelativeLayout {
         descriptionTextView = (TextView) findViewById(R.id.listRatingDescriptionTextView);
     }
 
-    public void setItem(RatingModel ratingModel) {
+    public final void setItem(RatingModel ratingModel) {
         if (ratingModel != null) {
             rating = ratingModel;
             Log.d("rating", rating.toString());

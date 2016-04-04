@@ -13,10 +13,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * Created by logan on 2/21/16.
  */
-public class MovieService {
+public final class MovieService {
 
     private static final String API_BASE_URL = "http://www.omdbapi.com/";
-    private static RottenTomatoesInterface service = null;
+    private static RottenTomatoesInterface rService = null;
     protected static Bus bus;
 
     // initialize bus should occur before any of the other methods are called
@@ -26,16 +26,16 @@ public class MovieService {
     }
 
     public static RottenTomatoesInterface getService() {
-        if (service == null) {
+        if (rService == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
-            service = retrofit.create(RottenTomatoesInterface.class);
-            return service;
+            rService = retrofit.create(RottenTomatoesInterface.class);
+            return rService;
         } else {
-            return service;
+            return rService;
         }
     }
 

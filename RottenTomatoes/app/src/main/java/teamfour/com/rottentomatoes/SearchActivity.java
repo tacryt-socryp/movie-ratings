@@ -32,7 +32,7 @@ public class SearchActivity extends UserActivity {
     private UserModel currentUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceBundle) {
+    protected final void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
 
         FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
@@ -49,7 +49,7 @@ public class SearchActivity extends UserActivity {
      * Press search to receive a movie that fits your query
      * @param view
      */
-    public void pressedSearch(View view) {
+    public final void pressedSearch(View view) {
         EditText query = (EditText) findViewById(R.id.SearchQuery);
         String search = query.getText().toString();
 
@@ -63,7 +63,7 @@ public class SearchActivity extends UserActivity {
      * @param list
      */
     @Subscribe
-    public void getMoviesEvent(MovieListModel list) {
+    public final void getMoviesEvent(MovieListModel list) {
         if (isSearchActive) {
             final Activity self = this;
             ListView lv= (ListView) findViewById(R.id.listView2);

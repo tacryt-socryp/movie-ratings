@@ -28,7 +28,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -39,7 +39,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * login button was pressed, perform a getUser server call
      * @param view
      */
-    public void onLoginButtonPressed(View view) {
+    public final void onLoginButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Login Button Pressed");
         loggedIn = false;
 
@@ -60,7 +60,8 @@ public class LoginActivity extends BusSubscriberActivity {
      * On successful login, receive back the asynchronous event using Otto!
      * @param user
      */
-    @Subscribe public void getUserEvent(UserModel user) {
+    @Subscribe
+    public final void getUserEvent(UserModel user) {
         if (!loggedIn) {
             Toast toast = Toast.makeText(
                     this.getApplicationContext(),
@@ -91,7 +92,8 @@ public class LoginActivity extends BusSubscriberActivity {
      * On unsuccessful login, receive back the error message!
      * @param error
      */
-    @Subscribe public void getErrorEvent(ErrorModel error) {
+    @Subscribe
+    public final void getErrorEvent(ErrorModel error) {
         Toast toast = Toast.makeText(
                 this.getApplicationContext(),
                 "Login failed - " + error.message,
@@ -104,7 +106,7 @@ public class LoginActivity extends BusSubscriberActivity {
      * Return to the main view.
      * @param view
      */
-    public void onCancelButtonPressed(View view) {
+    public final void onCancelButtonPressed(View view) {
         Log.d("LOGIN ACTIVITY", "Cancel button pressed");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

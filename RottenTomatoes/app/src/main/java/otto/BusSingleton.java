@@ -8,7 +8,7 @@ import com.squareup.otto.Bus;
  * This is a singleton for the event bus for receiving server data in activities
  * Created by logan on 2/10/16.
  */
-public class BusSingleton {
+public final class BusSingleton {
     private static Bus instance;
     private static Context context;
 

@@ -14,12 +14,12 @@ public class UserListModel implements Parcelable {
     public UserModel[] users;
 
     @Override
-    public int describeContents(){
+    public final int describeContents(){
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
         });
     }

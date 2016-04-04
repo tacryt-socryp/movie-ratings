@@ -44,7 +44,7 @@ public class UserListItemView extends RelativeLayout {
      * Set text using the user model.
      * @param u
      */
-    public void setUser(UserModel u) {
+    public final void setUser(UserModel u) {
         if (u != null) {
             user = u;
             usernameTextView.setText(u.username);

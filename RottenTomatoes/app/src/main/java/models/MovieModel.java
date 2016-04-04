@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class MovieModel implements Parcelable {
 
+    int dataLength = 20;
+
     @JsonProperty("Title")
     public String title;
 
@@ -76,8 +78,8 @@ public class MovieModel implements Parcelable {
      * Recreate user model from parcelable data
      * @param in
      */
-    public MovieModel(Parcel in){
-        String[] data = new String[20];
+    public MovieModel(Parcel in) {
+        String[] data = new String[dataLength];
 
         in.readStringArray(data);
         this.title = data[0];
@@ -106,7 +108,7 @@ public class MovieModel implements Parcelable {
      * @return
      */
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         return 0;
     }
 
@@ -116,7 +118,7 @@ public class MovieModel implements Parcelable {
      * @param flags
      */
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
             this.title,
             this.year,
@@ -151,7 +153,7 @@ public class MovieModel implements Parcelable {
         }
     };
 
-    public String toString() {
+    public final String toString() {
         return title + "\n" + year + "\n";
     }
 

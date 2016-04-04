@@ -31,7 +31,7 @@ public class AdminActivity extends BusSubscriberActivity {
      * @param savedInstanceBundle
      */
     @Override
-    protected void onCreate(Bundle savedInstanceBundle) {
+    protected final void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.activity_admin);
 
@@ -44,7 +44,7 @@ public class AdminActivity extends BusSubscriberActivity {
      * refresh user list upon ban
      */
     @Subscribe
-    public void getBanEvent(UserModel bannedUser) {
+    public final void getBanEvent(UserModel bannedUser) {
         if (isCurrScreen) {
             UserService.viewUserList(apiService);
         }
@@ -55,7 +55,7 @@ public class AdminActivity extends BusSubscriberActivity {
      * @param list
      */
     @Subscribe
-    public void getUserEvent(UserListModel list) {
+    public final void getUserEvent(UserListModel list) {
 
         final Activity self = this;
         ListView lv= (ListView) findViewById(R.id.listView3);

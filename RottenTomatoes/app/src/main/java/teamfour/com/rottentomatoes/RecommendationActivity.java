@@ -42,7 +42,7 @@ public class RecommendationActivity extends UserActivity {
     Map<String, Integer> titleToPosition;
 
     @Override
-    protected void onCreate(Bundle savedInstanceBundle) {
+    protected final void onCreate(Bundle savedInstanceBundle) {
 
 
         super.onCreate(savedInstanceBundle);
@@ -64,7 +64,7 @@ public class RecommendationActivity extends UserActivity {
      * Press search to receive a movie that fits your query
      * @param view
      */
-    public void pressedRecommend(View view) {
+    public final void pressedRecommend(View view) {
         recommendedMovies = new ArrayList<MovieModel>();
         setupList(recommendedMovies);
         EditText query = (EditText) findViewById(R.id.RecommendationQuery);
@@ -84,7 +84,7 @@ public class RecommendationActivity extends UserActivity {
      * @param list
      */
     @Subscribe
-    public void getMovieTitlesEvent(MovieTitlesModel list) {
+    public final void getMovieTitlesEvent(MovieTitlesModel list) {
 
 
         for (String movieTitle : list.movieTitles) {
@@ -101,7 +101,7 @@ public class RecommendationActivity extends UserActivity {
      * @param list
      */
     @Subscribe
-    public void getMoviesEvent(MovieListModel list) {
+    public final void getMoviesEvent(MovieListModel list) {
         //should add the first movie to recommendedMovies
         if (list.movies.size() > 0) {
             MovieModel newMovie = list.movies.get(0);
@@ -118,7 +118,7 @@ public class RecommendationActivity extends UserActivity {
      * use a list of movies to setup a list view
      * @param list
      */
-    public void setupList(List<MovieModel> list) {
+    public final void setupList(List<MovieModel> list) {
         ListView lv = (ListView) findViewById(R.id.listView);
 
         if (isFirstTime) {

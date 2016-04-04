@@ -17,12 +17,12 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 /**
  * Created by logan on 2/10/16.
  */
-public class UserService {
+public final class UserService {
 
 
     // we use this to publish changes to other objects
     protected static Bus bus;
-    protected static APIServiceInterface service = null;
+    protected static APIServiceInterface uService = null;
     protected static String baseUrl = "http://10.0.2.2:10010/api/"; // access the host computer. this expects the server to be running!
 
     // initialize bus should occur before any of the other methods are called
@@ -36,16 +36,16 @@ public class UserService {
      * @return APIServiceInterface
      */
     public static APIServiceInterface getService() {
-        if (service == null) {
+        if (uService == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
-            service = retrofit.create(APIServiceInterface.class);
+            uService = retrofit.create(APIServiceInterface.class);
         }
 
-        return service;
+        return uService;
     }
 
     private UserService() {}

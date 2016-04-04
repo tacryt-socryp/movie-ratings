@@ -15,7 +15,7 @@ public class App extends android.app.Application {
      * We initialize the asynchronous event bus here (Otto)
      */
     @Override
-    public void onCreate() {
+    public final void onCreate() {
         super.onCreate();
 
         // here we are initializing bus singleton (this should only happen once!)

@@ -20,15 +20,15 @@ public class MovieListModel implements Parcelable {
     public String totalResults;
 
     @JsonProperty("Response")
-    public String Response;
+    public String response;
 
     @Override
-    public int describeContents(){
+    public final int describeContents(){
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public final void writeToParcel(Parcel dest, int flags) {
         dest.writeStringArray(new String[] {
         });
     }

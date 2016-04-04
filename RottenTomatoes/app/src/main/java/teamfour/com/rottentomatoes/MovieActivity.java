@@ -43,7 +43,7 @@ public class MovieActivity extends BusSubscriberActivity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
@@ -69,12 +69,13 @@ public class MovieActivity extends BusSubscriberActivity {
      * rate movie button was pressed *
      * @param view
      */
-    public void pressedRateMovie(View view) {
+    public final void pressedRateMovie(View view) {
         EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
         EditText text = (EditText) findViewById(R.id.RatingText);
         if (ratingNum.getText() != null && ratingNum.getText().length() > 0) {
+            int integerRadix = 10;
             RatingModel rating = new RatingModel(-1,
-                    Integer.parseInt(ratingNum.getText().toString(), 10), text.getText().toString(),
+                    Integer.parseInt(ratingNum.getText().toString(), integerRadix), text.getText().toString(),
                     currentMovie.title, currentUser.username, currentUser.profile.major
             );
 
@@ -88,7 +89,7 @@ public class MovieActivity extends BusSubscriberActivity {
      * @param ratingModel
      */
     @Subscribe
-    public void getCreatedRating(RatingModel ratingModel) {
+    public final void getCreatedRating(RatingModel ratingModel) {
         RatingService.getRatings(service, currentMovie.title);
     }
 
@@ -97,7 +98,7 @@ public class MovieActivity extends BusSubscriberActivity {
      * @param ratingsModel
      */
     @Subscribe
-    public void getRatingsEvent(RatingsModel ratingsModel) {
+    public final void getRatingsEvent(RatingsModel ratingsModel) {
         if (ratingsModel.movieTitle.equals(currentMovie.title)) {
             ratings = ratingsModel.ratings;
         }
@@ -126,8 +127,8 @@ public class MovieActivity extends BusSubscriberActivity {
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+        public DownloadImageTask(ImageView newImage) {
+            this.bmImage = newImage;
         }
 
         protected Bitmap doInBackground(String... urls) {

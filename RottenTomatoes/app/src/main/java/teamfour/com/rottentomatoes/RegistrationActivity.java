@@ -27,7 +27,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         apiService = UserService.getService();
@@ -37,7 +37,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
      * Action to create a new user with a name, username, and password.
      * @param view the registration view in which this action takes place
      */
-    public void onRegisterButtonClicked(View view) {
+    public final void onRegisterButtonClicked(View view) {
         Log.d("REGISTRATION ACTIVITY", "Register Button Pressed");
 
         EditText namefield = (EditText) findViewById((R.id.Name));
@@ -98,7 +98,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
      * @param user
      */
     @Subscribe
-    public void getUserEvent(UserModel user) {
+    public final void getUserEvent(UserModel user) {
         if (isRegistrationActive) {
             Toast toast = Toast.makeText(
                 this.getApplicationContext(),
@@ -130,7 +130,8 @@ public class RegistrationActivity extends BusSubscriberActivity {
      * Asynchronously receive an errormodel upon unsuccessful user creation
      * @param error
      */
-    @Subscribe public void getErrorEvent(ErrorModel error) {
+    @Subscribe
+    public final void getErrorEvent(ErrorModel error) {
         if (isRegistrationActive) {
             Toast toast = Toast.makeText(
                 this.getApplicationContext(),
@@ -145,7 +146,7 @@ public class RegistrationActivity extends BusSubscriberActivity {
      * Action to cancel registering and go back to the main login screen.
      * @param view the view in which this action takes place
      */
-    public void onCancelButtonClicked(View view) {
+    public final void onCancelButtonClicked(View view) {
         Log.d("REGISTRATION ACTIVITY", "Cancel button pressed");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
