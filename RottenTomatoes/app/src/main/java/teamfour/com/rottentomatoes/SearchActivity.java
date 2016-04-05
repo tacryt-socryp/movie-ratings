@@ -39,6 +39,11 @@ public class SearchActivity extends UserActivity {
      */
     private UserModel currentUser;
 
+    /**
+     * movies
+     */
+    public MovieListModel movies;
+
     @Override
     protected final void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
@@ -73,6 +78,7 @@ public class SearchActivity extends UserActivity {
     @Subscribe
     public final void getMoviesEvent(MovieListModel list) {
         if (isSearchActive) {
+            movies = list;
             final Activity self = this;
             final ListView lv= (ListView) findViewById(R.id.listView2);
             final MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
@@ -94,5 +100,9 @@ public class SearchActivity extends UserActivity {
 
             });
         }
+    }
+
+    public final MovieListModel getMovies() {
+        return this.movies;
     }
 }
