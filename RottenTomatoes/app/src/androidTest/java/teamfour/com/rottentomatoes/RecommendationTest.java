@@ -7,12 +7,12 @@ import java.util.List;
 
 import models.MovieListModel;
 import models.MovieModel;
+import models.MovieTitlesModel;
 
 
 /**
  * Created by logan on 4/4/16.
  */
-
 public class RecommendationTest extends ActivityInstrumentationTestCase2<RecommendationActivity> {
 
     private RecommendationActivity recActivity;
@@ -38,11 +38,18 @@ public class RecommendationTest extends ActivityInstrumentationTestCase2<Recomme
 
         recActivity.addToRecommendedMovies(movieList);
 
-        assert(recActivity.getRecommendedMovies().size() == 0);
-        assert(recActivity.getTitleToPosition().size() == 0);
+        assertEquals(recActivity.getRecommendedMovies().size(), 0);
+        assertEquals(recActivity.getTitleToPosition().size(), 0);
     }
 
     public void testGetMoviesEvent() {
+        MovieTitlesModel titlesModel = new MovieTitlesModel();
+        String[] movieTitles = {"The Dark Knight"};
+        titlesModel.movieTitles = movieTitles;
+        recActivity.addToMovieTitle(titlesModel);
+
+        assertEquals(recActivity.getTitleToPosition().size(), 1);
+
         MovieListModel movieList = new MovieListModel();
         List<MovieModel> movies = new ArrayList<MovieModel>();
         MovieModel movie = new MovieModel();
@@ -53,8 +60,10 @@ public class RecommendationTest extends ActivityInstrumentationTestCase2<Recomme
 
         recActivity.addToRecommendedMovies(movieList);
 
-        assert(recActivity.getRecommendedMovies().size() == 1);
-        assert(recActivity.getTitleToPosition().size() == 1);
+        assertEquals(recActivity.getRecommendedMovies().size(), 1);
+
+
+        // recActivity.getTitleToPosition().get("The Dark Knight");
     }
 
     @Override

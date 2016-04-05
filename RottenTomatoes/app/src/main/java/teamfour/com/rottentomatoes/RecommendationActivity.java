@@ -110,8 +110,10 @@ public class RecommendationActivity extends UserActivity {
      */
     @Subscribe
     public final void getMovieTitlesEvent(MovieTitlesModel list) {
+        this.addToMovieTitle(list);
+    }
 
-
+    public void addToMovieTitle(MovieTitlesModel list) {
         for (String movieTitle : list.movieTitles) {
             final MovieModel m = new MovieModel();
             m.title = movieTitle;
