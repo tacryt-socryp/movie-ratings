@@ -24,13 +24,15 @@ public class SearchTest extends ActivityInstrumentationTestCase2<SearchActivity>
     }
 
     public void testEmptySearch() {
-        sActivity.query.setText("");
-        assert(sActivity.getMovies().movies.size() == 0);
+        sActivity.getSearch("");
+        assertNull(sActivity.getMovies());
     }
 
     public void testSearchEvent() {
-        sActivity.query.setText("harry potter and the order of the phoenix");
-        assert(sActivity.getMovies().movies.size() == 4);
+        sActivity.getSearch("harry potter and the order of the phoenix");
+        if (sActivity.gotMovies) {
+            assertEquals(sActivity.getMovies().size(), 4);
+        }
     }
 
     @Override

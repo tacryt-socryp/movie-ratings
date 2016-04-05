@@ -14,6 +14,8 @@ import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
 
+import java.util.List;
+
 import models.MovieListModel;
 import models.MovieModel;
 import models.UserModel;
@@ -40,9 +42,16 @@ public class SearchActivity extends UserActivity {
     private UserModel currentUser;
 
     /**
+     * Needed this for JUnit test
      * movies
      */
-    public MovieListModel movies;
+    public List<MovieModel> movies;
+
+    /**
+     * Needed this for JUnit test
+     * gotMovies
+     */
+    public boolean gotMovies = false;
 
     @Override
     protected final void onCreate(Bundle savedInstanceBundle) {
@@ -67,7 +76,14 @@ public class SearchActivity extends UserActivity {
         final String search = query.getText().toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
-        Log.d("PRESSED SEARCH", "search is " + search);
+        MovieService.searchMovies(tomatoService, search);
+    }
+
+    /**
+     * Created for testing
+     * @param search search
+     */
+    public final void getSearch(String search) {
         MovieService.searchMovies(tomatoService, search);
     }
 
@@ -78,7 +94,8 @@ public class SearchActivity extends UserActivity {
     @Subscribe
     public final void getMoviesEvent(MovieListModel list) {
         if (isSearchActive) {
-            movies = list;
+            this.gotMovies = true;
+            this.movies = list.movies;
             final Activity self = this;
             final ListView lv= (ListView) findViewById(R.id.listView2);
             final MovieListAdapter adapter = new MovieListAdapter(this, list.movies);
@@ -89,7 +106,6 @@ public class SearchActivity extends UserActivity {
                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                     final MovieModel item = (MovieModel) adapter.getItemAtPosition(position);
                     Log.d("movieModel", item.toString());
-
                     final Intent intent = new Intent(self, MovieActivity.class);
                     final MovieModel movieExtra = (MovieModel) adapter.getItemAtPosition(position);
                     intent.putExtra("movie", movieExtra);
@@ -102,7 +118,11 @@ public class SearchActivity extends UserActivity {
         }
     }
 
-    public final MovieListModel getMovies() {
-        return this.movies;
+    /**
+     * Created for testing
+     * @return List<MovieModel> movies
+     */
+    public final List<MovieModel> getMovies() {
+        return movies;
     }
 }
