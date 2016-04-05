@@ -1,51 +1,64 @@
 package teamfour.com.rottentomatoes;
 
-import android.test.suitebuilder.annotation.SmallTest;
+import android.test.ActivityInstrumentationTestCase2;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runner.JUnitCore;
-import org.junit.runners.JUnit4;
-import android.test.AndroidTestRunner;
+import java.util.ArrayList;
+import java.util.List;
+
+import models.MovieListModel;
+import models.MovieModel;
 
 
 /**
  * Created by logan on 4/4/16.
  */
 
-@RunWith(JUnit4.class)
-@SmallTest
-public class RecommendationTest {
+public class RecommendationTest extends ActivityInstrumentationTestCase2<RecommendationActivity> {
 
-    public static final String TEST_STRING = "This is a string";
-    public static final long TEST_LONG = 12345678L;
     private RecommendationActivity recActivity;
 
-    @Before
-    public void createLogHistory() {
-        //mLogHistory = new LogHistory();
+    public RecommendationTest() {
+        super(RecommendationActivity.class);
     }
 
-    @Test
-    public void logHistory_ParcelableWriteRead() {
-        /*// Set up the Parcelable object to send and receive.
-        mLogHistory.addEntry(TEST_STRING, TEST_LONG);
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        recActivity = getActivity();
 
-        // Write the data.
-        Parcel parcel = Parcel.obtain();
-        mLogHistory.writeToParcel(parcel, mLogHistory.describeContents());
+    }
 
-        // After you're done with writing, you need to reset the parcel for reading.
-        parcel.setDataPosition(0);
+    public void testPreconditions() {
+        assertNotNull("recActivity is null", recActivity);
+    }
 
-        // Read the data.
-        LogHistory createdFromParcel = LogHistory.CREATOR.createFromParcel(parcel);
-        List<Pair<String, Long>> createdFromParcelData = createdFromParcel.getData();
+    public void testEmptyGetMoviesEvent() {
+        MovieListModel movieList = new MovieListModel();
+        movieList.movies = new ArrayList<MovieModel>();
 
-        // Verify that the received data is correct.
-        assertThat(createdFromParcelData.size(), is(1));
-        assertThat(createdFromParcelData.get(0).first, is(TEST_STRING));
-        assertThat(createdFromParcelData.get(0).second, is(TEST_LONG));*/
+        recActivity.addToRecommendedMovies(movieList);
+
+        assert(recActivity.getRecommendedMovies().size() == 0);
+        assert(recActivity.getTitleToPosition().size() == 0);
+    }
+
+    public void testGetMoviesEvent() {
+        MovieListModel movieList = new MovieListModel();
+        List<MovieModel> movies = new ArrayList<MovieModel>();
+        MovieModel movie = new MovieModel();
+        movie.title = "The Dark Knight";
+        movie.year = "2014";
+        movies.add(movie);
+        movieList.movies = movies;
+
+        recActivity.addToRecommendedMovies(movieList);
+
+        assert(recActivity.getRecommendedMovies().size() == 1);
+        assert(recActivity.getTitleToPosition().size() == 1);
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
     }
 }

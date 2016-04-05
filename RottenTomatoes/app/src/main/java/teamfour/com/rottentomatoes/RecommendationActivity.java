@@ -54,10 +54,17 @@ public class RecommendationActivity extends UserActivity {
      * List of recommendedMovies
      */
     private List<MovieModel> recommendedMovies;
+    public final List<MovieModel> getRecommendedMovies() {
+        return this.recommendedMovies;
+    }
+
     /**
      * titleToPosition map
      */
     private Map<String, Integer> titleToPosition;
+    public final Map<String, Integer> getTitleToPosition() {
+        return this.titleToPosition;
+    }
 
     @Override
     protected final void onCreate(Bundle savedInstanceBundle) {
@@ -120,6 +127,11 @@ public class RecommendationActivity extends UserActivity {
      */
     @Subscribe
     public final void getMoviesEvent(MovieListModel list) {
+        this.addToRecommendedMovies(list);
+        this.setupList(recommendedMovies);
+    }
+
+    public void addToRecommendedMovies(MovieListModel list) {
         //should add the first movie to recommendedMovies
         if (list.movies.size() > 0) {
             final MovieModel newMovie = list.movies.get(0);
@@ -128,8 +140,6 @@ public class RecommendationActivity extends UserActivity {
                 recommendedMovies.set(position, newMovie);
             }
         }
-
-        setupList(recommendedMovies);
     }
 
     /**
