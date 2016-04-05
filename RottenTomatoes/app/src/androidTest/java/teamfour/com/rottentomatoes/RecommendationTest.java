@@ -62,8 +62,8 @@ public class RecommendationTest extends ActivityInstrumentationTestCase2<Recomme
 
         assertEquals(recActivity.getRecommendedMovies().size(), 1);
 
-
-        // recActivity.getTitleToPosition().get("The Dark Knight");
+        int pos = recActivity.getTitleToPosition().get("The Dark Knight");
+        assertEquals(pos, 0);
     }
 
     @Override
