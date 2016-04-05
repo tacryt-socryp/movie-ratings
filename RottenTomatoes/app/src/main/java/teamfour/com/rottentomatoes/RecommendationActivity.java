@@ -54,6 +54,11 @@ public class RecommendationActivity extends UserActivity {
      * List of recommendedMovies
      */
     private List<MovieModel> recommendedMovies;
+
+    /**
+     *
+     * @return RecommendedMovies
+     */
     public final List<MovieModel> getRecommendedMovies() {
         return this.recommendedMovies;
     }
@@ -62,6 +67,11 @@ public class RecommendationActivity extends UserActivity {
      * titleToPosition map
      */
     private Map<String, Integer> titleToPosition;
+
+    /**
+     *
+     * @return mapTitlePosition
+     */
     public final Map<String, Integer> getTitleToPosition() {
         return this.titleToPosition;
     }
@@ -113,6 +123,10 @@ public class RecommendationActivity extends UserActivity {
         this.addToMovieTitle(list);
     }
 
+    /**
+     * add to movie title
+     * @param list list
+     */
     public void addToMovieTitle(MovieTitlesModel list) {
         for (String movieTitle : list.movieTitles) {
             final MovieModel m = new MovieModel();
@@ -133,6 +147,10 @@ public class RecommendationActivity extends UserActivity {
         this.setupList(recommendedMovies);
     }
 
+    /**
+     * add to recommended movies
+     * @param list list
+     */
     public void addToRecommendedMovies(MovieListModel list) {
         //should add the first movie to recommendedMovies
         if (list.movies.size() > 0) {

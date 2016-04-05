@@ -103,6 +103,63 @@ public class RegistrationActivity extends BusSubscriberActivity {
     }
 
     /**
+     * for Junit test
+     * @param username username
+     * @param password password
+     * @param verify verify
+     * @param major major
+     * @param vAdmin admin
+     * @return boolean successfulRegisterAdmin
+     */
+    public final boolean registerAdmin(String username, String password, String verify, String major, String vAdmin) {
+        boolean toReturn = false;
+        if (username.equals("")) {
+            toReturn = false;
+        } else if (password.equals("")) {
+            toReturn = false;
+        } else if (verify.equals("")) {
+            toReturn = false;
+        }
+        if (password.equals(verify) && !password.equals("") && !username.equals("")) {
+            final ProfileModel profile = new ProfileModel(username, major, -1); // NONEXISTENT ID
+
+            UserService.createUser(apiService, new UserModel(username, password, profile, true));
+            toReturn = true;
+        }
+        if (!vAdmin.equals("password")) {
+            toReturn = false;
+        }
+        return toReturn;
+    }
+
+    /**
+     * for Junit test
+     * @param username username
+     * @param password password
+     * @param verify verify
+     * @param major major
+     * @return boolean successfulRegister
+     */
+
+    public final boolean register(String username, String password, String verify, String major) {
+        boolean toReturn = false;
+        if (username.equals("")) {
+            toReturn = false;
+        } else if (password.equals("")) {
+            toReturn = false;
+        } else if (verify.equals("")) {
+            toReturn = false;
+        }
+        if (password.equals(verify) && !password.equals("") && !username.equals("")) {
+            final ProfileModel profile = new ProfileModel(username, major, -1); // NONEXISTENT ID
+
+            UserService.createUser(apiService, new UserModel(username, password, profile, true));
+            toReturn = true;
+        }
+        return toReturn;
+    }
+
+    /**
      * Asynchronously receive a successful usermodel upon successful user creation
      * @param user user
      */
