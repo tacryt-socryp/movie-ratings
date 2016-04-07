@@ -18,10 +18,7 @@ import services.UserService;
  */
 public class ProfileActivity extends UserActivity {
 
-    /**
-     * userActivityActive
-     */
-    private boolean userActivityActive = true;
+
     /**
      * APIServiceInterface
      */
@@ -58,6 +55,22 @@ public class ProfileActivity extends UserActivity {
     }
 
     /**
+     * Update user profile name and major
+     * @param name new name
+     * @param major new major
+     */
+    public final boolean updateUserData(String name, String major) {
+        if (name == null || major == null) {
+            return false;
+        } else if ("".equals(name) || "".equals(major)) {
+            return false;
+        }
+        currentUser.profile.name = name;
+        currentUser.profile.major = major;
+        return true;
+    }
+
+    /**
      * simple test to see if edit profile works
      * @param view view
      */
@@ -65,10 +78,8 @@ public class ProfileActivity extends UserActivity {
         Log.d("PROFILE ACTIVITY", "updating user profile name");
         final EditText nameField = (EditText) findViewById(R.id.name);
         final EditText majorField = (EditText) findViewById(R.id.major);
-
+        updateUserData(nameField.getText().toString(), majorField.getText().toString());
         Log.d("PROFILE ACTIVITY", "updating user");
-        currentUser.profile.name = nameField.getText().toString();
-        currentUser.profile.major = majorField.getText().toString();
         UserService.updateUser(service, currentUser);
         final Toast toast = Toast.makeText(
                 this.getApplicationContext(),
