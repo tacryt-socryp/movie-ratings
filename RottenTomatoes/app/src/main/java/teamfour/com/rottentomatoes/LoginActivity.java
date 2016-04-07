@@ -28,6 +28,8 @@ public class LoginActivity extends BusSubscriberActivity {
      * boolean loggedIn
      */
     private boolean loggedIn = false;
+    String username = "not an account yet";
+    String password = "not an account yet";
 
     /**
      * initialize the view and initialize service
@@ -52,14 +54,32 @@ public class LoginActivity extends BusSubscriberActivity {
         final EditText namefield = (EditText) findViewById(R.id.editText);
         final EditText passwordfield = (EditText) findViewById(R.id.editText2);
 
-        final String username = namefield.getText().toString();
-        final String password = passwordfield.getText().toString();
+        username = namefield.getText().toString();
+        password = passwordfield.getText().toString();
 
         // example of calling user service
         UserService.getUser(service, new UserModel(username, password));
 
         //checks to see if the user is banned
         //active = UserService.getUser(service, new UserModel(username, password)).isActive;
+    }
+
+    /**
+     * for Junit test
+     * @param user, the name of the user
+     * @param pass, password of the user
+     * @return boolean, whether the values match
+     */
+    public final boolean login(String user, String pass) {
+        boolean value;
+        if (user.equals(username)) {
+            value = false;
+        } else if (pass.equals(password)) {
+            value = false;
+        } else {
+            value = true;
+        }
+        return value;
     }
 
     /**
