@@ -12,6 +12,7 @@ import com.squareup.otto.Subscribe;
 import models.ErrorModel;
 import models.UserModel;
 import otto.BusSubscriberActivity;
+import services.APIService;
 import services.APIServiceInterface;
 import services.UserService;
 
@@ -30,6 +31,7 @@ public class LoginActivity extends BusSubscriberActivity {
     private boolean loggedIn = false;
     String username = "not an account yet";
     String password = "not an account yet";
+    int numTries = 0;
 
     /**
      * initialize the view and initialize service
@@ -56,9 +58,14 @@ public class LoginActivity extends BusSubscriberActivity {
 
         username = namefield.getText().toString();
         password = passwordfield.getText().toString();
-
-        // example of calling user service
-        UserService.getUser(service, new UserModel(username, password));
+        if (numTries == 5) {
+            UserService.banOrUnbanUser(service, username, true);
+            numTries = 0;
+        } else {
+            // example of calling user service
+            UserService.getUser(service, new UserModel(username, password));
+            numTries++;
+        }
 
         //checks to see if the user is banned
         //active = UserService.getUser(service, new UserModel(username, password)).isActive;
@@ -96,6 +103,7 @@ public class LoginActivity extends BusSubscriberActivity {
             );
             toast.show();
             loggedIn = true;
+            numTries = 0;
 
             Log.d("serviceCall", user.username + " " + user.password + " " + user.isAdmin);
 
