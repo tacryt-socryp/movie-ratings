@@ -1,13 +1,16 @@
 package teamfour.com.rottentomatoes;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,7 +34,7 @@ import views.RatingListAdapter;
 /**
  * Created by logan on 2/27/16.
  */
-public class MovieActivity extends BusSubscriberActivity {
+public class MovieActivity extends UserActivity {
 
     /**
      * APIServiceInterface
@@ -57,7 +60,12 @@ public class MovieActivity extends BusSubscriberActivity {
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie);
+        final FrameLayout frameLayout = (FrameLayout)findViewById(R.id.content_frame);
+        // inflate the custom activity layout
+        final LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View activityView = layoutInflater.inflate(R.layout.activity_movie, null,false);
+        // add the custom layout of this activity to frame layout.
+        frameLayout.addView(activityView);
 
         service = RatingService.getService();
         final Parcelable[] parcelableRatings = this.getIntent().getParcelableArrayExtra("ratings");
