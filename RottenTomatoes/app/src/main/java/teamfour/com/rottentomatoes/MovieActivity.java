@@ -83,6 +83,7 @@ public class MovieActivity extends UserActivity {
         desc.setText("Title: " + currentMovie.title + "\nReleased: " + currentMovie.year);
 
         new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(currentMovie.poster);
+        welcomeText.setText("");
     }
 
     /**

@@ -52,6 +52,7 @@ public class ProfileActivity extends UserActivity {
 
         nameField.setText(currentUser.profile.name);
         majorField.setText(currentUser.profile.major);
+        welcomeText.setText("");
     }
 
     /**

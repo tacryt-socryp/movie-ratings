@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
@@ -96,6 +97,8 @@ public class UserActivity extends BusSubscriberActivity {
         Main
     }
 
+    protected TextView welcomeText;
+
     /**
      * receive currentUser from either registration or login via extras,
      * initialize view and create service for interacting with the server
@@ -108,6 +111,10 @@ public class UserActivity extends BusSubscriberActivity {
 
         service = UserService.getService();
         currentUser = (UserModel) this.getIntent().getParcelableExtra(userString);
+
+        welcomeText = (TextView) findViewById(R.id.welcomeText);
+        welcomeText.setText("Welcome to Buzz Movie Selector! Select the drawer on the" +
+                " left to navigate through the app!");
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);

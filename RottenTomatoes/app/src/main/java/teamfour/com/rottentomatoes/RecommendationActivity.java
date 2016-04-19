@@ -93,6 +93,7 @@ public class RecommendationActivity extends UserActivity {
         recService = APIService.getService();
         recommendedMovies = new ArrayList<MovieModel>();
         titleToPosition = new HashMap<>();
+        welcomeText.setText("");
     }
 
     /**
