@@ -3,12 +3,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/RecommendationQuery"
-        android:layout_gravity="center_horizontal"
-        android:hint="overview or major" />
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+        <RadioButton android:id="@+id/radio_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Overall"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_major"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Major"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
 
     <EditText
         android:layout_width="match_parent"

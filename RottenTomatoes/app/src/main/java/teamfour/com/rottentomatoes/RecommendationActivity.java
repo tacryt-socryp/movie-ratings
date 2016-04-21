@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import com.squareup.otto.Subscribe;
 
@@ -93,6 +94,11 @@ public class RecommendationActivity extends UserActivity {
         recService = APIService.getService();
         recommendedMovies = new ArrayList<MovieModel>();
         titleToPosition = new HashMap<>();
+
+
+        ((RadioButton) findViewById(R.id.radio_overview)).setChecked(true);
+        ((EditText) findViewById(R.id.OtherQuery)).setText(currentUser.profile.major);
+        ((EditText) findViewById(R.id.OtherQuery)).setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -102,14 +108,14 @@ public class RecommendationActivity extends UserActivity {
     public final void pressedRecommend(View view) {
         recommendedMovies = new ArrayList<MovieModel>();
         setupList(recommendedMovies);
-        final EditText query = (EditText) findViewById(R.id.RecommendationQuery);
-        final String search = query.getText().toString();
+        boolean isOverview = ((RadioButton) findViewById(R.id.radio_overview)).isChecked();
+        final String recommendationMode = isOverview ? "overview" : "major";
 
         final EditText otherField = (EditText) findViewById(R.id.OtherQuery);
         final String other = otherField.getText().toString();
 
         // when user scrolls down to the bottom, call an event that iterates this number!
-        MovieService.searchMovieTitlesToQuery(recService, search, other);
+        MovieService.searchMovieTitlesToQuery(recService, recommendationMode, other);
     }
 
     /**
@@ -193,5 +199,26 @@ public class RecommendationActivity extends UserActivity {
         final MovieListAdapter adapter = new MovieListAdapter(this, list);
         lv.setAdapter(adapter);
 
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        final EditText otherField = (EditText) findViewById(R.id.OtherQuery);
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_overview:
+                if (checked) {
+                    otherField.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case R.id.radio_major:
+                if (checked) {
+                    otherField.setVisibility(View.VISIBLE);
+
+                }
+                break;
+        }
     }
 }
