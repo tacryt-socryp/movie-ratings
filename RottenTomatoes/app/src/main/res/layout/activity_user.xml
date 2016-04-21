@@ -8,6 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <TextView
+            android:layout_width="317dp"
+            android:layout_height="408dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/welcomeText"
+            android:layout_gravity="center_horizontal|top" />
     </FrameLayout>
     <ListView
         android:id="@+id/left_drawer"

@@ -99,6 +99,8 @@ public class RecommendationActivity extends UserActivity {
         ((RadioButton) findViewById(R.id.radio_overview)).setChecked(true);
         ((EditText) findViewById(R.id.OtherQuery)).setText(currentUser.profile.major);
         ((EditText) findViewById(R.id.OtherQuery)).setVisibility(View.INVISIBLE);
+
+        welcomeText.setText("");
     }
 
     /**

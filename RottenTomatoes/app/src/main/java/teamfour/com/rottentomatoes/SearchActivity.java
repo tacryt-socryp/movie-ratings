@@ -65,6 +65,7 @@ public class SearchActivity extends UserActivity {
         frameLayout.addView(activityView);
         currentUser = (UserModel) this.getIntent().getParcelableExtra("user");
         tomatoService = RottenTomatoesService.getService();
+        welcomeText.setText("");
     }
 
     /**
