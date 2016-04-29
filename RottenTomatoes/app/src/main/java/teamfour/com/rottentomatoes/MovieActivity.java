@@ -1,6 +1,7 @@
 package teamfour.com.rottentomatoes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -184,5 +185,18 @@ public class MovieActivity extends UserActivity {
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
+    }
+
+    public final void shareRating(View view) {
+        final EditText ratingNum = (EditText) findViewById(R.id.ratingNumber);
+        final EditText text = (EditText) findViewById(R.id.RatingText);
+        String ratingNumString = ratingNum.toString();
+        String textString = text.toString();
+
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "I would rate "
+                + currentMovie.title + " a " + ratingNumString + "! " + textString);
+        startActivity(Intent.createChooser(sharingIntent, "Share using..."));
     }
 }

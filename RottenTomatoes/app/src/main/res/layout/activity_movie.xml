@@ -51,6 +51,14 @@
                 android:onClick="pressedRateMovie"
                 android:layout_gravity="center_horizontal" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share Review!"
+                android:id="@+id/shareButton"
+                android:layout_gravity="center_horizontal"
+                android:onClick="shareRating" />
+
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
